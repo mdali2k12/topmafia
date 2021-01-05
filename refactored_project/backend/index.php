@@ -11,15 +11,17 @@ $dotenv->load();
 
 // loading HTTP verbs-related objects
 use App\Http\Requests\GetRequest;
-use App\Http\Requests\PatchRequest;
-use App\Http\Requests\PostRequest;
-use App\Http\Requests\DeleteRequest;
+// TODO
+// use App\Http\Requests\PatchRequest;
+// use App\Http\Requests\PostRequest;
+// use App\Http\Requests\DeleteRequest;
 
 // loading app' controllers
 use App\Controllers\HomeController; 
 use App\Controllers\NotFoundController;
-use App\Controllers\Entities\SessionsController;
-use App\Controllers\Entities\UsersController;
+// TODO
+// use App\Controllers\Entities\SessionsController;
+// use App\Controllers\Entities\UsersController;
 
 // we set the default timezone
 date_default_timezone_set( $_ENV["APP_TIMEZONE"] ); 
