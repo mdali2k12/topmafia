@@ -6,19 +6,31 @@
 - **global_func** files should be factorized and should not be duplicated anymore
 - ✅ singleton for database connectivity
 - routing logic to implement : 
-    * **/** route leads to original **home/index** view
-    * base route redirect should be extracted from globals.php
-    * test that no file in any subfolder can be accessed from the client
+    * ✅ **/** route leads to original **home/index** view
+    * ✅ base route redirect should be extracted from globals.php
+    * make sure no file in any subfolder can be accessed from the client
     * select most suitable hashing algorithm for usage in strings trait
+    * getting online/offline users on home page
+    * container login class in home page ?
+    * use main tag in home page for semantic readability and SEO
+    * host jQuery locally
 - implement token-based auth.
+- implement forgot password
+- implement contact functionality
+- refactor home.min.js ? https://topmafia.net/home/css/login/lstyle.css ?
 - XSS protection 
 - CSRF protection
+- layout file-based views rendering
 - implement automated testing
 - refactor social auth. with Facebook ?
 - define caching policy
 - implement dependency injection
 - Apache deployment
 - implement specific app' user for db and check db credentials on deployment
+- dynamic app' footer
+- Google Analytics refactoring ?
+- WCAG compliance
+- GPDR compliance
 
 ### app' routes
 
