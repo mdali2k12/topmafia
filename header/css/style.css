@@ -1,0 +1,1685 @@
+@font-face {
+	font-family: "Jersey M54";
+	src: url("//db.onlinewebfonts.com/t/f396f5b20e0d532e1b1cf4da3794878e.eot");
+	src: url("//db.onlinewebfonts.com/t/f396f5b20e0d532e1b1cf4da3794878e.eot?#iefix") format("embedded-opentype"), url("//db.onlinewebfonts.com/t/f396f5b20e0d532e1b1cf4da3794878e.woff2") format("woff2"), url("//db.onlinewebfonts.com/t/f396f5b20e0d532e1b1cf4da3794878e.woff") format("woff"), url("//db.onlinewebfonts.com/t/f396f5b20e0d532e1b1cf4da3794878e.ttf") format("truetype"), url("//db.onlinewebfonts.com/t/f396f5b20e0d532e1b1cf4da3794878e.svg#Jersey M54") format("svg");
+}
+
+@font-face {
+	font-family: 'Interceptor';
+	font-style: normal;
+	font-weight: normal;
+	src: local('https://topmafia.net/fonts/Interceptor'), url('https://topmafia.net/fonts/interceptor.woff') format('woff');
+}
+
+html,
+body {
+	width: 100%;
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+body {
+	font-family: 'Roboto';
+	font-size: 12px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	color: #ccc;
+	background: url(https://topmafia.net/header/images/backgrounds/backdrop5.png) top center no-repeat #0c0c0c;
+}
+
+.usernamechat {
+	font-size: 12px;
+	color: #8563ab;
+	font-weight: 800;
+}
+
+.exptext {
+	position: absolute;
+	text-shadow: 1px 2px #000;
+	font-family: 'Roboto';
+	font-size: 9px;
+	font-weight: 500;
+	text-align: right;
+}
+
+.highlighted {
+	background-color: #FFFF00;
+	color: #111;
+}
+
+.profileskin {
+	background-color: #fff;
+	padding: 10px;
+	border-radius: 5px;
+}
+
+.quotetop {
+	font-weight: 700;
+	text-align: left;
+}
+
+.quotemain {
+	padding: 5px;
+	border-radius: 5px;
+	background-color: #ddd;
+	color: #333;
+	font-weight: 400;
+}
+
+#succ {
+	padding: 10px;
+	font-family: "Roboto";
+	font-weight: 600;
+	text-transform: uppercase;
+	color: limegreen;
+	margin-top:10px;
+	border:1px solid green;
+	background-color: black;
+	background-color: rgba(0, 0, 0, 0.4);
+	text-align: center;
+}
+
+#err {
+	padding: 10px;
+	font-family: "Roboto";
+	font-weight: 600;
+	text-transform: uppercase;
+	margin-top:10px;
+	border:1px solid red;
+	background-color: black;
+	background-color: rgba(0, 0, 0, 0.4);
+	color: #ff4040;
+	text-align: center;
+}
+
+.iconbeside {
+	display: flex;
+	padding: 5px;
+	align-items: center;
+}
+
+.credittxt {
+	background-color: #111;
+	border-radius: 5px;
+	border: 1px solid #444;
+	text-align: center;
+	padding: 3px;
+	font-size: 14px;
+	font-weight: 600;
+	font-family: 'Roboto';
+}
+
+.text1 {
+	color: cyan;
+	font-size: 12px;
+}
+
+.text2 {
+	font-size: 12px;
+}
+
+.text3 {
+	font-size: 11px;
+}
+
+.text4 {
+	font-size: 18px;
+	font-weight: 600;
+}
+
+.donateplus {
+	float: right;
+	margin-top: -2.5px;
+	margin-right: -2px;
+	padding: 2px 7px;
+	border-radius: 5px;
+	text-align: center;
+	font-size: 15px;
+	text-shadow: none;
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#fceabb+0,fccd4d+50,f8b500+51,fbdf93+100;Orange+3D+%235 */
+	background: #fceabb;
+	/* Old browsers */
+	background: -moz-linear-gradient(top, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%);
+	/* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%);
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fceabb', endColorstr='#fbdf93', GradientType=0);
+	/* IE6-9 */
+	color: #222;
+	font-family: Arial;
+	font-weight: 700;
+}
+
+.barstat {
+	padding: 2px;
+	background-color: #111;
+	border: 1px solid #222;
+	box-shadow: inset 1px 0 1px #000;
+	text-align: center;
+	display: inline-block;
+}
+
+.iconsenergy {
+	position: absolute;
+	top: 20px;
+	left: 39px;
+}
+
+.iconswill {
+	position: absolute;
+	top: 20px;
+	left: 126px;
+}
+
+.usertopbar {
+	text-shadow: 1px 1px #000;
+	padding: 8px;
+	font-family: "Jersey M54";
+	color: #fff;
+	background: url(https://topmafia.net/header/images/bars/barrepeat-new.png) repeat-x #000;
+}
+
+.usertopbarold {
+	padding: 5px;
+	font-family: "Jersey M54";
+	box-shadow: inset 1px 4px #6681c6;
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#606c88+0,3f4c6b+100;Grey+3D+%232 */
+	background: #4662a8;
+	/* Old browsers */
+	background: -moz-linear-gradient(top, #4662a8 0%, #1c2745 100%);
+	/* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #4662a8 0%, #1c2745 100%);
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #4662a8 0%, #1c2745 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#4662a8', endColorstr='#1c2745', GradientType=0);
+	/* IE6-9 */
+	color: #fff;
+	border-left: 1px solid #111;
+	border-top: 1px solid #111;
+	border-right: 1px solid #111;
+	text-shadow: 1px 1px #000;
+}
+
+.tabnotif {
+	padding: 5px;
+	text-align: center;
+	box-shadow: inset 1px 2px #333;
+	border: 1px solid #000;
+	background-color: #111;
+	/* Old browsers */
+	font-family: 'Roboto';
+}
+
+.tabstyle {
+	padding: 5px;
+	text-align: right;
+	box-shadow: inset 1px 5px #494656;
+	border: 1px solid #111;
+	background-color: #34333d;
+	/* Old browsers */
+	font-family: 'Roboto';
+	font-size:11px;
+}
+
+.usertopnavlinkold {
+	padding: 10px 25px;
+	border: 1px solid #111;
+	box-shadow: inset 0px 2px 0px 1px #777;
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#606c88+0,3f4c6b+100;Grey+3D+%232 */
+	background: #666666;
+	/* Old browsers */
+	background: -moz-linear-gradient(top, #666666 0%, #333333 100%);
+	/* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #444444 0%, #333333 100%);
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #666666 0%, #333333 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#666666', endColorstr='#333333', GradientType=0);
+	/* IE6-9 */
+}
+
+.userinboxlink {
+	padding: 5px 17px;
+	font-size: 10px;
+	text-transform:uppercase;
+	font-weight:600;
+	font-family:"Roboto";
+	border: 1px solid #111;
+	
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#fcfff4+0,e9e9ce+100;Wax+3D+%232 */
+background: rgb(252,255,244); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(252,255,244,1) 0%, rgba(233,233,206,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(252,255,244,1) 0%,rgba(233,233,206,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(252,255,244,1) 0%,rgba(233,233,206,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fcfff4', endColorstr='#e9e9ce',GradientType=0 ); /* IE6-9 */
+
+}
+
+a.userinboxlink
+{color: #111 !important;
+}
+
+.userinboxnav {
+	margin: 0 auto;
+	text-align: center;
+	padding: 9px;
+	border: 1px solid #111;
+	color: #111;
+	background-color:#ccc;
+}
+.usertopnavlink {
+	padding: 7px 20px;
+	font-size: 11px;
+	text-transform:uppercase;
+	font-weight:600;
+	font-family:"Roboto";
+	border: 1px solid #111;
+	
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#606c88+0,3f4c6b+100;Grey+3D+%232 */
+	background: #666666;
+	/* Old browsers */
+	background: -moz-linear-gradient(top, #666666 0%, #333333 100%);
+	/* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #444444 0%, #333333 100%);
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #666666 0%, #333333 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#666666', endColorstr='#333333', GradientType=0);
+	/* IE6-9 */
+}
+
+.usertopnavlink a {
+	color: #fff;
+}
+
+
+.usertopnav {
+	margin: 0 auto;
+	text-align: center;
+	padding: 9px;
+	border: 1px solid #111;
+	color: #fff;
+	text-shadow: 1px 1px #000;
+	background: url(https://topmafia.net/header/images/nav/navtopb.png) repeat-x #222;
+}
+
+.usertopbarmain {
+	padding: 5px;
+	font-family: "Jersey M54";
+	box-shadow: inset 1px 3px #393644;
+	border-top: 1px solid #111;
+	border-left: 1px solid #111;
+	border-right: 1px solid #111;
+	border-bottom:none;
+	background-color: #25242c;
+	/* Old browsers */
+	color: #fff;
+	text-shadow: 1px 1px #000;
+}
+
+.iconsbrave {
+	position: absolute;
+	top: 20px;
+	left: 218px;
+}
+
+#box {
+	height: auto;
+	background: #000;
+	color: #fff;
+	cursor: pointer;
+}
+
+.donate {
+	padding: 10px;
+	border-radius: 5px;
+	border: 1px solid #111;
+	background-color: #555;
+	color: #fff;
+}
+
+.topbar {
+	width: 925px;
+	margin: 0 auto;
+	font-family: "Roboto", Helvetica, Roboto, sans-serif;
+	text-shadow: 2px 2px #000;
+	font-variant: small-caps;
+	background: url(https://topmafia.net/header/images/backgrounds/bg2.jpg) top center repeat-x #1e1e1e;
+	padding: 5px;
+	box-shadow: 0 0 6px 4px rgba(0, 0, 0, 0.6705882352941176);
+}
+
+.font {
+	font-family: 'Roboto';
+	font-weight: 700;
+	color: #999;
+	text-transform:uppercase;
+}
+.text-general3 {
+	outline: none;
+	font-family: "Roboto";
+	font-size: 12px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	height: 25px;
+	box-sizing: border-box;
+	width: 100%;
+	background-color: #ddd;
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.9);
+	margin-bottom: 6px;
+	border: 1px solid #000;
+	color: #111;
+	text-align: center;
+}
+.text-generalsettings {
+	outline: none;
+	font-family: "Roboto";
+	font-size: 10px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	height: 25px;
+	box-sizing: border-box;
+	width: 100%;
+	background-color: #ddd;
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.9);
+	margin-bottom: 6px;
+	border: 1px solid #000;
+	color: #111;
+	text-align: center;
+}
+
+.text-generalblocked {
+	outline: none;
+	font-family: "Roboto";
+	font-size: 12px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	height: 25px;
+	box-sizing: border-box;
+	width: 100%;
+	background-color: #444;
+	box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.9);
+	margin-bottom: 6px;
+	border: 1px solid #444;
+	color: #fff;
+	text-align: center;
+}
+
+
+a:visited,
+a:active,
+a:hover,
+a:link {
+	color: #fff;
+	text-decoration: none;
+}
+
+a:hover {
+	color: #fed872;
+	text-decoration: none;
+}
+
+table,
+td,
+tr {
+	overflow: hidden
+}
+
+.tdstats {
+	background: url(https://topmafia.net/header/images/nav/navtop.png) #000;
+}
+
+.floatLeft {
+	width: 20%;
+	float: left;
+}
+
+.floatRight {
+	width: 80%;
+	float: right;
+}
+
+.containertable {
+	overflow: hidden;
+}
+
+.mainpage2 {
+	border: 1px solid #222;
+	width: 805px;
+	background: none;
+	margin: 0 auto;
+	position: relative;
+	min-height:100%;
+}
+
+.mainpage {
+	padding: 10px;
+	margin: 0 auto;
+	padding-bottom: 4.5rem;
+	background: url(https://topmafia.net/header/images/backgrounds/BGCOM.gif) top center #000;
+}
+
+.link1 {
+	padding: 10px;
+	background-color: black;
+	background-color: rgba(0, 0, 0, 0.4);
+	border: 1px solid #566;
+}
+
+button {
+	font-family: 'Jersey M54';
+	font-size: 12px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+input {
+	font-family: 'Roboto';
+	font-size: 12px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+textarea {
+	font-family: "Roboto";
+	font-size: 12px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+button:focus,
+input:focus,
+textarea:focus {
+	border: none;
+	outline: none;
+}
+
+.spacer {
+	padding-top: 5px
+}
+
+ ::-webkit-scrollbar {
+	height: 5px;
+	width: 5px;
+}
+
+ ::-webkit-scrollbar-track {
+	background: #111;
+	-moz-box-shadow: inset 0 0 10px #000;
+	-webkit-box-shadow: inset 0 0 10px #000;
+	box-shadow: inset 0 0 10px #000;
+}
+
+ ::-webkit-scrollbar-thumb {
+	background: #444;
+}
+
+h3 {
+	font-size: large;
+	color: #8563ab;
+	font-weight: 700;
+	text-shadow: 2px 2px 3px #000;
+}
+
+.paddingchat {
+	background-color: #111;
+	padding: 5px;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.tablechatbox {
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#b3bead+0,eeefe1+60,8d9391+100 */
+	background: rgb(179, 190, 173);
+	/* Old browsers */
+	background: -moz-linear-gradient(top, rgba(179, 190, 173, 1) 0%, rgba(238, 239, 225, 1) 60%, rgba(141, 147, 145, 1) 100%);
+	/* FF3.6-15 */
+	background: -webkit-linear-gradient(top, rgba(179, 190, 173, 1) 0%, rgba(238, 239, 225, 1) 60%, rgba(141, 147, 145, 1) 100%);
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, rgba(179, 190, 173, 1) 0%, rgba(238, 239, 225, 1) 60%, rgba(141, 147, 145, 1) 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3bead', endColorstr='#8d9391', GradientType=0);
+	/* IE6-9 */
+	border-radius: 5px;
+	border: 1px solid #111;
+	margin: 0 auto;
+	text-align: left;
+	padding: 5px;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.inputchat {
+	width: 80%;
+	height: 20px;
+	background-color: #fff;
+	border: 1px solid #000;
+	color: #111;
+	border-radius: 5px;
+}
+
+.chatimage {
+	border-radius: 5px;
+	border: 2px solid #444;
+}
+
+.chatmain {
+	font-size: 9px;
+	text-align: left;
+}
+
+.chattext {
+	font-family: 'Arial';
+	font-size: 11px;
+	font-weight: 400;
+	background-color:#111;
+	border-bottom: 1px solid #222;
+	color: #fff;
+	text-shadow: 1px 1px #000;
+}
+
+.tablesig {
+	display: flex;
+	justify-content: center;
+	height: 250px;
+	overflow-y: scroll;
+	box-shadow: inset 2px 2px 10px #000;
+	overflow-x: hidden;
+	border-radius: 5px;
+	background-color: black;
+	background-color: rgba(0, 0, 0, 0.7);
+	padding: 5px;
+	border: 1px solid #0c0c0c;
+}
+
+.tablesig td {
+	margin: 0 auto;
+	align-items: center;
+}
+
+.tablesig tr {
+	margin: 0 auto;
+	align-items: center;
+}
+
+.tablecomment {
+	width: 100%;
+	display: block;
+	height: 250px;
+	overflow-y: scroll;
+	box-shadow: inset 2px 2px 10px #000;
+	overflow-x: hidden;
+	border-radius: 5px;
+	background-color: black;
+	background-color: rgba(0, 0, 0, 0.7);
+	padding: 5px;
+	border: 1px solid #0c0c0c;
+}
+
+.tablecomment tr:nth-child(even) {
+	background-color: #fff;
+}
+
+.tablecomment td {
+	color: #111;
+	font-weight: 500;
+}
+
+.tablecomment tr:nth-child(odd) {
+	background-color: #dedede;
+}
+
+
+.tableinbox {
+border-spacing:0;
+border-collapse:collapse;
+	background:none;
+	padding: 5px;
+}
+
+.linkinbox {
+    text-shadow:none;
+    float:right;
+    
+}
+.tableinbox .tablehead {
+    padding:10px;
+    text-align:left;
+    text-transform:uppercase;
+    color:#fff;
+    font-size:16px;
+    font-weight:700;
+/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#2b2b2b+0,3d3838+50,0a0e0a+51,302626+100 */
+background: rgb(43,43,43); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(43,43,43,1) 0%, rgba(61,56,56,1) 50%, rgba(10,14,10,1) 51%, rgba(48,38,38,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(43,43,43,1) 0%,rgba(61,56,56,1) 50%,rgba(10,14,10,1) 51%,rgba(48,38,38,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(43,43,43,1) 0%,rgba(61,56,56,1) 50%,rgba(10,14,10,1) 51%,rgba(48,38,38,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2b2b', endColorstr='#302626',GradientType=0 ); /* IE6-9 */
+
+
+}
+.linkinbox a{
+    color:#999 !important;
+    margin-right:10px;
+    text-shadow:none;
+    float:right;
+    font-size:11px;
+    font-weight:400;
+    
+}
+.linkinbox2 {
+    text-shadow:none;
+    float:right;
+    
+}
+.linkinbox2 a{
+    color:#555 !important;
+    margin-right:10px;
+    text-shadow:none;
+    float:right;
+    font-weight:400;
+    
+}
+.tableinbox td {
+   color: #fff;
+   font-weight:400;
+   padding:5px;
+   font-size:12px;
+}
+
+.tableinbox th {
+    color:#ccc;
+	background-color: #302626;
+	padding:5px;
+	border:1px solid #0c0c0c;
+	text-align:left;
+	text-transform:uppercase;
+}
+.tableinbox tr:nth-child(odd) {
+	background-color: #444;
+	border:1px solid #000;
+	box-shadow:inset 1px 1px 2px #888;
+	color:#fff;
+	padding:2px;
+}
+
+.tableinbox tr:nth-child(even) {
+	background-color: #555;
+	border:1px solid #000;
+	box-shadow:inset 1px 1px 2px #888;
+	color:#fff;
+	padding:2px;
+}
+
+.tablestatbox {
+border-spacing:0;
+border-collapse:collapse;
+	background:none;
+	padding: 5px;
+}
+
+.tablestatbox .tablehead {
+    padding:10px;
+    text-align:left;
+    text-transform:uppercase;
+    color:#fff;
+    font-size:16px;
+    font-weight:700;
+/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#2b2b2b+0,3d3838+50,0a0e0a+51,302626+100 */
+background: rgb(43,43,43); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(43,43,43,1) 0%, rgba(61,56,56,1) 50%, rgba(10,14,10,1) 51%, rgba(48,38,38,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(43,43,43,1) 0%,rgba(61,56,56,1) 50%,rgba(10,14,10,1) 51%,rgba(48,38,38,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(43,43,43,1) 0%,rgba(61,56,56,1) 50%,rgba(10,14,10,1) 51%,rgba(48,38,38,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2b2b', endColorstr='#302626',GradientType=0 ); /* IE6-9 */
+
+
+}
+
+.tablestatbox td {
+   color: #fff;
+   padding:5px;
+   font-size:9px;
+}
+
+.tablestatbox th {
+    color:#ccc;
+	background-color: #302626;
+	padding:5px;
+	border:1px solid #0c0c0c;
+	text-align:left;
+	text-transform:uppercase;
+}
+.tablestatbox tr:nth-child(odd) {
+	background-color: #444;
+	border:1px solid #000;
+	box-shadow:inset 1px 1px 2px #888;
+	color:#fff;
+	padding:2px;
+}
+
+.tablestatbox tr:nth-child(even) {
+	background-color: #555;
+	border:1px solid #000;
+	box-shadow:inset 1px 1px 2px #888;
+	color:#fff;
+	padding:2px;
+}
+
+.tablechatmain {
+	width: 100%;
+	display: block;
+	height: 150px;
+border-spacing:0;
+border-collapse:collapse;
+	overflow-y: scroll;
+	box-shadow: inset 2px 2px 10px #000;
+	border: 1px solid #0c0c0c;
+}
+.tablechatmain td {
+   color: #fff;
+   font-weight:400;
+   padding:5px;
+   font-size:12px;
+}
+.tablechatmain tr:nth-child(odd) {
+	background-color: #222;
+	border:1px solid #000;
+	box-shadow:inset 1px 1px 2px #888;
+	color:#fff;
+	padding:2px;
+}
+
+.tablechatmain tr:nth-child(even) {
+	background-color: #333;
+	border:1px solid #000;
+	box-shadow:inset 1px 1px 2px #888;
+	color:#fff;
+	padding:2px;
+}
+
+.buttonsubmit {
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#499bea+0,207ce5+100;Blue+3d+%237 */
+	background: rgb(73, 155, 234);
+	/* Old browsers */
+	background: -moz-linear-gradient(top, rgba(73, 155, 234, 1) 0%, rgba(32, 124, 229, 1) 100%);
+	/* FF3.6-15 */
+	background: -webkit-linear-gradient(top, rgba(73, 155, 234, 1) 0%, rgba(32, 124, 229, 1) 100%);
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, rgba(73, 155, 234, 1) 0%, rgba(32, 124, 229, 1) 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#499bea', endColorstr='#207ce5', GradientType=0);
+	/* IE6-9 */
+	text-transform: uppercase;
+	border: 1px solid #000;
+	text-shadow: 0 10px 10px #000;
+	color: #fff;
+	font-weight: 700;
+	font-family: "Roboto";
+	border-radius: 5px;
+	padding: 6px;
+}
+
+.buttonnormal {
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#7d7e7d+0,494949+100 */
+	background: rgb(125, 126, 125);
+	/* Old browsers */
+	background: -moz-linear-gradient(top, rgba(125, 126, 125, 1) 0%, rgba(73, 73, 73, 1) 100%);
+	/* FF3.6-15 */
+	background: -webkit-linear-gradient(top, rgba(125, 126, 125, 1) 0%, rgba(73, 73, 73, 1) 100%);
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, rgba(125, 126, 125, 1) 0%, rgba(73, 73, 73, 1) 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7d7e7d', endColorstr='#494949', GradientType=0);
+	/* IE6-9 */
+	text-transform: uppercase;
+	border: 1px solid #000;
+	font-family: "Roboto";
+	text-shadow: 0 10px 10px #000;
+	color: #fff;
+	font-weight: 700;
+	border-radius: 5px;
+	padding: 6px;
+}
+
+a.linkmain {
+	float: right;
+	padding: 3px 10px;
+    margin-top:-5px;
+	background-color: #ddd;
+	border-radius: 5px;
+	font-size: 12px;
+	font-weight: 500;
+	color: #111;
+	box-shadow: 1px 1px #111;
+}
+
+.table {
+	margin: 0 auto;
+	width: 100%;
+	text-align: left;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: #888;
+}
+
+.table td {
+	background: none;
+	;
+	border-bottom: 1px dashed #444;
+	padding: 10px;
+	font-family: "Roboto", Helvetica, Roboto, sans-serif;
+	font-size: 14px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.table th {
+	font-family: "Jersey M54", Helvetica, Roboto, sans-serif;
+	background: linear-gradient(143deg, #333333 calc(100% - 12px), transparent 72%) 100% 0/20px 100% no-repeat, linear-gradient(-37deg, #333333 calc(100% - 12px), transparent 72%) 0 0/20px 100% no-repeat, linear-gradient(#333333, #333333) 20px 0/calc(100% - 39px) 100% no-repeat;
+	border-radius: 0;
+	color: #ccc;
+	text-shadow: 1px 0 1px #000;
+	font-size: 18px;
+	line-height: 16px;
+	padding: 10px 22px;
+	cursor: pointer;
+	white-space: nowrap;
+	font-weight: 400;
+	margin: 0;
+	vertical-align: middle;
+	text-decoration: none;
+}
+
+.tablestatinfo {
+	margin: 0 auto;
+	width: 100%;
+	text-align: left;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	color: #fff;
+	border-collapse: separate;
+	border-spacing: 20px 0;
+	border: none;
+}
+
+.tablestatinfo tr {
+	border: none;
+}
+
+.textclass {
+	width: auto;
+	text-align: right;
+	display: inline-block;
+	font-size: 12px;
+}
+
+.tablestatinfo td {
+	border-bottom: 1px solid #444;
+	font-family: "Roboto", Helvetica, Roboto, sans-serif;
+	font-size: 9px;
+	color: #fff;
+	padding: 1px;
+	text-shadow: 1px 1px #000;
+}
+
+.thheadertable {
+	color: #8563ab;
+	font-weight: 700;
+}
+
+.alignleft {
+	float: left;
+	color: #999;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.alignright {
+    margin-right:25px;
+	float: right;
+}
+
+.tableprofile {
+	
+	border:1px solid #222;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+	background-color: black;
+	background-color: rgba(0, 0, 0, 0.7);
+}
+
+.tableprofile tr {
+	border: none;
+}
+
+.tableprofile td {
+	background-color: transparent;
+	border: none;
+	padding: 5px;
+	font-family: "Roboto", Helvetica, Roboto, sans-serif;
+	font-size: 11px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.tableprofile th {
+	padding: 5px;
+	background-color: #010101;
+	border: none;
+	font-family: "Roboto", Helvetica, Roboto, sans-serif;
+}
+
+.btable {
+	text-align: center;
+	width: 100%;
+	height: 100%
+}
+
+.link {
+	background-color: #dfdfdf;
+	width: 90%;
+	height: 30px
+}
+
+img {
+	border: none;
+}
+
+.emptyprogressbar {
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#45484d+0,000000+100;Black+3D+%231 */
+	background: #45484d;
+	/* Old browsers */
+	background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
+	/* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #45484d 0%, #000000 100%);
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #45484d 0%, #000000 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000', GradientType=0);
+	/* IE6-9 */
+	border: 1px solid #000;
+	width: 85%;
+	height: 15px;
+	border-radius: 2px;
+}
+
+.emptyprogressxbar {
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#45484d+0,000000+100;Black+3D+%231 */
+	background: #45484d;
+	/* Old browsers */
+	background: -moz-linear-gradient(top, #45484d 0%, #000000 100%);
+	/* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #45484d 0%, #000000 100%);
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #45484d 0%, #000000 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000', GradientType=0);
+	/* IE6-9 */
+	border: 1px solid #111;
+	width: 90%;
+	height: 5px;
+	border-radius: 2px;
+}
+
+.crystaltext2 {
+	font-family: 'Roboto';
+	font-weight: 400;
+	color: #fff;
+	width: 70%;
+	text-align: right;
+	display: inline-block;
+	padding: 3px;
+	font-size: 14px;
+}
+
+.cashmoney {
+	font-family: 'Roboto';
+	font-weight: 600;
+	color: #fff;
+	border-bottom: 1px solid #444;
+	width: 70%;
+	text-align: right;
+	display: inline-block;
+	padding: 3px;
+	font-size: 14px;
+}
+
+.hpbarprogress {
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ff3019+0,cf0404+100;Red+3D */
+	background: #ff3019;
+	/* Old browsers */
+	background: -moz-linear-gradient(top, #ff3019 0%, #cf0404 100%);
+	/* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #ff3019 0%, #cf0404 100%);
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #ff3019 0%, #cf0404 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#cf0404', GradientType=0);
+	/* IE6-9 */
+	border-radius: 2px;
+}
+
+.energybarprogress {
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#fceabb+0,fccd4d+50,f8b500+51,fbdf93+100;Orange+3D+%235 */
+	background: #fceabb;
+	/* Old browsers */
+	background: -moz-linear-gradient(top, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%);
+	/* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%);
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #fceabb 0%, #fccd4d 50%, #f8b500 51%, #fbdf93 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#fceabb', endColorstr='#fbdf93', GradientType=0);
+	/* IE6-9 */
+	border-radius: 2px;
+}
+
+.bravebarprogress {
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ffb76b+0,ffa73d+50,ff7c00+51,ff7f04+100;Orange+Gloss */
+	background: #ffb76b;
+	/* Old browsers */
+	background: -moz-linear-gradient(top, #ffb76b 0%, #ffa73d 50%, #ff7c00 51%, #ff7f04 100%);
+	/* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #ffb76b 0%, #ffa73d 50%, #ff7c00 51%, #ff7f04 100%);
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #ffb76b 0%, #ffa73d 50%, #ff7c00 51%, #ff7f04 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffb76b', endColorstr='#ff7f04', GradientType=0);
+	/* IE6-9 */
+	border-radius: 2px;
+}
+
+.willbarprogress {
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#b7deed+0,71ceef+50,21b4e2+51,b7deed+100;Shape+1+Style */
+	background: #b7deed;
+	/* Old browsers */
+	background: -moz-linear-gradient(top, #b7deed 0%, #71ceef 50%, #21b4e2 51%, #b7deed 100%);
+	/* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #b7deed 0%, #71ceef 50%, #21b4e2 51%, #b7deed 100%);
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #b7deed 0%, #71ceef 50%, #21b4e2 51%, #b7deed 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b7deed', endColorstr='#b7deed', GradientType=0);
+	/* IE6-9 */
+	border-radius: 2px;
+}
+
+.expbarprogress {
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#e6f0a3+0,d2e638+50,c3d825+51,dbf043+100;Green+Gloss+%232 */
+	background: #e6f0a3;
+	/* Old browsers */
+	background: -moz-linear-gradient(top, #e6f0a3 0%, #d2e638 50%, #c3d825 51%, #dbf043 100%);
+	/* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #e6f0a3 0%, #d2e638 50%, #c3d825 51%, #dbf043 100%);
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #e6f0a3 0%, #d2e638 50%, #c3d825 51%, #dbf043 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e6f0a3', endColorstr='#dbf043', GradientType=0);
+	/* IE6-9 */
+	border-radius: 2px;
+}
+
+.expspace {
+	display: inline
+}
+
+.icontable1 {
+	margin-top: 10px;
+}
+
+.experiencebar0 {
+	background-color: orange;
+	float: left;
+}
+
+.experiencebar2000 {
+	background-color: #000;
+	border: 0.1em solid #3498db;
+	border-radius: 50%;
+	clip: rect(0, 0.5em, 1em, 0);
+	left: 0;
+	position: absolute;
+	top: 0;
+}
+
+.experiencebar3 {
+	background-color: #666;
+	float: left;
+	border-radius: 3px;
+}
+
+.experiencebar1 {
+	background-color: orange;
+	float: left;
+	border-radius: 3px;
+}
+
+.experiencebar {
+	background-color: limegreen;
+	background-repeat: repeat-x;
+	float: left;
+	border-radius: 3px;
+}
+
+.headbar {
+	background: url(https://topmafia.net/header/images/nav/navtop.png) #1e1e1e;
+	padding: 5px;
+	border-radius: 5px;
+	border: 1px #444 solid;
+	display: block;
+	align-items: center;
+	margin: 5px;
+	font-size: 18px;
+	font-weight: 800;
+	text-shadow: 1px 2px 2px #000;
+	text-transform: uppercase;
+	text-align: center;
+}
+
+.notifbox {
+	position: absolute;
+	background-color: #c41c1c;
+	border-radius: 2px;
+	font-weight: 500;
+	padding: 3px;
+	font-size: 9px;
+	font-family: "Roboto";
+	color: #fff;
+}
+
+.dp {
+	float: left;
+	margin-right: 10px;
+}
+
+.expbarlevel {
+	border-radius: 6px;
+	border: 1px solid #000;
+	padding: 4px;
+	box-shadow: inset rgba(255, 255, 255, .15) 0 1px 1px, rgba(0, 0, 0, .8) 2px 0 5px;
+	background: url(https://mafiamobi.com/images/blockstripes.png) top repeat-x;
+	background-repeat: repeat-x;
+	background-color: #111
+}
+
+.dropdown {
+	display: inline-block;
+}
+
+.dropbtn {
+	text-shadow: 1px 1px #000;
+	color: white;
+	font-size: 12px;
+	cursor: pointer;
+	background: none;
+	border: none;
+}
+
+.dropdown-content {
+	display: none;
+	text-align: left;
+	position: absolute;
+	border: 1px solid #333;
+	background-color: rgba(0, 0, 0, .9);
+	min-width: 100px;
+	z-index: 1;
+}
+
+.dropdown-content a {
+	color: #fff;
+	padding:7px;
+	font-size: 11px;
+	font-family:"Roboto";
+	border-bottom: 1px solid #222;
+	text-decoration: none;
+	display: block;
+}
+
+.dropdown-content a:hover {
+	color: #fed872;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+.dropbtn2 {
+	padding: 7px 20px;
+	border: 1px solid #111;
+	box-shadow: inset 0 2px 0 1px #777;
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#606c88+0,3f4c6b+100;Grey+3D+%232 */
+	background: #666666;
+	/* Old browsers */
+	background: -moz-linear-gradient(top, #666666 0%, #333333 100%);
+	/* FF3.6-15 */
+	background: -webkit-linear-gradient(top, #444444 0%, #333333 100%);
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, #666666 0%, #333333 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#666666', endColorstr='#333333', GradientType=0);
+	/* IE6-9 */
+	text-shadow: 1px 1px #000;
+	color: #ddd;
+	font-weight:800;
+	text-transform:uppercase;
+	font-family: 'Roboto';
+	font-size: 11px;
+	cursor: pointer;
+}
+
+.dropdown2-content {
+	display: none;
+	text-align: left;
+	margin-top:2px;
+	position: absolute;
+	border: 1px solid #333;
+	background-color: rgba(0, 0, 0, .9);
+	min-width: 120px;
+	z-index: 1;
+}
+
+.dropdown2-content a {
+	color: #fff;
+	padding:10px;
+	font-size: 11px;
+	border-bottom: 1px solid #222;
+	text-decoration: none;
+	display: block;
+}
+
+.dropdown2-content a:hover {
+	color: #fed872;
+}
+
+.dropdown2:hover .dropdown2-content {
+	display: block;
+}
+
+.dropdown2 {
+	display: inline-block;
+}
+
+.dropdown1 {
+	display: inline-block;
+}
+
+.dropdown1-content1 {
+	display: none;
+	position: absolute;
+	background-color: #fff;
+	border-bottom: 1px solid rgba(0, 0, 0, .3);
+	min-width: 160px;
+	margin-top: -3px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown1-content1 a {
+	color: #000;
+	padding: 12px 16px;
+	font-size: 12px;
+	text-decoration: none;
+	display: block;
+}
+
+.dropdown1-content1 a:hover {
+	color: red;
+}
+
+.dropdown1:hover .dropdown1-content1 {
+	display: block;
+}
+
+.dropdownblack {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown-contentblack {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	padding: 12px 16px;
+	z-index: 1;
+}
+
+.dropdownblack:hover .dropdown-contentblack {
+	display: block;
+}
+
+#footer {
+	position: absolute;
+	bottom: 0;
+	left:0;
+	
+	width: 100%;
+}
+
+#footer .container-inner {
+	text-align: center;
+	font-family: "Roboto", Helvetica, Roboto, sans-serif;
+	font-size: 14px;
+	padding: 5px;
+	background: url(https://topmafia.net/header/images/nav/navtop.png) #1e1e1e;
+	border-top:1px solid #222;
+}
+
+
+#footer .legal {margin-top:10px;
+}
+#footer .links a {
+	margin-left: 15px;
+	color: #68B3D5
+}
+
+iframe {
+	border: none
+}
+
+.current {
+	font-size: 12px;
+	color: FFFFFF;
+	font-weight: 700
+}
+
+.max {
+	font-size: 13px;
+	color: #999
+}
+
+.clear {
+	clear: both
+}
+
+.helpp {
+	border: 1px solid orange;
+	background-color: #fff669;
+	border-radius: 5px;
+	padding: 5px;
+	margin: 5px;
+	color: #000;
+	display: block;
+}
+.informationhelp {
+    
+	background-color: #ddd;
+	border-radius: 5px;
+	padding: 8px;
+	margin: 5px;
+	color: #333;
+	display: block;
+	
+}
+
+.help {
+	border: 1px solid #444;
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#161616+0,666666+100 */
+background: rgb(22,22,22); /* Old browsers */
+background: -moz-linear-gradient(left,  rgba(22,22,22,1) 0%, rgba(102,102,102,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left,  rgba(22,22,22,1) 0%,rgba(102,102,102,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right,  rgba(22,22,22,1) 0%,rgba(102,102,102,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#161616', endColorstr='#666666',GradientType=1 ); /* IE6-9 */
+
+	border-radius: 5px;
+	padding: 8px;
+	margin: 5px;
+	color: #fff;
+	display: block;
+}
+
+.helpj {
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#3f4c6b+0,606c88+100 */
+background: rgb(63,76,107); /* Old browsers */
+background: -moz-linear-gradient(left,  rgba(63,76,107,1) 0%, rgba(96,108,136,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left,  rgba(63,76,107,1) 0%,rgba(96,108,136,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right,  rgba(63,76,107,1) 0%,rgba(96,108,136,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#3f4c6b', endColorstr='#606c88',GradientType=1 ); /* IE6-9 */
+
+	border-radius: 5px;
+	padding: 5px;
+	margin: 5px;
+	color: #fff;
+	display: block;
+}
+
+.helph {
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#ff3019+0,cf0404+100;Red+3D */
+background: rgb(255,48,25); /* Old browsers */
+background: -moz-linear-gradient(left,  rgba(255,48,25,1) 0%, rgba(207,4,4,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(left,  rgba(255,48,25,1) 0%,rgba(207,4,4,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to right,  rgba(255,48,25,1) 0%,rgba(207,4,4,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff3019', endColorstr='#cf0404',GradientType=1 ); /* IE6-9 */
+
+	border-radius: 5px;
+	padding: 5px;
+	margin: 5px;
+	color: #fff;
+	display: block;
+}
+
+.notice {
+	background-color: #111;
+	border: 1px solid #000;
+	padding: 5px;
+	margin: 5px;
+	color: #000;
+	font-weight: 700;
+	color: red;
+	display: block;
+}
+
+.weapons {
+	font-size: 11px;
+	margin: 10px 0 10px 0;
+	width: auto;
+	border: 1px solid #444;
+}
+
+.bulletp {
+	font-size: 11px;
+	font-weight: 600;
+}
+
+.weaponsboxstat {
+	padding: 5px;
+	background-color: #0c0c0c;
+	border: none;
+	width: auto;
+	overflow-x: hidden;
+	height: 250px;
+	overflow-y: scroll;
+}
+
+.weaponsbox {
+	display: flex;
+	flex-direction: row;
+	overflow-x: scroll;
+	padding: 5px;
+	overflow-y: hidden;
+	background-color: #0c0c0c;
+	border: none;
+	width: auto;
+}
+
+.spacing {
+	margin-left: 20px;
+}
+
+.weapon2 {
+	padding: 5px;
+	width: auto;
+	margin: 10px;
+	border: 2px solid #222;
+	background-image: url(https://mafiamobi.com/images/BGCOM.gif)
+}
+
+.weapon3 {
+	padding: 5px;
+	width: auto;
+	margin: 10px;
+	border: 2px solid #333;
+	background-image: url(https://mafiamobi.com/images/bodybg.jpg)
+}
+
+.weapon {
+	padding: 5px;
+	width: auto;
+	margin: 10px;
+	border: 2px solid #333;
+	background-color: #18191b
+}
+
+.weapons h4 {
+	font-weight: 400;
+	color: #555
+}
+
+.userprofiletext {
+	text-align: left;
+	padding: 10px;
+} 
+
+.profilename {
+	background-image: url(https://topmafia.net/header/images/bars/bg_bar2.gif);
+	background-repeat: repeat-x;
+	border: 2px solid #000;
+	text-align: center;
+	width: auto;
+	font-family: "Roboto", Helvetica, Roboto, sans-serif;
+	text-shadow: 2px 2px #000;
+	font-weight: 700;
+	padding: 2px 0 2px 0;
+	font-variant: small-caps;
+}
+
+.titleheaderbar {
+	padding: 5px;
+	text-transform: uppercase;
+	text-shadow: 1px 1px #000;
+	color: #fff;
+	font-size: 15px;
+	font-weight: 600;
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#2b2b2b+0,3d3838+50,0a0e0a+51,302626+100;Black+Gloss */
+background: rgb(43,43,43); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(43,43,43,1) 0%, rgba(61,56,56,1) 50%, rgba(10,14,10,1) 51%, rgba(48,38,38,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(43,43,43,1) 0%,rgba(61,56,56,1) 50%,rgba(10,14,10,1) 51%,rgba(48,38,38,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(43,43,43,1) 0%,rgba(61,56,56,1) 50%,rgba(10,14,10,1) 51%,rgba(48,38,38,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2b2b2b', endColorstr='#302626',GradientType=0 ); /* IE6-9 */
+
+	border: 1px solid #000;
+}
+
+.submenuprofile {
+    align-items:center;
+	text-align: left;
+	margin:0 auto;
+	padding: 5px;
+}
+
+.submenuprofile a {
+	border: 1px solid #222;
+	margin-bottom:2px;
+/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#45484d+0,000000+100;Black+3D+%231 */
+background: rgb(69,72,77); /* Old browsers */
+background: -moz-linear-gradient(top,  rgba(69,72,77,1) 0%, rgba(0,0,0,1) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,  rgba(69,72,77,1) 0%,rgba(0,0,0,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#45484d', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+
+    font-size:11px;
+	border-radius: 5px;
+	display: block;
+	padding: 5px;
+	text-shadow: 1px 1px #000;
+}
+
+.badgenote1 {
+	font-size: 10px;
+	padding: 8px 0 8px 0;
+	text-transform: uppercase;
+	color: #fff;
+}
+
+.badgenote {
+	font-size: 10px;
+	padding: 8px 0 8px 0;
+	text-transform: uppercase;
+	color: #333;
+}
+
+.badgefade img {
+	opacity: .1
+}
+
+#page-index div.tabs div.tabs-buttons {
+	margin: 0 auto;
+}
+
+
+#page-index div.tabs div.tabs-buttons button {
+	flex: 0 0 auto;
+	padding: 15px 30px;
+	font-family:"Roboto";
+	font-size: 12px;
+	margin:0;
+	color: #fff;
+	background-color: #010101;
+	border: 1px solid #111;
+	border-bottom: none;
+	box-shadow: inset rgba(255, 255, 255, .1) 2px 1px 0;
+}
+
+
+#page-index div.tabs div.tabs-buttons .active {
+	background-color: #222;
+	font-weight:700;
+}
+
+#page-index div.tabs div.tabs-content {
+	background-color: #222;
+	border-top: none;
+	font-size: 14px;
+	box-shadow: inset rgba(255, 255, 255, .1) 2px 0 0;
+	border-bottom-left-radius: 10px;
+	border-bottom-right-radius: 10px;
+	border-top-right-radius: 10px;
+	border-left: 1px solid #111;
+	border-right: 3px solid #0e0e0e;
+	border-bottom: 2px solid #000;
+	padding: 10px;
+}
+
+
+#page-index div.tabs div.tabs-content:not(.active) {
+	display: none;
+}
+
+.thheader {
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#b3bead+0,eeefe1+60,8d9391+100 */
+	background: rgb(179, 190, 173);
+	/* Old browsers */
+	background: -moz-linear-gradient(top, rgba(179, 190, 173, 1) 0%, rgba(238, 239, 225, 1) 60%, rgba(141, 147, 145, 1) 100%);
+	/* FF3.6-15 */
+	background: -webkit-linear-gradient(top, rgba(179, 190, 173, 1) 0%, rgba(238, 239, 225, 1) 60%, rgba(141, 147, 145, 1) 100%);
+	/* Chrome10-25,Safari5.1-6 */
+	background: linear-gradient(to bottom, rgba(179, 190, 173, 1) 0%, rgba(238, 239, 225, 1) 60%, rgba(141, 147, 145, 1) 100%);
+	/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b3bead', endColorstr='#8d9391', GradientType=0);
+	/* IE6-9 */
+	border: 1px solid #888;
+	box-shadow: inset 1px 0 3px #888;
+	padding: 5px;
+	font: bold 16px arial, sans-serif;
+	color: #929292;
+	border-top-left-radius: 5px;
+	border-top-right-radius: 5px;
+	text-transform: uppercase;
+	text-shadow: 1px 1px 2px rgba(255, 255, 255, 0.7);
+	-webkit-background-clip: text;
+	-moz-background-clip: text;
+	background-clip: text;
+}

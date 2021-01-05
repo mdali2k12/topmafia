@@ -1,0 +1,1 @@
+[20-May-2017 03:08:48 America/Chicago] PHP Fatal error:  Interface 'Swift_Mailer_RecipientIterator' not found in /home/cityofmafia/public_html/lib/classes/Swift/Mailer/ArrayRecipientIterator.php on line 21

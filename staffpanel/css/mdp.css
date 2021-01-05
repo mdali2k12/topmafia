@@ -1,0 +1,270 @@
+
+
+/* just some styling */
+
+
+body {
+	font-family:verdana;
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#45484d+0,000000+100;Black+3D+%231 */
+background-color: #202020; 
+	font-size:12px; 
+	color:#ccc;
+}
+.datetime {
+    color:#fff;
+    font-size:10px;
+}
+.infostaff {
+    width:100%;
+    padding:5px;
+    background-color:#f2f97d;
+    border:1px solid #c2cd0c;
+    color:#111;
+}
+
+.smenu { width:15%;font-size:12px;  }
+.width{ width:80%;}
+ @media (max-width:600px) {
+  .width{
+    width:60%;
+}
+
+.datetime {
+    color:#fff;
+    font-size:10px;
+}
+    body {
+	font-family:verdana;
+	/* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#45484d+0,000000+100;Black+3D+%231 */
+background-color: #202020; 
+	font-size:10px; 
+	color:#ccc;
+}
+.smenu { width:20%;font-size:12px;  }
+}
+
+.info-msg,
+.success-msg,
+.warning-msg,
+.error-msg {
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 3px 3px 3px 3px;
+}
+.info-msg {
+  color: #059;
+  background-color: #BEF;
+}
+.success-msg {
+  color: #fff;
+  background-color: green;
+}
+.warning-msg {
+  color: #9F6000;
+  background-color: #FEEFB3;
+}
+.error-msg {
+  color: #fff;
+  background-color: red;
+}
+
+
+
+.footer {margin:0 auto;text-align:center;}
+th {color: #FFF;background-color:#333;}
+h1 {
+	text-align: center;
+	margin: 1.5em;
+}
+input[type=text] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+input[type=number] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+
+input[type=email] {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
+}
+input[type=submit] {
+  padding: 20px;
+  margin: 8px 0;
+  background-color:#000;
+  color:#cecece;
+  box-sizing: border-box;
+}
+.titlehr {
+    color:#fff;
+    text-align:center;
+    background-color:#2c3e4e;
+    padding:5px;
+    font-size:12px;
+    margin-top:5px;
+}
+
+.tablestat2 {
+    padding:5px;
+    background-color:#333;  
+border-radius:5px;
+text-align:center;
+    
+}
+.alignleft {
+	float: left;
+}
+.alignright {
+	float: right;
+}
+
+
+a.tablestat {color:white;}
+a.tablestat:hover {color:cyan;}
+
+
+
+h2 {
+	border-top: 1px dotted #AAA;
+	padding-top: 1em;
+	margin-top: 1em;
+}
+
+h3 {color: #fff;border-radius:5px;padding:10px;
+    background-color:#303030;
+}
+
+h4 {margin-bottom: 0;}
+
+p {margin-top: .3em;}
+
+code, pre.code {
+	font: 11px/13px monospace;
+	background-color: #FFC;
+	padding: 2px;
+	border: 1px dotted grey;
+}
+
+.clear {clear: both;}
+
+a {text-decoration: none !important;}
+
+#share {
+	position: absolute;
+	right: 20px;
+	top: 20px;
+	text-align: right;
+}
+
+#page {
+	position: relative;
+	margin: 1em auto;
+	padding: 2em;
+	width: 960px;
+	background: white url('images/ui-bg_fine-grain_10_f8f7f6_60x60.png') repeat;
+	
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+	border: 1px solid #D9D6C4;
+	color: #1F1F1F;
+	font-family: Trebuchet MS, Tahoma, Verdana, Arial, sans-serif;
+	font-size: 1.1em;
+}
+
+#demos-list {padding: 0;}
+
+#flairs {text-align: center;}
+#flairs ul {list-style: none; padding: 0;}
+#flairs li {display: inline;}
+
+.demo {
+	vertical-align: top;
+	display: inline-block;
+	margin: 1em 1%;
+	width: 44%;
+	background-color: rgba(0, 0, 0, .1);
+	padding: 0 2%;
+	border-radius: 10px;
+}
+
+.demo.full-row {
+	width: 95%;
+}
+
+.demo ul, .demo ol {list-style-position: inside;}
+.demo .box {
+	float: left;
+	margin: 0 1em 1em 0;
+}
+
+.example {
+	color: #006400;
+}
+
+.important-note {
+	font-weight: bold;
+	color: #B22222;
+}
+
+.reference-to {
+	font-size: large;
+	font-weight: bold;
+}
+
+.code-box {clear:both;}
+.code {
+	padding: 5px;
+	color: #333;
+	background-color: white;
+	font: small monospace;
+}
+
+.ui-state-active, .ui-widget-content .ui-state-active, .ui-widget-header .ui-state-active {
+	background: #F8F7F6 url('images/ui-bg_fine-grain_10_f8f7f6_60x60.png') 50% 50% repeat;
+}
+
+/* begin: jQuery UI Datepicker moving pixels fix */
+table.ui-datepicker-calendar {border-collapse: separate;}
+.ui-datepicker-calendar td {border: 1px solid transparent;}
+/* end: jQuery UI Datepicker moving pixels fix */
+
+/* begin: jQuery UI Datepicker emphasis on selected dates */
+.ui-datepicker .ui-datepicker-calendar .ui-state-highlight a {
+	background: #743620 none;
+	color: white;
+}
+/* end: jQuery UI Datepicker emphasis on selected dates */
+
+
+/* begin: jQuery UI Datepicker hide datepicker helper */
+#ui-datepicker-div {display:none;}
+/* end: jQuery UI Datepicker hide datepicker helper */
+
+
+
+.tablestat2 tr:nth-child(odd) {
+	background-color: #000;
+	color:#ddd;
+}
+.tablestat2 tr:nth-child(even) {
+	background-color: #1c1c1c;
+	color:#ddd;
+}
+
+
+.table tr:nth-child(odd) {
+	background-color: #DDD;
+	color:#000;
+}
+.table tr:nth-child(even) {
+	background-color: #fff;
+	color:#000;
+}

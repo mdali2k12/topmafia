@@ -1,0 +1,1 @@
+[20-May-2017 03:10:37 America/Chicago] PHP Fatal error:  Interface 'Swift_Plugins_Reporter' not found in /home/cityofmafia/public_html/lib/classes/Swift/Plugins/Reporters/HtmlReporter.php on line 21
