@@ -19,6 +19,9 @@ class GetRequest extends Request {
     }
 
     // SO setters/getters
+    public function getQueryStrings() : array {
+        return $this->_queryStrings;
+    }
     private function _setQueryStrings( string $url ) : void {
         $queryStrings = explode( "&", parse_url( $url, PHP_URL_QUERY ) );
         if ( count( $queryStrings ) > 0 ) {
@@ -44,9 +47,6 @@ class GetRequest extends Request {
                 }
             }
         }
-    }
-    public function getQueryStrings() : array {
-        return $this->_queryStrings;
     }
     // EO setters/getters
 

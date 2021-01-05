@@ -11,6 +11,7 @@
     * test that no file in any subfolder can be accessed from the client
     * select most suitable hashing algorithm for usage in strings trait
 - implement token-based auth.
+- implement automated testing
 - refactor social auth. with Facebook ?
 
 ### app' routes
