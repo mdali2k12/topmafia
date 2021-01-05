@@ -8,6 +8,9 @@ $baseDir = dirname($vendorDir);
 return array(
     'App\\Controllers\\Controller' => $baseDir . '/App/Controllers/Controller.php',
     'App\\Controllers\\HomeController' => $baseDir . '/App/Controllers/HomeController.php',
+    'App\\Controllers\\NotFoundController' => $baseDir . '/App/Controllers/NotFoundController.php',
+    'App\\Controllers\\Resources\\ResourcesController' => $baseDir . '/App/Controllers/Resources/ResourcesController.php',
+    'App\\Controllers\\Resources\\UsersController' => $baseDir . '/App/Controllers/Resources/UsersController.php',
     'App\\Database\\MariaDBDriver' => $baseDir . '/App/Database/MariaDBDriver.php',
     'App\\Helpers\\StringsTrait' => $baseDir . '/App/Helpers/StringsTrait.php',
     'App\\Helpers\\TimeTrait' => $baseDir . '/App/Helpers/TimeTrait.php',

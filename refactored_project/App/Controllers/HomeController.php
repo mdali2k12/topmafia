@@ -35,7 +35,7 @@ class HomeController extends Controller {
                         false
             );
         } else 
-            $this->_response = new JsonResponse( 405, ["request method not allowed"], false );
+            $this->_setMethodNotAllowedResponse();
     } // EO _initResponse(
 
 } // EO DefaultController

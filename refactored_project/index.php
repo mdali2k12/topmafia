@@ -21,7 +21,7 @@ use App\Controllers\HomeController;
 use App\Controllers\NotFoundController;
 // TODO
 // use App\Controllers\Entities\SessionsController;
-// use App\Controllers\Entities\UsersController;
+use App\Controllers\Resources\UsersController;
 
 // we set the default timezone
 date_default_timezone_set( $_ENV["APP_TIMEZONE"] ); 
@@ -31,7 +31,7 @@ $requestClass =  "App\Http\Requests\\".ucfirst( strtolower( $_SERVER['REQUEST_ME
 $requestRef   = new ReflectionClass( $requestClass );
 $request      = $requestRef->newInstance();
 
-$controllerClass = "App\Controllers\\"; // will be concatenated with the right controller after processing
+$controllerClassName = "App\Controllers\\"; // will be concatenated with the right controller after processing
 
 /**
  * 
@@ -44,19 +44,19 @@ $controllerClass = "App\Controllers\\"; // will be concatenated with the right c
 if ( isset( $request->getHeaders()["JSON"] ) &&  $request->getHeaders()["JSON"] == true ) { // API routes
     switch ( $request->getEndpoint() ) {
         case "/":
-            $controllerClass .= "Home";
+            $controllerClassName .= "Home";
             break;
         // TODO
         // case "/sessions":
         //     sleep( 1 );
-        //     $controllerClass .= "Entities\\Sessions";
+        //     $controllerClassName .= "Entities\\Sessions";
         //     break;
-        // case "/users":
-        //     sleep( 1 );
-        //     $controllerClass .= "Entities\\Users";
-        //     break;
+        case "/users":
+            sleep( 1 );
+            $controllerClassName .= "Resources\\Users";
+            break;
         default:
-            $controllerClass .= "NotFound";
+            $controllerClassName .= "NotFound";
             break;
     } 
     /**
@@ -68,7 +68,7 @@ if ( isset( $request->getHeaders()["JSON"] ) &&  $request->getHeaders()["JSON"] 
      * which is in turn sent
      * 
      */
-    ( new ReflectionClass( $controllerClass."Controller" ) )
+    ( new ReflectionClass( $controllerClassName."Controller" ) )
         ->newInstanceArgs( [$request] )
         ->handleRequest()
         ->send();

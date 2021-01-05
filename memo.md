@@ -20,11 +20,13 @@
 - refactor home.min.js ? https://topmafia.net/home/css/login/lstyle.css ?
 - XSS protection 
 - CSRF protection
+- app' assets protection
 - layout file-based views rendering
 - implement automated testing
 - refactor social auth. with Facebook ?
 - define caching policy
 - implement dependency injection
+- websockets for online/offline users count
 - Apache deployment
 - implement specific app' user for db and check db credentials on deployment
 - dynamic app' footer

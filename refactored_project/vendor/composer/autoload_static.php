@@ -71,6 +71,9 @@ class ComposerStaticInite96dd24e805b2559e61cf6cbb75dcc9e
     public static $classMap = array (
         'App\\Controllers\\Controller' => __DIR__ . '/../..' . '/App/Controllers/Controller.php',
         'App\\Controllers\\HomeController' => __DIR__ . '/../..' . '/App/Controllers/HomeController.php',
+        'App\\Controllers\\NotFoundController' => __DIR__ . '/../..' . '/App/Controllers/NotFoundController.php',
+        'App\\Controllers\\Resources\\ResourcesController' => __DIR__ . '/../..' . '/App/Controllers/Resources/ResourcesController.php',
+        'App\\Controllers\\Resources\\UsersController' => __DIR__ . '/../..' . '/App/Controllers/Resources/UsersController.php',
         'App\\Database\\MariaDBDriver' => __DIR__ . '/../..' . '/App/Database/MariaDBDriver.php',
         'App\\Helpers\\StringsTrait' => __DIR__ . '/../..' . '/App/Helpers/StringsTrait.php',
         'App\\Helpers\\TimeTrait' => __DIR__ . '/../..' . '/App/Helpers/TimeTrait.php',
