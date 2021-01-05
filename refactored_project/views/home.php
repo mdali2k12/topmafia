@@ -29,10 +29,10 @@
 
         <!-- styles -->
         <!-- TODO refactor ? -->
-        <link href="https://topmafia.net/home/css/login/lstyle.css" media='screen, projection' rel='stylesheet' type='text/css'>
+        <link href="./views/css/home.css" media='screen, projection' rel='stylesheet' type='text/css'>
 
         <!-- jQuery -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
 
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=<?= $_ENV["GTAG1"]; ?>"></script>
@@ -64,10 +64,10 @@
                     <input type="checkbox" id="nav-check"> 
                     <div class="nav-header">
                         <!-- TODO implement online/offline players -->
-                        <!-- <div class="nav-title">
-                            <a href="" class="mainlink3"> <span class="new"><b><span id="onlinenow"></span> </b>Online</span></a>
-                            <a href="" class="mainlink1"> <span class="new2"><b><span id="users"></span></b> Players</span></a>
-                        </div> -->
+                        <div class="nav-title">
+                            <a href="" class="mainlink3"> <span class="new"><b><span  id="onlinePlayersCount"></span> </b>Online</span></a>
+                            <a href="" class="mainlink1"> <span class="new2"><b><span id="playersCount"></span></b> Players</span></a>
+                        </div>
                     </div>
                     <div class="nav-links">
                         <div class="dropdown">
@@ -190,11 +190,14 @@
         </div>
         <!-- EO template -->
 
+        <!-- dynamic app' URL -->
+        <input type="hidden" name="app_url" value="<?=$_ENV['APP_URL'];?>" id="app_url">
+
         <!-- page scripts -->
         <!-- TODO find out what does the first cript below do -->
         <script src="./views/js/home/home.min.8aa9e3ed.js"></script>
         <script src="./views/js/home/home.js"></script>
-
+        
    </body>
 
 </html>

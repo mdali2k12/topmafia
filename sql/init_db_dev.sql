@@ -15,8 +15,8 @@ CREATE TABLE `users` (
   `username`      varchar(52)  CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `email`         varchar(317) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `password`      TINYTEXT     CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `isAdmin`       TINYINT(1) NOT NULL DEFAULT 0,
-  `isPlayer`      TINYINT(1) NOT NULL DEFAULT 1,
+  `isAdmin`       TINYINT(1)   NOT NULL DEFAULT 0,
+  `isPlayer`      TINYINT(1)   NOT NULL DEFAULT 1,
   `createdAt`     datetime              NOT NULL DEFAULT current_timestamp(),
   `updatedAt`     datetime              NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)

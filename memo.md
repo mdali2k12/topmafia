@@ -11,9 +11,11 @@
     * make sure no file in any subfolder can be accessed from the client
     * select most suitable hashing algorithm for usage in strings trait
     * getting online/offline users on home page
+        - test when users register/login funnel ready
     * container login class in home page ?
     * use main tag in home page for semantic readability and SEO
-    * host jQuery locally
+    * handle db connectivity issues
+    * improve loading speed
 - implement token-based auth.
 - implement forgot password
 - implement contact functionality
@@ -26,6 +28,7 @@
 - refactor social auth. with Facebook ?
 - define caching policy
 - implement dependency injection
+- versatile DBMS
 - websockets for online/offline users count
 - Apache deployment
 - implement specific app' user for db and check db credentials on deployment

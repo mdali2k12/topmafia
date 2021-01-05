@@ -14,9 +14,9 @@ class HomeController extends Controller {
 
     protected function _initResponse() : void {
         if ( $this->_request->getMethod() === "GET" ) {
-            $dbs = MariaDBDriver::getInstance();
+            $mdbd = MariaDBDriver::getInstance();
             $this->_response = 
-                $dbs->isUp() ?
+                $mdbd->isUp() ?
                     new JsonResponse(
                         200,
                         [

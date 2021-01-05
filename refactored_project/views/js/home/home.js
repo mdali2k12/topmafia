@@ -82,18 +82,25 @@ $(document).ready(function() {
     $('#err').hide();
     $('#succ').hide();
 
-    // TODO getting online/offline users
-    // $.ajax({
-    //     'url' : 'ajax/onlinedata.php',
-    //     'type' : 'POST',
-    //     'data' : {},
-    //     'success' : function(data) {
-    //         var response = JSON.parse(data);
-    //         $('#users').html(response.users);
-    //         $('#onlinenow').html(response.onlinenow);
-    //     },
-    //     'error' : function(request,error){}
-    // });
+    // getting online/offline users 
+    const getRequestToUsersEndpoint = async ( url ) => {
+        var xmlHttp = new XMLHttpRequest();
+        xmlHttp.open( "GET", url, false );
+        xmlHttp.setRequestHeader( "json","true" );
+        xmlHttp.send( null );
+        return xmlHttp.responseText;
+    }
+    const appUrl = $(':hidden#app_url').val();
+    getRequestToUsersEndpoint( appUrl + "/users" )
+        .then( res =>{
+            const resObject = JSON.parse( res );
+            $( "#playersCount" ).html( resObject.playersCount );
+            $( "#onlinePlayersCount" ).html( resObject.onlinePlayersCount );
+        })
+        .catch( err => {
+            // TODO better error handling
+            console.log( err );
+    });
 
 })
 // EO page load behavior

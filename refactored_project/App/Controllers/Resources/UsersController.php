@@ -5,6 +5,7 @@ namespace App\Controllers\Resources;
 use App\Controllers\Resources\ResourcesController;
 use App\Http\Requests\Request;
 use App\Http\Responses\Json\JsonResponse;
+use App\Models\User;
 
 class UsersController extends ResourcesController {
 
@@ -14,7 +15,17 @@ class UsersController extends ResourcesController {
     }
 
     protected function _initReadAllResponse(): void {
-        // TODO response that sends back count of all users and count of currently logged in users
+        $playersCount       = User::getPlayersCount();
+        $onlinePlayersCount = User::getOnlinePlayersCount();
+        $this->_response    = new JsonResponse( 
+            200, 
+            ["fetched players count", "fetched online players count"],
+            true,
+            [
+                "playersCount"       => $playersCount,
+                "onlinePlayersCount" => $onlinePlayersCount
+            ]
+        );
     }
 
     protected function _initReadOneResponse(): void {

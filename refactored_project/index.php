@@ -3,6 +3,8 @@
 // starting output buffering
 ob_start();
 
+header( "Access-Control-Allow-Origin: *" );
+
 // init. dependencies & environment
 require_once "./vendor/autoload.php";
 use Dotenv\Dotenv;
@@ -41,7 +43,7 @@ $controllerClassName = "App\Controllers\\"; // will be concatenated with the rig
  * we will define the right controller based on the requested route
  * 
  */
-if ( isset( $request->getHeaders()["JSON"] ) &&  $request->getHeaders()["JSON"] == true ) { // API routes
+if ( isset( $request->getHeaders()["json"] ) &&  $request->getHeaders()["json"] == "true" ) { // API routes
     switch ( $request->getEndpoint() ) {
         case "/":
             $controllerClassName .= "Home";
