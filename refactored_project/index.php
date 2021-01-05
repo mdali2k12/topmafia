@@ -29,17 +29,6 @@ $requestClass =  "App\Http\Requests\\".ucfirst( strtolower( $_SERVER['REQUEST_ME
 $requestRef   = new ReflectionClass( $requestClass );
 $request      = $requestRef->newInstance();
 
-// generic error response case URL is not valid
-// if ( !$request->isValid() ) {
-//     ( new ErrorResponse( 400, ["invalid url"] ) )->send();
-//     $anErrorHasOcurred = true;
-// }
-
-// database access object initialization
-$dbDriverName = "App\DAOs\\".$_ENV["DB_DRIVER"]."Driver";
-$dbDriverRef  = new ReflectionClass( $dbDriverName );
-$dbDriver     = $dbDriverRef->newInstance();
-
 $controllerClass = "App\Controllers\\"; // will be concatenated with the right controller after processing
 
 /**
