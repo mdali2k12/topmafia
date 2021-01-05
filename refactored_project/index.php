@@ -42,14 +42,15 @@ switch ( $request->getEndpoint() ) {
     case "/":
         $controllerClass .= "Home";
         break;
-    case "/sessions":
-        sleep( 1 );
-        $controllerClass .= "Entities\\Sessions";
-        break;
-    case "/users":
-        sleep( 1 );
-        $controllerClass .= "Entities\\Users";
-        break;
+    // TODO
+    // case "/sessions":
+    //     sleep( 1 );
+    //     $controllerClass .= "Entities\\Sessions";
+    //     break;
+    // case "/users":
+    //     sleep( 1 );
+    //     $controllerClass .= "Entities\\Users";
+    //     break;
     default:
         $controllerClass .= "NotFound";
         break;

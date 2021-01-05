@@ -4,7 +4,7 @@
 ## first assignment: refactor login and signup
 
 - **global_func** files should be factorized and should not be duplicated anymore
-- singleton for database connectivity
+- ✅ singleton for database connectivity
 - routing logic to implement : 
     * **/** route leads to original **home/index** page
     * base route redirect should be extracted from globals.php
@@ -13,6 +13,10 @@
 - implement token-based auth.
 - implement automated testing
 - refactor social auth. with Facebook ?
+- define caching policy
+- implement dependency injection
+- Apache deployment
+- implement specific app' user for db and check db credentials on deployment
 
 ### app' routes
 
