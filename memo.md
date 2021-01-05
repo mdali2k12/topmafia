@@ -7,4 +7,7 @@
 - routing logic to implement : 
     * **/** route leads to original **home/index** page
     * base route redirect should be extracted from globals.php
+
+### app' routes
+- **/** 
     
