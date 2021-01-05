@@ -1,5 +1,7 @@
 {
     "name": "mdali2k12/topmafia",
     "description": "a Mafia text-based game",
-    "require": {}
+    "require": {
+        "vlucas/phpdotenv": "^5.2"
+    }
 }
