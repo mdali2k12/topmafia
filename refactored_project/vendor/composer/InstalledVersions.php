@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => 'b243caab4653ce9fbd06c39a3d13c6603b332206',
+    'reference' => '040006bf1ac916b6abeb1a8aa320bb6a713b7a6d',
     'name' => 'mdali2k12/topmafia',
   ),
   'versions' => 
@@ -50,7 +50,7 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => 'b243caab4653ce9fbd06c39a3d13c6603b332206',
+      'reference' => '040006bf1ac916b6abeb1a8aa320bb6a713b7a6d',
     ),
     'phpoption/phpoption' => 
     array (
