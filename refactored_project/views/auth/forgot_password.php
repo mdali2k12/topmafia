@@ -77,7 +77,7 @@
                                 <!-- TODO -->
                                 <!-- <a href="forgot_password.php"> Forgot Password </a>  -->
                                 <a href="/game-rules"> Game Rules</a>
-                                <a href="/privacy-policy"> Privacy Policy</a>
+                                <a href="privacy.html"> Privacy Policy</a>
                                 <!-- TODO -->
                                 <!-- <a href="contact.php"> Contact Us</a> -->
                             </div>
@@ -96,61 +96,25 @@
 
             <!-- SO main -->
             <div id="content">
-                <div style="text-align:left;" class="desc">
-                    <center>
-                    <h2 class="font">GAME RULES</h2>
-                    </center>
-                    <p>Players are only allowed to have one account, owning two or more accounts will result in all accounts being jailed,
-                    if you are on the same IP as another player, mail staff and let them know.
-                    </p>
-                    <br />
-                    <p>If a player finds an error with Top Mafia and exploits that error to their advantage, this will result in their account being deleted.</p>
-                    <br />
-                    <p>You are responsible for whatever happens on your account, don't give out your password to anyone.</p>
-                    <br />
-                    <p>Accounts are personal on not transferable. They are also not to be sold. Doing so will result in the said account being fed jailed</p>
-                    <br />
-                    <p>All game items, crystals and cash are property of the Game devlopers, and are not to be sold via means outside of the game. 
-                    (Example: Selling items or crystals for real cash via paypal will result in your account being removed from the game)
-                    </p>
-                    <br />
-                    <p>Children play this game, so keep it PG-13. Mild swearing will be permitted, but F-bombing, sexual vulgarities
-                    or excessive swearing will result in some time in Fed until you clean up your act.
-                    </p>
-                    <br />
-                    <p>Profile images with nudity, profanity, or otherwise offensive images will be removed, and may result in jail time.</p>
-                    <br />
-                    <p>We understand that you play other games, but do not advertise them here. You get 1 warning, afterwards its Fed time.</p>
-                    <br />
-                    <p>Do not spam the staff's mailbox, if you have a problem, message one of us once. They will deal with your problem in a timely
-                    manner, but do not mail them repeatedly, or mail multiple staff members.
-                    </p>
-                    <br />
-                    <p>Do not harrass other players, use common sense on this one, if you don't know when your crossing the line from fantasy into
-                    harrassment, assume that you are harrassing the other player. This will not be tolerated and will result in a stiff punishment.
-                    </p>
-                    <br />
-                    <p>Scamming will not be tolerated in any manner. Any attempt to scam anyone will result in being jailed for a long long time.</p>
-                    <br />
-                    <p>If a member of staff is bothering you for any unfair or just plain, weird reason, mail Admin</p>
-                    <br />
-                    <p>Common sense rules are not posted here, if you can't determine the difference between what is ok, and what is not, you should
-                    consider not interacting with other people until you do understand.
-                    </p>
-                    <br />
-                    <p>These rules are subject to change without notice, check them from time to time, as ignorance will not be accepted as an excuse.</p>
-                    <br />
-                    <p>Staff reserve the right to fed-jail or remove any accounts that are suspected of exploiting the game from leveling or training at levels that are deemed impossible by normal gameplay methods.</p>
-                    <br />
-                    <p>You are not allowed to use Macros, Auto Clickers, refreshers or any kind of plugin/BOT/script to do anything in the game for you. We monitor this and can easily track it. So if you are caught doing this, you will loose your account.</p>
-                    <br />
-                    <p>Continued and repeat attacks on the same player is not allowed. (*Rule now hard coded into the game and auto inforced)</p>
-                    <br />
-                    <p>Blackmailing or bullying lower level or stat players is not allowed.</p>
-                    <br />
-                    <p>Misleading players to vote against or for players is not allowed. Vote fixing will also be punished and may result it all your votes being removed!</p>
-                    <br />
-                </div>
+                <div style="text-align:left;">
+                    <center><h2 class="font">RESET PASSWORD</h2></center>
+                    <!-- TODO -->
+                    <div id="err">
+                        <p>...</p>
+                        <br /><br />
+                        <center> <a href="/forgot-password">Try Again</a> </center>
+                    </div> 
+                    <div id="succ">
+                        <p>An email was sent to USER_EMAIL with your new password.</p>
+                    </div>
+                    <form action="forgot_password.php" method="post" name="forgot_password">
+                        <label class="font">Email Address</label>
+                        <input type="email" id="r_username" name="r_username" class="text-general3" value="" required>
+                        <center>
+                        <input type="submit" name="action" class="primary button" value="Reset">
+                        </center>
+                    </form>
+                </div>            
             </div>
             <!-- EO main -->
 
@@ -170,6 +134,19 @@
 
         <!-- page scripts -->
         <script src="./views/js/common.js"></script>
+
+        <!-- TODO 
+            * hide #err & #succ div at page load or set its visibility to hidden before that
+            * refactor form
+            * request to check if mail provided in form belongs to an existing user
+            * if not #err div shows with message "Email is incorrect or invalid!"
+            * if so generate a new password and save it to db for this user
+            * send the email containing the new password
+            * check that email sending process went on without troubles
+            * if it did #err div shows with message 
+                "There was an issue delivering your email. Please try again later."
+            * if it went well sucess div shows with input email
+        -->
         
    </body>
 

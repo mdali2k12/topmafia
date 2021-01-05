@@ -196,7 +196,7 @@
         <!-- page scripts -->
         <!-- TODO find out what does the first cript below do -->
         <script src="./views/js/home/home.min.8aa9e3ed.js"></script>
-        <script src="./views/js/home/home.js"></script>
+        <script src="./views/js/common.js"></script>
         
    </body>
 

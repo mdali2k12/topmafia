@@ -29,7 +29,7 @@ private static $installed = array (
     'aliases' => 
     array (
     ),
-    'reference' => '040006bf1ac916b6abeb1a8aa320bb6a713b7a6d',
+    'reference' => '06f3c4193ad3ef0fb747aad413901e5d8d38a5ee',
     'name' => 'mdali2k12/topmafia',
   ),
   'versions' => 
@@ -50,7 +50,16 @@ private static $installed = array (
       'aliases' => 
       array (
       ),
-      'reference' => '040006bf1ac916b6abeb1a8aa320bb6a713b7a6d',
+      'reference' => '06f3c4193ad3ef0fb747aad413901e5d8d38a5ee',
+    ),
+    'phpmailer/phpmailer' => 
+    array (
+      'pretty_version' => 'v6.2.0',
+      'version' => '6.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'e38888a75c070304ca5514197d4847a59a5c853f',
     ),
     'phpoption/phpoption' => 
     array (

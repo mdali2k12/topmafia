@@ -18,20 +18,24 @@
     * improve loading speed
     * home link deactivated on home page
     * optimize images
+    * error view to make
+    * user can modify his password
 - implement token-based auth.
 - implement forgot password
 - implement contact functionality
 - refactor home.min.js ? https://topmafia.net/home/css/login/lstyle.css ?
 - XSS protection 
 - CSRF protection
+- thorough implementation of https://github.com/PHPMailer/PHPMailer ?
 - app' assets protection
-- layout file-based views rendering
+- layout file-based views rendering and/or SPA
 - implement automated testing
 - refactor social auth. with Facebook ?
 - define caching policy
 - implement dependency injection
 - versatile DBMS
 - websockets for online/offline users count
+- env. switch to disable debug messages when on prod.
 - Apache deployment
 - implement specific app' user for db and check db credentials on deployment
 - dynamic app' footer
