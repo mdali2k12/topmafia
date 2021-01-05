@@ -21,21 +21,21 @@ abstract class Request {
     } // EO constructor
 
     private function _init() {
+        $this->_method = $_SERVER["REQUEST_METHOD"];
         $this->_setHeaders();
         $this->_setCompleteUrl();
         $this->_setUrlValidity();
+        if ( $this->_urlIsValid() != false ) {
+            $this->_endpoint = parse_url( $this->_completeUrl, PHP_URL_PATH );
+            $this->_setIdentifier();
+        }
     }
 
     private function _setUrlValidity() : void {
         if ( 
-            // here we verify that the server host name matches the host name loaded in .env file
-            \in_array( $_SERVER['HTTP_HOST'], [$_ENV['SERVER_HOST_NAME'], $_ENV['SERVER_HOST_NAME_2']] )
-            && 
             filter_var( $this->_completeUrl, FILTER_VALIDATE_URL ) 
         ) {
             $this->_urlIsValid = true;
-            $this->_method     = $_SERVER["REQUEST_METHOD"];
-            $this->_setEndpoint( parse_url( $this->_completeUrl, PHP_URL_PATH ) );
         }
     } // EO _setUrlValidity(
 
@@ -58,8 +58,6 @@ abstract class Request {
         $this->_completeUrl = $completeUrl;
     }
     private function _setEndpoint( string $endpoint ) : void {
-        $this->_endpoint = $endpoint;
-        $this->_setIdentifier( $endpoint );
     }
     private function _setHeaders() : void {
         $headers        = [];
@@ -78,8 +76,8 @@ abstract class Request {
         }
         $this->_headers = $headers;
     } // EO _setHeaders
-    private function _setIdentifier( string $path ) : void {
-        $pathToParse = explode( "/", $path );
+    private function _setIdentifier() : void {
+        $pathToParse = explode( "/", $this->_endpoint );
         if( count( $pathToParse ) === 3 && !is_null( $pathToParse[2] ) ) {
             $this->_hasIdentifier = true;
             $this->_identifier    = $this->sanitizeStringInput( $pathToParse[2] );

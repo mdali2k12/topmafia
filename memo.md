@@ -3,7 +3,7 @@
 
 ## first assignment: refactor login and signup
 
-- **global_func** should be factorized and should not be duplicated anymore
+- **global_func** files should be factorized and should not be duplicated anymore
 - singleton for database connectivity
 - routing logic to implement : 
     * **/** route leads to original **home/index** page
