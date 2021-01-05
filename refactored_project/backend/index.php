@@ -36,37 +36,53 @@ $controllerClass = "App\Controllers\\"; // will be concatenated with the right c
 /**
  * 
  * SO router endpoints;
+ * based on the request headers we'll get either a JSON response or a web response;
  * sleep(1) is used on selected routes as an in-house anti brute force attacks throttling :);
  * we will define the right controller based on the requested route
  * 
  */
-switch ( $request->getEndpoint() ) {
-    case "/":
-        $controllerClass .= "Home";
-        break;
-    // TODO
-    // case "/sessions":
-    //     sleep( 1 );
-    //     $controllerClass .= "Entities\\Sessions";
-    //     break;
-    // case "/users":
-    //     sleep( 1 );
-    //     $controllerClass .= "Entities\\Users";
-    //     break;
-    default:
-        $controllerClass .= "NotFound";
-        break;
-} 
-/**
- * 
- * instanciating the right controller 
- * after having defined it in the previous switch block,
- * and then handling the request,
- * which returns a response, 
- * which is in turn sent
- * 
- */
-( new ReflectionClass( $controllerClass."Controller" ) )->newInstanceArgs( [$request] )->handleRequest()->send();
+if ( isset( $request->getHeaders()["JSON"] ) &&  $request->getHeaders()["JSON"] == true ) { // API routes
+    switch ( $request->getEndpoint() ) {
+        case "/":
+            $controllerClass .= "Home";
+            break;
+        // TODO
+        // case "/sessions":
+        //     sleep( 1 );
+        //     $controllerClass .= "Entities\\Sessions";
+        //     break;
+        // case "/users":
+        //     sleep( 1 );
+        //     $controllerClass .= "Entities\\Users";
+        //     break;
+        default:
+            $controllerClass .= "NotFound";
+            break;
+    } 
+    /**
+     * 
+     * instanciating the right controller 
+     * after having defined it in the previous switch block,
+     * and then handling the request,
+     * which returns a response, 
+     * which is in turn sent
+     * 
+     */
+    ( new ReflectionClass( $controllerClass."Controller" ) )
+        ->newInstanceArgs( [$request] )
+        ->handleRequest()
+        ->send();
+} else { // web routes
+    switch ( $request->getEndpoint() ) {
+        case "/":
+            require_once getcwd()."/views/home.php";
+            break;
+        default:
+            require_once getcwd()."/views/error.php";
+            break;
+    }
+}
+
 
 // we release the output
 echo ob_get_clean();

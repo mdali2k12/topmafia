@@ -6,11 +6,13 @@
 - **global_func** files should be factorized and should not be duplicated anymore
 - ✅ singleton for database connectivity
 - routing logic to implement : 
-    * **/** route leads to original **home/index** page
+    * **/** route leads to original **home/index** view
     * base route redirect should be extracted from globals.php
     * test that no file in any subfolder can be accessed from the client
     * select most suitable hashing algorithm for usage in strings trait
 - implement token-based auth.
+- XSS protection 
+- CSRF protection
 - implement automated testing
 - refactor social auth. with Facebook ?
 - define caching policy
@@ -21,7 +23,7 @@
 ### app' routes
 
 - **/** 
-    * home route, for now we dont care about what it will display
+    * home route
 - **/users** 
     * route that handles **users** entity, a POST request to that route will create a user
 - **/sessions** 
