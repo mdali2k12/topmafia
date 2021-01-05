@@ -79,6 +79,12 @@ if ( isset( $request->getHeaders()["json"] ) &&  $request->getHeaders()["json"] 
         case "/":
             require_once getcwd()."/views/home.php";
             break;
+        case "/game-rules":
+            require_once getcwd()."/views/game_rules.php";
+            break;
+        case "/privacy-policy":
+            require_once getcwd()."/views/privacy_policy.php";
+            break;
         default:
             require_once getcwd()."/views/error.php";
             break;

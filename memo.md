@@ -10,12 +10,14 @@
     * ✅ base route redirect should be extracted from globals.php
     * make sure no file in any subfolder can be accessed from the client
     * select most suitable hashing algorithm for usage in strings trait
-    * getting online/offline users on home page
+    * ✅ getting online/offline users on home page
         - test when users register/login funnel ready
     * container login class in home page ?
     * use main tag in home page for semantic readability and SEO
     * handle db connectivity issues
     * improve loading speed
+    * home link deactivated on home page
+    * optimize images
 - implement token-based auth.
 - implement forgot password
 - implement contact functionality

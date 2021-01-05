@@ -77,7 +77,7 @@
                                 <!-- TODO -->
                                 <!-- <a href="forgot_password.php"> Forgot Password </a>  -->
                                 <a href="/game-rules"> Game Rules</a>
-                                <a href="/privacy-policy"> Privacy Policy</a>
+                                <a href="privacy.html"> Privacy Policy</a>
                                 <!-- TODO -->
                                 <!-- <a href="contact.php"> Contact Us</a> -->
                             </div>
@@ -96,85 +96,60 @@
 
             <!-- SO main -->
             <div id="content">
-                <div class="container-inner">
-                    <div id="page-index" class="page">
-
-                        <!-- error/success feedbacks -->
-                        <div id="err"></div>
-                        <div id="succ"></div>
-                        <br />
-
-                        <!-- SO tabs -->
-                        <div class="tabs">
-
-                            <!-- SO tabs buttons -->
-                            <div class="tabs-buttons">
-                                <button data-tab="login" class="active">Login</button>
-                                <button data-tab="register" class="">Signup</button>
-                                <button data-tab="story" class="">Story</button>
-                            </div>
-                            <!-- EO tabs buttons -->
-
-                            <!-- SO login tab -->
-                            <div class="tabs-content active" data-tab="login">
-                                <br />
-                                <form method="post" autocomplete="off" action="" id="form">
-                                    <label class="font">Username</label>
-                                    <input type="username" id="username" name="username" class="text-general3" value="">
-                                    <br /><br />
-                                    <label class="font">Password</label>
-                                    <input type="password" autocomplete="current-password" id="password" name="password" class="text-general3" value="">
-                                    <center>
-                                    <br />
-                                    <input type="button" name="action" class="primary button" onclick="javascript:validateLogin();"  value="Log in"></center>
-                                </form>
-                                <center><a href="https://topmafia.net/home/fbauthenticate.php"><button class="facebook button">Facebook Login</button></a></center>
-                            </div>
-                            <!-- EO login tab -->
-
-                            <!-- SO register tab -->
-                            <div class="tabs-content" data-tab="register">
-                                <br />
-                                <form method="post" autocomplete="off" action="" name="register" id="register">
-                                    <label class="font">Username</label>
-                                    <input type="text" id="s_username" name="username" class="text-general3" value="">
-                                    <label class="font">Password</label>
-                                    <input type="password" autocomplete="new-password" id="s_password" name="password" class="text-general3" value="">
-                                    <label class="font">Confirm Password</label>
-                                    <input type="password" autocomplete="confirm-password" id="s_cpassword" name="cpassword" class="text-general3" value="">
-                                    <label class="font">Email</label>
-                                    <input type="email" id="s_email" name="email" class="text-general3" value="">
-                                    <label class="font">Gender</label>
-                                    <select name="gender" class="text-general3" id="gender">
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
-                                    </select>
-                                    <label class="font">Referral ID</label>
-                                    <input type="number" id="s_ref" name="ref" class="text-general3" value="0">
-                                    <br /><br />
-                                    <center>
-                                    <input type="button" name="action" class="primary button" onclick="javascript:validateSignup();" value="Sign up">
-                                    </center>
-                                </form>
-                            </div>
-                            <!-- EO register tab -->
-
-                            <!-- SO story tab -->
-                            <div class="tabs-content" data-tab="story">
-                                <div class="desc">
-                                    <p>Join the ultimate battle of becoming the top gangster of your city while experiencing the utmost real life criminal pressure!</p>
-                                    <p>Create fear and earn respect in your neighbourhood, operate the largest drug cartels, recruit the best gangsters for your gang and offer protection to the city. It doesn't stop there! Once your on top you can travel in your own private jet and hire the most powerful security team to keep you protected wherever you are. </p>
-                                    <p>You can choose to relax under the Miami sun or try your luck at the best casinos of Las Vegas. Anything is possible here at Top Mafia.</p>
-                                    <p>There are tons of features & activities to keep you entertained and busy all day!</p>
-                                    <p>Do you think your ready to turn your dream into reality? Join the free massively multiplayer mafia text based role playing game and begin your journey!</p>
-                                </div>
-                            </div>
-                            <!-- EO story tab -->
-
-                        </div>
-                        <!-- EO tabs -->
-
-                    </div>
+                <div style="text-align:left;" class="desc">
+                    <center>
+                    <h2 class="font">GAME RULES</h2>
+                    </center>
+                    <p>Players are only allowed to have one account, owning two or more accounts will result in all accounts being jailed,
+                    if you are on the same IP as another player, mail staff and let them know.
+                    </p>
+                    <br />
+                    <p>If a player finds an error with Top Mafia and exploits that error to their advantage, this will result in their account being deleted.</p>
+                    <br />
+                    <p>You are responsible for whatever happens on your account, don't give out your password to anyone.</p>
+                    <br />
+                    <p>Accounts are personal on not transferable. They are also not to be sold. Doing so will result in the said account being fed jailed</p>
+                    <br />
+                    <p>All game items, crystals and cash are property of the Game devlopers, and are not to be sold via means outside of the game. 
+                    (Example: Selling items or crystals for real cash via paypal will result in your account being removed from the game)
+                    </p>
+                    <br />
+                    <p>Children play this game, so keep it PG-13. Mild swearing will be permitted, but F-bombing, sexual vulgarities
+                    or excessive swearing will result in some time in Fed until you clean up your act.
+                    </p>
+                    <br />
+                    <p>Profile images with nudity, profanity, or otherwise offensive images will be removed, and may result in jail time.</p>
+                    <br />
+                    <p>We understand that you play other games, but do not advertise them here. You get 1 warning, afterwards its Fed time.</p>
+                    <br />
+                    <p>Do not spam the staff's mailbox, if you have a problem, message one of us once. They will deal with your problem in a timely
+                    manner, but do not mail them repeatedly, or mail multiple staff members.
+                    </p>
+                    <br />
+                    <p>Do not harrass other players, use common sense on this one, if you don't know when your crossing the line from fantasy into
+                    harrassment, assume that you are harrassing the other player. This will not be tolerated and will result in a stiff punishment.
+                    </p>
+                    <br />
+                    <p>Scamming will not be tolerated in any manner. Any attempt to scam anyone will result in being jailed for a long long time.</p>
+                    <br />
+                    <p>If a member of staff is bothering you for any unfair or just plain, weird reason, mail Admin</p>
+                    <br />
+                    <p>Common sense rules are not posted here, if you can't determine the difference between what is ok, and what is not, you should
+                    consider not interacting with other people until you do understand.
+                    </p>
+                    <br />
+                    <p>These rules are subject to change without notice, check them from time to time, as ignorance will not be accepted as an excuse.</p>
+                    <br />
+                    <p>Staff reserve the right to fed-jail or remove any accounts that are suspected of exploiting the game from leveling or training at levels that are deemed impossible by normal gameplay methods.</p>
+                    <br />
+                    <p>You are not allowed to use Macros, Auto Clickers, refreshers or any kind of plugin/BOT/script to do anything in the game for you. We monitor this and can easily track it. So if you are caught doing this, you will loose your account.</p>
+                    <br />
+                    <p>Continued and repeat attacks on the same player is not allowed. (*Rule now hard coded into the game and auto inforced)</p>
+                    <br />
+                    <p>Blackmailing or bullying lower level or stat players is not allowed.</p>
+                    <br />
+                    <p>Misleading players to vote against or for players is not allowed. Vote fixing will also be punished and may result it all your votes being removed!</p>
+                    <br />
                 </div>
             </div>
             <!-- EO main -->
@@ -194,8 +169,6 @@
         <input type="hidden" name="app_url" value="<?=$_ENV['APP_URL'];?>" id="app_url">
 
         <!-- page scripts -->
-        <!-- TODO find out what does the first cript below do -->
-        <script src="./views/js/home/home.min.8aa9e3ed.js"></script>
         <script src="./views/js/home/home.js"></script>
         
    </body>
