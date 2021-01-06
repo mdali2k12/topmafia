@@ -3,8 +3,6 @@
 // starting output buffering
 ob_start();
 
-header( "Access-Control-Allow-Origin: *" );
-
 // init. dependencies & environment
 require_once "./vendor/autoload.php";
 use Dotenv\Dotenv;
@@ -80,7 +78,7 @@ if ( isset( $request->getHeaders()["json"] ) &&  $request->getHeaders()["json"] 
             require_once getcwd()."/views/home.php";
             break;
         case "/forgot-password":
-            require_once getcwd()."/views/forgot_password.php";
+            require_once getcwd()."/views/auth/forgot_password.php";
             break;
         case "/game-rules":
             require_once getcwd()."/views/game_rules.php";

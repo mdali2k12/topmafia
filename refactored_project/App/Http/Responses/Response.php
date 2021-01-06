@@ -5,7 +5,8 @@ namespace App\Http\Responses;
 abstract class Response {
 
     private   array  $_additionalHeaders = [];
-    protected string $_contentTypeHeader = "Content-Type: "; // value to be completed on later processing
+    // value to be completed on later processing on sub response object creation (example with JsonResponse)
+    protected string $_contentTypeHeader = "Content-Type: "; 
     private   int    $_httpStatusCode;
 
     // you dont want to cache credentials or access tokens, this is why $toCache should be set to false by default

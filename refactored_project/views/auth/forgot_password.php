@@ -74,10 +74,8 @@
                             <button class="dropbtn"><img src="https://topmafia.net/home/images/extra/hamburger.png"></button>
                             <div class="dropdown-content">
                                 <a href="/">Home</a>
-                                <!-- TODO -->
-                                <!-- <a href="forgot_password.php"> Forgot Password </a>  -->
                                 <a href="/game-rules"> Game Rules</a>
-                                <a href="privacy.html"> Privacy Policy</a>
+                                <a href="/privacy-policy"> Privacy Policy</a>
                                 <!-- TODO -->
                                 <!-- <a href="contact.php"> Contact Us</a> -->
                             </div>
@@ -111,7 +109,7 @@
                         <label class="font">Email Address</label>
                         <input type="email" id="r_username" name="r_username" class="text-general3" value="" required>
                         <center>
-                        <input type="submit" name="action" class="primary button" value="Reset">
+                        <input type="button" class="primary button" onclick="sendForgotPasswordRequest()">
                         </center>
                     </form>
                 </div>            
@@ -134,9 +132,10 @@
 
         <!-- page scripts -->
         <script src="./views/js/common.js"></script>
+        <script src="./views/js/forgot-password/forgot-password.js"></script>
 
         <!-- TODO 
-            * hide #err & #succ div at page load or set its visibility to hidden before that
+            * ✅ hide #err & #succ div at page load or set its visibility to hidden before that
             * refactor form
             * request to check if mail provided in form belongs to an existing user
             * if not #err div shows with message "Email is incorrect or invalid!"

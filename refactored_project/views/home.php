@@ -73,9 +73,8 @@
                         <div class="dropdown">
                             <button class="dropbtn"><img src="https://topmafia.net/home/images/extra/hamburger.png"></button>
                             <div class="dropdown-content">
-                                <a href="/">Home</a>
                                 <!-- TODO -->
-                                <!-- <a href="forgot_password.php"> Forgot Password </a>  -->
+                                <a href="/forgot-password"> Forgot Password </a> 
                                 <a href="/game-rules"> Game Rules</a>
                                 <a href="/privacy-policy"> Privacy Policy</a>
                                 <!-- TODO -->

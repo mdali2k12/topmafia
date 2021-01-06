@@ -91,7 +91,8 @@ $(document).ready(function() {
         return xmlHttp.responseText;
     }
     const appUrl = $(':hidden#app_url').val();
-    getRequestToUsersEndpoint( appUrl + "/users" )
+    // getRequestToUsersEndpoint( appUrl + "/users" ) // if deployment issues
+    getRequestToUsersEndpoint( "/users" )
         .then( res =>{
             const resObject = JSON.parse( res );
             $( "#playersCount" ).html( resObject.playersCount );
