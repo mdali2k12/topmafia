@@ -13,7 +13,7 @@ $dotenv->load();
 use App\Http\Requests\GetRequest;
 // TODO
 // use App\Http\Requests\PatchRequest;
-// use App\Http\Requests\PostRequest;
+use App\Http\Requests\PostRequest;
 // use App\Http\Requests\DeleteRequest;
 
 // loading app' controllers
@@ -45,6 +45,10 @@ if ( isset( $request->getHeaders()["json"] ) &&  $request->getHeaders()["json"] 
     switch ( $request->getEndpoint() ) {
         case "/":
             $controllerClassName .= "Home";
+            break;
+        case "/passwords":
+            sleep( 1 );
+            $controllerClassName .= "Passwords";
             break;
         // TODO
         // case "/sessions":

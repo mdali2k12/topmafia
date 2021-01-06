@@ -7,7 +7,7 @@ use SendGrid\Mail\Mail as Mail;
 
 class Email {
 
-    public function sendEmail( 
+    public static function sendEmail( 
         string $username,
         string $subject,
         string $userEmail, 

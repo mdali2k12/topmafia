@@ -93,7 +93,7 @@ $(document).ready(function() {
     const appUrl = $(':hidden#app_url').val();
     // getRequestToUsersEndpoint( appUrl + "/users" ) // if deployment issues
     getRequestToUsersEndpoint( "/users" )
-        .then( res =>{
+        .then( res => {
             const resObject = JSON.parse( res );
             $( "#playersCount" ).html( resObject.playersCount );
             $( "#onlinePlayersCount" ).html( resObject.onlinePlayersCount );
@@ -103,5 +103,5 @@ $(document).ready(function() {
             console.log( err );
     });
 
-})
+});
 // EO page load behavior

@@ -14,6 +14,7 @@ class UsersController extends ResourcesController {
         parent::__construct( $request );
     }
 
+    // TODO switch request type
     protected function _initReadAllResponse(): void {
         $playersCount       = User::getPlayersCount();
         $onlinePlayersCount = User::getOnlinePlayersCount();

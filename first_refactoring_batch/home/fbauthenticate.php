@@ -109,9 +109,10 @@ $c=$conn->connection_id;
 	$user_email = htmlspecialchars($_SESSION['fb_email']);
 	$user_name = htmlspecialchars($_SESSION['fb_name']);
 	$user_pic = $_SESSION['fb_picture'];
-	
+// EO boilerplate Facebook code
 
-   include "config.php";
+// HERE CUSTOM CODE STARTS
+include "config.php";
 include "global_func.php";
 include "class/class.phpmailer-lite.php";
 global $_CONFIG;

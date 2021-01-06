@@ -7,6 +7,20 @@ class UserDAO extends DAO {
     public function __construct() {
        parent::__construct();
     }
+
+    public function exists( string $identifier ): bool {
+        $sql   = "
+            SELECT COUNT(*) AS rowCount 
+            FROM users 
+            WHERE id = :id 
+            OR email = :email 
+            OR username = :username
+        ";
+        $query = $this->_mdbd->getDBConn()->prepare( $sql );
+        $query->execute( [":id" => $identifier, ":email" => $identifier, ":username" => $identifier] );
+        $rowCount = intval( $query->fetch()["rowCount"] );
+        return $rowCount > 0;
+    }
     
     public function getPlayersCount() : int {
         if ( !is_null( $this->_mdbd->getDBConn() )) {
@@ -32,6 +46,28 @@ class UserDAO extends DAO {
             return $count;
         }
         else return 0;
+    }
+
+    public function getUser( $identifier ) : array {
+        $sql    = "
+            SELECT id, email, username, COUNT(*) AS rowCount 
+            FROM users 
+            WHERE id = :id 
+            OR email = :email 
+            OR username = :username
+        ";
+        $query  = $this->_mdbd->getDBConn()->prepare( $sql );
+        $query->execute( [":id" => $identifier, ":email" => $identifier,  ":username" => $identifier] );
+        $result = $query->fetch(); 
+        if ( !$result )
+            $result = [];
+        return $result;
+    }
+
+    public function updateUserPassword( int $id, string $hash ): bool {
+        $updateSql = "UPDATE users SET password = $hash WHERE id = $id";
+        $query  = $this->_mdbd->getDBConn()->prepare( $updateSql );
+        return ( $query->execute() && $query->rowCount() === 1 );        
     }
 
 }

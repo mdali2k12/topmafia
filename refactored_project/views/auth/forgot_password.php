@@ -29,7 +29,7 @@
 
         <!-- styles -->
         <!-- TODO refactor ? -->
-        <link href="./views/css/home.css" media='screen, projection' rel='stylesheet' type='text/css'>
+        <link href="./views/css/common.css" media='screen, projection' rel='stylesheet' type='text/css'>
 
         <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
@@ -96,20 +96,20 @@
             <div id="content">
                 <div style="text-align:left;">
                     <center><h2 class="font">RESET PASSWORD</h2></center>
-                    <!-- TODO -->
                     <div id="err">
-                        <p>...</p>
+                        <!-- error message is filled dynamically -->
+                        <p id="errMess"></p>
                         <br /><br />
-                        <center> <a href="/forgot-password">Try Again</a> </center>
+                        <center> <a class="passwordReset" href="#">Try Again</a> </center>
                     </div> 
                     <div id="succ">
                         <p>An email was sent to USER_EMAIL with your new password.</p>
                     </div>
                     <form action="forgot_password.php" method="post" name="forgot_password">
                         <label class="font">Email Address</label>
-                        <input type="email" id="r_username" name="r_username" class="text-general3" value="" required>
+                        <input type="email" id="email" name="email" class="text-general3" value="" required>
                         <center>
-                        <input type="button" class="primary button" onclick="sendForgotPasswordRequest()">
+                        <input type="button" class="primary button passwordReset" value="Reset">
                         </center>
                     </form>
                 </div>            
@@ -134,19 +134,6 @@
         <script src="./views/js/common.js"></script>
         <script src="./views/js/forgot-password/forgot-password.js"></script>
 
-        <!-- TODO 
-            * ✅ hide #err & #succ div at page load or set its visibility to hidden before that
-            * refactor form
-            * request to check if mail provided in form belongs to an existing user
-            * if not #err div shows with message "Email is incorrect or invalid!"
-            * if so generate a new password and save it to db for this user
-            * send the email containing the new password
-            * check that email sending process went on without troubles
-            * if it did #err div shows with message 
-                "There was an issue delivering your email. Please try again later."
-            * if it went well sucess div shows with input email
-        -->
-        
    </body>
 
 </html>

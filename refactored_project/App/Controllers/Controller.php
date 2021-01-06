@@ -32,17 +32,25 @@ abstract class Controller {
         }
     }
 
-    protected function _setUnauthorizedResponse(): void {
-        $this->_response = new JsonResponse( 401, ["unauthorized"], false );
+    protected function _setBadRequestResponse(): void {
+        $this->_response = new JsonResponse( 400, ["request method not allowed"], false );
     }
 
     protected function _setMethodNotAllowedResponse(): void {
         $this->_response = new JsonResponse( 405, ["request method not allowed"], false );
     }
 
+    protected function _setUnauthorizedResponse(): void {
+        $this->_response = new JsonResponse( 401, ["unauthorized"], false );
+    }
+
+    protected function _setServerErrorResponse( string $message ): void {
+        $this->_response = new JsonResponse( 500, [$message], false );
+    }
+
     public function handleRequest() : Response {
         $response = null;
-        !isset( $this->_response ) ? $response =  new JsonResponse( 400, ["bad request"], false ) : $response = $this->_response;
+        !isset( $this->_response ) ? $response =  $this->_setBadRequestResponse() : $response = $this->_response;
         return $response;
     }
 
