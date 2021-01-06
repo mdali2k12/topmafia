@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '06f3c4193ad3ef0fb747aad413901e5d8d38a5ee',
+    'reference' => '9b66f0c32248418f5f11b51e7241cd004f0762f2',
     'name' => 'mdali2k12/topmafia',
   ),
   'versions' => 
@@ -27,16 +27,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '06f3c4193ad3ef0fb747aad413901e5d8d38a5ee',
-    ),
-    'phpmailer/phpmailer' => 
-    array (
-      'pretty_version' => 'v6.2.0',
-      'version' => '6.2.0.0',
-      'aliases' => 
-      array (
-      ),
-      'reference' => 'e38888a75c070304ca5514197d4847a59a5c853f',
+      'reference' => '9b66f0c32248418f5f11b51e7241cd004f0762f2',
     ),
     'phpoption/phpoption' => 
     array (
@@ -46,6 +37,40 @@
       array (
       ),
       'reference' => '994ecccd8f3283ecf5ac33254543eb0ac946d525',
+    ),
+    'sendgrid/php-http-client' => 
+    array (
+      'pretty_version' => '3.13.0',
+      'version' => '3.13.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '35862113b879274c7014e09681ac279a186665f1',
+    ),
+    'sendgrid/sendgrid' => 
+    array (
+      'pretty_version' => '7.9.1',
+      'version' => '7.9.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'c3b76df9d2374b469474ab209fbd4e4ef1a16986',
+    ),
+    'sendgrid/sendgrid-php' => 
+    array (
+      'replaced' => 
+      array (
+        0 => '*',
+      ),
+    ),
+    'starkbank/ecdsa' => 
+    array (
+      'pretty_version' => '0.0.4',
+      'version' => '0.0.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '9369d35ed9019321adb4eb9fd3be21357d527c74',
     ),
     'symfony/polyfill-ctype' => 
     array (

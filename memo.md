@@ -20,6 +20,7 @@
     * optimize images
     * error view to make
     * user can modify his password
+    * send SMS's with sendgrid
 - implement token-based auth.
 - implement forgot password
 - implement contact functionality
@@ -42,6 +43,7 @@
 - Google Analytics refactoring ?
 - WCAG compliance
 - GPDR compliance
+- fancy email templates
 
 ### app' routes
 
