@@ -21,6 +21,7 @@
     * error view to make
     * user can modify his password
     * send SMS's with sendgrid
+    * log SendGrid send email error to file & log $response->statusCode(), $response->headers() & $response->body() to file
 - implement token-based auth.
 - implement forgot password
 - implement contact functionality

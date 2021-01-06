@@ -2,51 +2,34 @@
 
 namespace App\Notifications;
 
-use App\Helpers\StringsTrait;
-use PHPMailer\PHPMailer\PHPMailer;
-use PHPMailer\PHPMailer\SMTP;
-use PHPMailer\PHPMailer\Exception as PHPMailerException;
+use SendGrid;
+use SendGrid\Mail\Mail as Mail;
 
 class Email {
 
-    use StringsTrait;
-
-    public PHPMailer $mailer;
-
-    public function __construct() {
-        $this->mailer = new PHPMailer( true );
-    }
-
-    // TODO test & get template from outside the function to make it more modular ?
-    public function sendEmail( $to, $username, $password ) : bool
-    {
+    public function sendEmail( 
+        string $username,
+        string $subject,
+        string $userEmail, 
+        string $mailContent
+    ): bool {
+        $email = new Mail(); 
+        $email->setFrom( $_ENV["SENDGRID_SENDER_IDENTITY"], $username );
+        $email->setSubject( $subject );
+        $email->addTo( $userEmail, $username );
+        $email->addContent(
+            "text/html", $mailContent
+        );
+        $sendgrid = new SendGrid( $_ENV["SENDGRD_API_KEY"] );
         try {
-            $body = "
-                <html>
-                    <body>
-                        <h2>We've reset your password!</h2>
-                        <p>Your username is <strong>".$this->sanitizeStringInput( $username )."</strong></p>
-                        <p>Your new password is <strong>".$this->sanitizeStringInput( $password )."</strong>.</p>
-                    </body>
-                </html>
-            ";
-
-            // TODO these email fields should be dynamic
-            $this->mailer->AddReplyTo( "webmail@topmafia.net", "Top Mafia" );
-            $this->mailer->SetFrom( "webmail@topmafia.net", "Top Mafia" );
-            $this->mailer->Subject  = "Your new password for Top Mafia!";
-
-            $this->mailer->AddAddress( $to );
-            $this->mailer->AltBody  = "To view the message, please use an HTML compatible email viewer!"; // optional, comment out and test
-            $this->mailer->WordWrap = 80; // set word wrap
-            $this->mailer->MsgHTML( $body );
-            $this->mailer->IsHTML(true); // send as HTML
-            $this->mailer->Send();
+            $response = $sendgrid->send($email);
+            // TODO log $response->statusCode(), $response->headers() & $response->body() to file
             return true;
+        } catch ( \Exception $e ) {
+            // TODO log sending email error to file
+            echo 'Caught exception: '. $e->getMessage() ."\n";
+            return false;
         }
-        catch ( PHPMailerException $phpme ) {
-            // TODO log to file
-        }
-    } // EO sendEmail( function
+    }
 
 }

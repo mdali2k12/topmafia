@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '9b66f0c32248418f5f11b51e7241cd004f0762f2',
+    'reference' => '161eac606bd12c5ae867104cf845f04e4bd0fca0',
     'name' => 'mdali2k12/topmafia',
   ),
   'versions' => 
@@ -27,7 +27,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '9b66f0c32248418f5f11b51e7241cd004f0762f2',
+      'reference' => '161eac606bd12c5ae867104cf845f04e4bd0fca0',
     ),
     'phpoption/phpoption' => 
     array (
