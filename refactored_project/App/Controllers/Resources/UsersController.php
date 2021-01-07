@@ -14,7 +14,10 @@ class UsersController extends ResourcesController {
         parent::__construct( $request );
     }
 
-    // TODO switch request type
+    protected function _initCreateOneResponse(): void {
+        // TODO
+    }
+
     protected function _initReadAllResponse(): void {
         $playersCount       = User::getPlayersCount();
         $onlinePlayersCount = User::getOnlinePlayersCount();
@@ -30,7 +33,7 @@ class UsersController extends ResourcesController {
     }
 
     protected function _initReadOneResponse(): void {
-        // TODO
+        $this->_setUnauthorizedResponse();
     }
 
 }

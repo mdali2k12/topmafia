@@ -119,10 +119,10 @@
                                 <br />
                                 <form method="post" autocomplete="off" action="" id="form">
                                     <label class="font">Username</label>
-                                    <input type="username" id="username" name="username" class="text-general3" value="">
+                                    <input type="login-username" id="login-username" name="login-username" class="text-general3">
                                     <br /><br />
                                     <label class="font">Password</label>
-                                    <input type="password" autocomplete="current-password" id="password" name="password" class="text-general3" value="">
+                                    <input type="password" id="login-password" name="login-password" class="text-general3">
                                     <center>
                                     <br />
                                     <input type="button" name="action" class="primary button" onclick="javascript:validateLogin();"  value="Log in"></center>
@@ -134,25 +134,34 @@
                             <!-- SO register tab -->
                             <div class="tabs-content" data-tab="register">
                                 <br />
-                                <form method="post" autocomplete="off" action="" name="register" id="register">
-                                    <label class="font">Username</label>
-                                    <input type="text" id="s_username" name="username" class="text-general3" value="">
-                                    <label class="font">Password</label>
-                                    <input type="password" autocomplete="new-password" id="s_password" name="password" class="text-general3" value="">
-                                    <label class="font">Confirm Password</label>
-                                    <input type="password" autocomplete="confirm-password" id="s_cpassword" name="cpassword" class="text-general3" value="">
-                                    <label class="font">Email</label>
-                                    <input type="email" id="s_email" name="email" class="text-general3" value="">
-                                    <label class="font">Gender</label>
+                                <form autocomplete="off" name="register" id="register">
+                                    <label class="font" for="username">Username</label>
+                                    <input type="text" id="username" name="username" class="text-general3" required>
+                                    <label class="font" for="password">Password</label>
+                                    <input type="password" id="password" name="password" class="text-general3" required>
+                                    <label class="font" for="confirm-password">Confirm Password</label>
+                                    <input type="password" id="confirm-password" name="confirm-password" class="text-general3" required>
+                                    <label class="font" for="email">Email</label>
+                                    <input type="email" id="email" name="email" class="text-general3" required>
+                                    <label class="font" for="gender">Gender</label>
                                     <select name="gender" class="text-general3" id="gender">
-                                    <option value="Male">Male</option>
-                                    <option value="Female">Female</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
                                     </select>
-                                    <label class="font">Referral ID</label>
-                                    <input type="number" id="s_ref" name="ref" class="text-general3" value="0">
+
+                                    <!-- TODO's for later batch -->
+                                    <!-- TODO check that sponsor id exists in database -->
+                                    <!-- 
+                                        TODO :limit abusive referral of sponsor setting up fake accounts using his own ID 
+                                        * we could parse user agent
+                                        * we could use local storage || cookie || session
+                                    -->
+                                    <!-- <label class="font" for="sponsor-id">Referral ID</label>
+                                    <input type="number" id="sponsor-id" name="sponsor-id" class="text-general3"> -->
+
                                     <br /><br />
                                     <center>
-                                    <input type="button" name="action" class="primary button" onclick="javascript:validateSignup();" value="Sign up">
+                                    <input type="button" class="primary button" onclick="validateSignup();" value="Sign up">
                                     </center>
                                 </form>
                             </div>
@@ -196,6 +205,7 @@
         <!-- TODO find out what does the first cript below do -->
         <script src="./views/js/home/home.min.8aa9e3ed.js"></script>
         <script src="./views/js/common.js"></script>
+        <script src="./views/js/home/home.js"></script>
         
    </body>
 

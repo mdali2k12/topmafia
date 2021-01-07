@@ -32,6 +32,8 @@ class PasswordsController extends Controller {
                                 </body>
                             </html>
                         ";
+                        // nullifying unencrypted password since we're not using it again
+                        $user->nullifyUnhashedPassword();
                         Email::sendEmail(
                             $user->username,
                             "Your new password for Top Mafia!",

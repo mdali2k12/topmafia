@@ -2,7 +2,7 @@
 
 $ (document ).ready(function() {
 
-    const appUrl = $(':hidden#app_url').val();
+    // const appUrl = $(':hidden#app_url').val();
 
     $( ".passwordReset" ).click( e => {
         e.preventDefault();

@@ -12,6 +12,7 @@ abstract class ResourcesController extends Controller {
         parent::__construct( $request );
     }
 
+    abstract protected function _initCreateOneResponse(): void;
     abstract protected function _initReadAllResponse(): void;
     abstract protected function _initReadOneResponse(): void;
 
@@ -20,6 +21,10 @@ abstract class ResourcesController extends Controller {
             case "GET":
                 !$this->_request->hasIdentifier() ? $this->_initReadAllResponse() : 
                     $this->_initReadOneResponse();
+                break;
+            case "POST":
+                !$this->_request->hasIdentifier() ? $this->_initCreateOneResponse() : 
+                    $this->_setBadRequestResponse();
                 break;
             default:
                 $this->_setMethodNotAllowedResponse();
