@@ -6,11 +6,20 @@
     'aliases' => 
     array (
     ),
-    'reference' => '161eac606bd12c5ae867104cf845f04e4bd0fca0',
+    'reference' => '4b343faa94d9b25b74552cc815a325a9ebe6174e',
     'name' => 'mdali2k12/topmafia',
   ),
   'versions' => 
   array (
+    'google/recaptcha' => 
+    array (
+      'pretty_version' => '1.2.4',
+      'version' => '1.2.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '614f25a9038be4f3f2da7cbfd778dc5b357d2419',
+    ),
     'graham-campbell/result-type' => 
     array (
       'pretty_version' => 'v1.0.1',
@@ -27,7 +36,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '161eac606bd12c5ae867104cf845f04e4bd0fca0',
+      'reference' => '4b343faa94d9b25b74552cc815a325a9ebe6174e',
     ),
     'phpoption/phpoption' => 
     array (

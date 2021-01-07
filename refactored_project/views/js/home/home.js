@@ -29,7 +29,7 @@ const validateLogin = function() {
 };
 
 // TODO signup
-const validateSignup = async () => {
+const signUp = async () => {
 
     const username        = $('#username').val();
     const password        = $('#password').val();
@@ -37,32 +37,42 @@ const validateSignup = async () => {
     const email           = $('#email').val();
 
     // check that all fields are filled
-    // TODO recaptcha is verified
     if (username == "" || password == "" || cpassword == "" || email == "" || ref == "") {
         $('#succ').hide();
         $('#err').html("Please fill all the fields correctly!");
         $('#err').show();
     } else {
 
-        // const appUrl = $(':hidden#app_url').val();
+        // TODO triggering grecaptcha
+        grecaptcha.ready(function() {
+            grecaptcha.execute( 
+                $(':hidden#grecaptcha_site_key').val(), 
+                {action: 'signUp'}
+            ).then( function( token ) {
+                    console.log( token );
+                    // TODO Add your logic to submit to your backend server here.
+                });
+            });
+        }
+    
 
         // TODO send register payload
-        fetch( "/users", { // or appUrl + "/passwords"
-            method: "POST",
-            body: JSON.stringify({
-                email:$( "#email" ).val()
-            }),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8",
-                "json"        : "true"
-            }
-        })
-        .then(response => response.json()) 
-        .then(json => {
-            console.log( json ); // TODO
-        })
-        .catch(err => console.log(err)
-    );
+        // fetch( "/users", { // or appUrl + "/passwords"
+        //     method: "POST",
+        //     body: JSON.stringify({
+        //         email:$( "#email" ).val()
+        //     }),
+        //     headers: {
+        //         "Content-type": "application/json; charset=UTF-8",
+        //         "json"        : "true"
+        //     }
+        //     })
+        //     .then(response => response.json()) 
+        //     .then(json => {
+        //         console.log( json ); // TODO
+        //     })
+        //     .catch(err => console.log(err)
+        // );
 
         // TODO show and hide error/success divs depending on the outcome of the registration
         // TODO case success => 

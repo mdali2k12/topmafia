@@ -8,6 +8,7 @@
     },
     "require": {
         "vlucas/phpdotenv": "^5.2",
-        "sendgrid/sendgrid": "^7.9"
+        "sendgrid/sendgrid": "^7.9",
+        "google/recaptcha": "^1.2"
     }
 }

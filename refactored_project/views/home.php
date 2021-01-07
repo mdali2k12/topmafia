@@ -51,6 +51,9 @@
             gtag('config', '<?= $_ENV["GTAG2"]; ?>');
         </script>
 
+        <!-- GRecaptcha -->
+        <script src="https://www.google.com/recaptcha/api.js?render=<?=$_ENV["GRECAPTCHA_SITE_KEY"];?>"></script>
+
     </head>
 
     <body>
@@ -161,7 +164,7 @@
 
                                     <br /><br />
                                     <center>
-                                    <input type="button" class="primary button" onclick="validateSignup();" value="Sign up">
+                                    <input type="button" class="primary button" onclick="signUp();" value="Sign up">
                                     </center>
                                 </form>
                             </div>
@@ -199,7 +202,8 @@
         <!-- EO template -->
 
         <!-- dynamic app' URL -->
-        <input type="hidden" name="app_url" value="<?=$_ENV['APP_URL'];?>" id="app_url">
+        <input type="hidden" value="<?=$_ENV['APP_URL'];?>" id="app_url">
+        <input type="hidden" value="<?=$_ENV["GRECAPTCHA_SITE_KEY"];?>" id="grecaptcha_site_key">
 
         <!-- page scripts -->
         <!-- TODO find out what does the first cript below do -->
