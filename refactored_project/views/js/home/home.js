@@ -1,5 +1,6 @@
-//  login
-const validateLogin = function() {
+
+//  SO login function
+const login = function() {
     var formData = new FormData(form);
     if ($('#username').val() == "" || $('#password').val() == "") {
         $('#err').html("You did not enter anything!");
@@ -27,62 +28,62 @@ const validateLogin = function() {
         });
     }
 };
+// EO login function
 
-// TODO signup
+// SO signUp function
 const signUp = async () => {
-
-    const username        = $('#username').val();
-    const password        = $('#password').val();
     const confirmPassword = $('#confirm-password').val();
+    const password        = $('#password').val();
     const email           = $('#email').val();
-
-    // check that all fields are filled
-    // TODO verify equality between passwords
-    if (username == "" || password == "" || confirm-password == "" || email == "") {
+    const gender          = $( "#gender" ).val();
+    const username        = $('#username').val();
+    let validated = true;
+    [username, password, confirmPassword, email].forEach( item => {
+        validated = valueIsNotEmpty( item );
+    });
+    if ( !validated || confirmPassword !== password ) {
         $('#succ').hide();
         $('#err').html("Please fill all the fields correctly!");
         $('#err').show();
     } else {
-
-        // TODO triggering grecaptcha
-        grecaptcha.ready(function() {
+        grecaptcha.ready( () => {
             grecaptcha.execute( 
                 $(':hidden#grecaptcha_site_key').val(), 
                 {action: 'signUp'}
-            ).then( function( token ) {
-                    console.log( token );
-                    // TODO Add your logic to submit to your backend server here, dont forget to send the token
+            ).then( ( token ) => {
+                // send register payload after generating Google Recaptcha token
+                fetch( "/users", { // or appUrl + "/passwords", depending on your deployment env.
+                    method: "POST",
+                    body: JSON.stringify({
+                        confirmPassword: confirmPassword,
+                        email          : email,
+                        gender         : gender,
+                        password       : password,
+                        recaptchaToken : token,
+                        username       : username
+                    }),
+                    headers: {
+                        "Content-type": "application/json; charset=UTF-8",
+                        "json"        : "true"
+                    }
+                })
+                // TODO show and hide error/success divs depending on the outcome of the registration
+                // TODO case success => 
+                    // $(".tabs-buttons [data-tab=register]").removeClass("active");
+                    // $(".tabs-buttons [data-tab=login]").addClass("active");
+                    // $(".tabs-content [data-tab=register]").removeClass("active");
+                    // $(".tabs-content [data-tab=login]").addClass("active");
+                // TODO hide recaptcha on success
+                // TODO display validation errors to the user
+                // TODO log the user in
+                // TODO send verification email with one-time link
+                .then( response => response.json() ) 
+                .then(json => {
+                    console.log( json ); // TODO
+                })
+                .catch( err => console.log(err) );
             });
         });
     }
-
-    // TODO send register payload
-    // fetch( "/users", { // or appUrl + "/passwords"
-    //     method: "POST",
-    //     body: JSON.stringify({
-    //         email:$( "#email" ).val()
-    //     }),
-    //     headers: {
-    //         "Content-type": "application/json; charset=UTF-8",
-    //         "json"        : "true"
-    //     }
-    //     })
-    //     .then(response => response.json()) 
-    //     .then(json => {
-    //         console.log( json ); // TODO
-    //     })
-    //     .catch(err => console.log(err)
-    // );
-
-    // TODO show and hide error/success divs depending on the outcome of the registration
-    // TODO case success => 
-        // $(".tabs-buttons [data-tab=register]").removeClass("active");
-        // $(".tabs-buttons [data-tab=login]").addClass("active");
-        // $(".tabs-content [data-tab=register]").removeClass("active");
-        // $(".tabs-content [data-tab=login]").addClass("active");
-    // TODO hide recaptcha on success
-    // TODO display validation errors to the user
-    // TODO log the user in
-    // TODO send verification email with one-time link
-
 };
+// EO signUp function

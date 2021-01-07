@@ -12,7 +12,7 @@ trait RecaptchaValidator {
             $recaptcha
                 ->setChallengeTimeout( 120 )
                 ->setExpectedHostname( $_ENV['CLIENT_HOST_NAME'] )
-                ->setScoreThreshold(0.5)
+                ->setScoreThreshold(0.6)
                 ->verify( $token );
         if( !$recaptchaResponse->isSuccess() ) {
             $errors = json_encode( $recaptchaResponse->getErrorCodes() );

@@ -128,7 +128,7 @@
                                     <input type="password" id="login-password" name="login-password" class="text-general3">
                                     <center>
                                     <br />
-                                    <input type="button" name="action" class="primary button" onclick="javascript:validateLogin();"  value="Log in"></center>
+                                    <input type="button" name="action" class="primary button" onclick="login();"  value="Log in"></center>
                                 </form>
                                 <center><a href="https://topmafia.net/home/fbauthenticate.php"><button class="facebook button">Facebook Login</button></a></center>
                             </div>
@@ -147,7 +147,7 @@
                                     <label class="font" for="email">Email</label>
                                     <input type="email" id="email" name="email" class="text-general3" required>
                                     <label class="font" for="gender">Gender</label>
-                                    <select name="gender" class="text-general3" id="gender">
+                                    <select name="gender" id="gender" class="text-general3" id="gender">
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                     </select>

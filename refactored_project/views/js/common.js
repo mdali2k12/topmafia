@@ -1,4 +1,8 @@
 
+const valueIsNotEmpty = ( value ) => {
+    return value != "";
+}
+
 // SO page load behavior
 $(document).ready(function() {
 
