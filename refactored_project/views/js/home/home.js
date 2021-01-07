@@ -37,7 +37,8 @@ const signUp = async () => {
     const email           = $('#email').val();
 
     // check that all fields are filled
-    if (username == "" || password == "" || cpassword == "" || email == "" || ref == "") {
+    // TODO verify equality between passwords
+    if (username == "" || password == "" || confirm-password == "" || email == "") {
         $('#succ').hide();
         $('#err').html("Please fill all the fields correctly!");
         $('#err').show();
@@ -50,38 +51,38 @@ const signUp = async () => {
                 {action: 'signUp'}
             ).then( function( token ) {
                     console.log( token );
-                    // TODO Add your logic to submit to your backend server here.
-                });
+                    // TODO Add your logic to submit to your backend server here, dont forget to send the token
             });
-        }
-    
-
-        // TODO send register payload
-        // fetch( "/users", { // or appUrl + "/passwords"
-        //     method: "POST",
-        //     body: JSON.stringify({
-        //         email:$( "#email" ).val()
-        //     }),
-        //     headers: {
-        //         "Content-type": "application/json; charset=UTF-8",
-        //         "json"        : "true"
-        //     }
-        //     })
-        //     .then(response => response.json()) 
-        //     .then(json => {
-        //         console.log( json ); // TODO
-        //     })
-        //     .catch(err => console.log(err)
-        // );
-
-        // TODO show and hide error/success divs depending on the outcome of the registration
-        // TODO case success => 
-            // $(".tabs-buttons [data-tab=register]").removeClass("active");
-            // $(".tabs-buttons [data-tab=login]").addClass("active");
-            // $(".tabs-content [data-tab=register]").removeClass("active");
-            // $(".tabs-content [data-tab=login]").addClass("active");
-        // TODO display validation errors to the user
-        // TODO log the user in
-        // TODO send verification email with one-time link
+        });
     }
+
+    // TODO send register payload
+    // fetch( "/users", { // or appUrl + "/passwords"
+    //     method: "POST",
+    //     body: JSON.stringify({
+    //         email:$( "#email" ).val()
+    //     }),
+    //     headers: {
+    //         "Content-type": "application/json; charset=UTF-8",
+    //         "json"        : "true"
+    //     }
+    //     })
+    //     .then(response => response.json()) 
+    //     .then(json => {
+    //         console.log( json ); // TODO
+    //     })
+    //     .catch(err => console.log(err)
+    // );
+
+    // TODO show and hide error/success divs depending on the outcome of the registration
+    // TODO case success => 
+        // $(".tabs-buttons [data-tab=register]").removeClass("active");
+        // $(".tabs-buttons [data-tab=login]").addClass("active");
+        // $(".tabs-content [data-tab=register]").removeClass("active");
+        // $(".tabs-content [data-tab=login]").addClass("active");
+    // TODO hide recaptcha on success
+    // TODO display validation errors to the user
+    // TODO log the user in
+    // TODO send verification email with one-time link
+
 };
