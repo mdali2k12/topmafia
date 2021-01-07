@@ -13,18 +13,6 @@ trait StringsTrait {
         return base64_encode( bin2hex( \openssl_random_pseudo_bytes( 24 ) ).time() );
     }
 
-    protected function checkMatch( string $val1, string $val2 ) : bool {
-        return $val1 !== $val2;
-    }
-
-    protected function compareHashes(
-        string $source, 
-        string $target, 
-        string $algo
-    ) : bool {
-        return $source === hash( $algo, $target );
-    }
-
     public function formatHumanNames( string $input ): string {
         $output = strtolower( $input );
         $output = ucfirst( $output );

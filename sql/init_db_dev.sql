@@ -17,6 +17,7 @@ CREATE TABLE `users` (
   `password`      TINYTEXT     CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `isAdmin`       TINYINT(1)   NOT NULL DEFAULT 0,
   `isPlayer`      TINYINT(1)   NOT NULL DEFAULT 1,
+  `gender`        ENUM( 'Male', 'Female' ),
   `createdAt`     datetime              NOT NULL DEFAULT current_timestamp(),
   `updatedAt`     datetime              NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
@@ -42,3 +43,20 @@ ALTER TABLE `sessions`
   ADD KEY `userId` (`userId`);
 ALTER TABLE `sessions`
   ADD CONSTRAINT `sessions_user_fk` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+
+CREATE TABLE `bannedips`(
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  -- encoded for insert with INET_ATON, decoded for read with INET_NTOA
+  `ip`                  INT     UNSIGNED NOT NULL, 
+  `createdAt`           DATETIME NOT NULL DEFAULT current_timestamp(),
+  `updatedAt`           DATETIME NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE `bannedemails`(
+  `id`            int(11)      UNSIGNED  NOT NULL AUTO_INCREMENT,
+  `email`         varchar(317) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, 
+  `createdAt`     DATETIME     NOT NULL  DEFAULT current_timestamp(),
+  `updatedAt`     DATETIME     NOT NULL  DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;

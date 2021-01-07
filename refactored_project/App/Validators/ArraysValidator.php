@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Helpers;
+namespace App\Validators;
 
 use App\Helpers\StringsTrait;
 
-trait ArraysTrait {
+trait ArraysValidator {
 
     use StringsTrait;
 

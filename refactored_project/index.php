@@ -19,6 +19,7 @@ use App\Http\Requests\PostRequest;
 // loading app' controllers
 use App\Controllers\HomeController; 
 use App\Controllers\NotFoundController;
+use App\Controllers\Resources\BannedIPsController;
 // TODO
 // use App\Controllers\Entities\SessionsController;
 use App\Controllers\Resources\UsersController;
@@ -32,6 +33,12 @@ $requestRef   = new ReflectionClass( $requestClass );
 $request      = $requestRef->newInstance();
 
 $controllerClassName = "App\Controllers\\"; // will be concatenated with the right controller after processing
+
+// we check if we're dealing with a banned IP address
+$bipc = new BannedIPsController();
+if ( $bipc->ipIsBanned( $_SERVER["REMOTE_ADDR"] ) || $bipc->ipIsBanned( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+    $bipc->setBannedIpResponseAndExit();
+}
 
 /**
  * 

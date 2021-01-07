@@ -55,12 +55,14 @@ const signUp = async () => {
                 fetch( "/users", { // or appUrl + "/passwords", depending on your deployment env.
                     method: "POST",
                     body: JSON.stringify({
-                        confirmPassword: confirmPassword,
-                        email          : email,
-                        gender         : gender,
-                        password       : password,
-                        recaptchaToken : token,
-                        username       : username
+                        userPayload: {
+                            confirmPassword: confirmPassword,
+                            email          : email,
+                            gender         : gender,
+                            password       : password,
+                            recaptchaToken : token,
+                            username       : username
+                        }
                     }),
                     headers: {
                         "Content-type": "application/json; charset=UTF-8",

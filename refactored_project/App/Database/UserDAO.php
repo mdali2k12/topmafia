@@ -8,6 +8,18 @@ class UserDAO extends DAO {
        parent::__construct();
     }
 
+    public function emailIsBanned( string $email ): bool {
+        $sql   = "
+            SELECT COUNT(*) AS rowCount 
+            FROM bannedemails 
+            WHERE email = :email 
+        ";
+        $query = $this->_mdbd->getDBConn()->prepare( $sql );
+        $query->execute( [":email" => $email] );
+        $rowCount = intval( $query->fetch()["rowCount"] );
+        return $rowCount > 0;
+    }
+
     public function exists( string $identifier ): bool {
         $sql   = "
             SELECT COUNT(*) AS rowCount 

@@ -40,13 +40,18 @@ abstract class Controller {
         $this->_response = new JsonResponse( 405, ["request method not allowed"], false );
     }
 
+    protected function _setServerErrorResponse( string $message ): void {
+        $this->_response = new JsonResponse( 500, [$message], false );
+    }
+
     protected function _setUnauthorizedResponse(): void {
         $this->_response = new JsonResponse( 401, ["unauthorized"], false );
     }
 
-    protected function _setServerErrorResponse( string $message ): void {
-        $this->_response = new JsonResponse( 500, [$message], false );
+    protected function _setUnprocessableEntityResponse( string $message ): void {
+        $this->_response = new JsonResponse( 422, [$message], false );
     }
+
 
     public function handleRequest() : Response {
         $response = null;

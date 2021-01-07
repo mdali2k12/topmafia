@@ -4,10 +4,12 @@ namespace App\Models;
 
 use App\Database\UserDAO;
 use App\Helpers\StringsTrait;
+use App\Validators\StringsValidator;
 
 class User {
 
     use StringsTrait;
+    use StringsValidator;
 
     private int    $_id = 0; // id 0 means user model has not been hydrated
     private string $_email;
@@ -61,5 +63,39 @@ class User {
     public function nullifyUnhashedPassword() : void {
         $this->_unhashedPassword = " ";
     }
+
+    // SO business logic input validation
+    public function validateUserEmail( string $emailInput ): bool {
+        $userDao = new UserDAO();
+        $emailInput = $this->sanitizeStringInput( $emailInput );
+        if ( 
+            $this->validateEmail( $emailInput ) 
+            && !$this->exists( $emailInput ) 
+            && !$userDao->emailIsBanned( $emailInput )
+        )
+            return true;
+        return false;
+    }
+    public function validateGender( string $genderInput ): bool {
+        return in_array( $genderInput, ["Male", "Female"] );
+    }
+    public function validatePassword( string $passwordInput ) {
+        $passwordInput = $this->sanitizeStringInput( $passwordInput );
+        if ( 
+            $this->validateStringInputLength( $passwordInput, 8, 254 ) 
+            && $this->validateAlphaNumeric( $passwordInput )
+        ) return true;
+        else return false;
+    }
+    public function validateUsername( string $usernameInput ) : bool {
+        if ( 
+            $this->validateAlphaNumeric( $usernameInput ) 
+            && $this->validateStringInputLength( $usernameInput, 6, 15 ) 
+            && !$this->exists( $usernameInput )
+        )
+            return true;
+        return false;
+    }
+    // EO business logic specific validation
 
 }
