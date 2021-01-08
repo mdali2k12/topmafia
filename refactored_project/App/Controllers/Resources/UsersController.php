@@ -28,6 +28,7 @@ class UsersController extends ResourcesController {
     }
 
     protected function _initCreateOneResponse(): void {
+        $failed                 = true;
         $payload                = isset( $_POST["userPayload"] )? json_decode( $_POST["userPayload"], true ) : [];
         $payloadMandatoryFields = ["username", "password", "confirmPassword", "email", "gender", "recaptchaToken"]; 
         $user = new User( null );
@@ -45,9 +46,13 @@ class UsersController extends ResourcesController {
             && $user->validateUsername( $payload["userPayload"]["username"] )
             && $user->validateGender( $payload["userPayload"]["gender"] )
         ) {
-            // TODO
-            // $user->register( $payload["userPayload"] ) ?
-        } else $this->_response = new JsonResponse( 200, ["user registration failed"], false );
+            if ( $user->signUp( $payload["userPayload"] ) ) {
+                $failed = false;
+                // TODO send back user object
+                $this->_response = new JsonResponse( 200, ["You have signed up successfully!"], true );
+            }
+        } 
+        if ( $failed != false ) $this->_response = new JsonResponse( 200, ["user registration failed"], false );
     } // EO _initCreateOneResponse() method
 
     protected function _initReadAllResponse(): void {

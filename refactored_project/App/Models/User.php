@@ -64,6 +64,18 @@ class User {
         $this->_unhashedPassword = " ";
     }
 
+    public function signUp( array $userPayload ) : bool {
+        // TODO check db connectivity
+        // $data["firstName"] = $this->_firstName = isset( $data["firstName"] ) ? $this->formatHumanNames( $data["firstName"] ) : "";
+        // $data["lastName"]  = $this->_lastName  = isset( $data["lastName"] )  ? $this->formatHumanNames( $data["lastName"] )  : "";
+        // $data["password"]  = $this->appHash( $data["password"] );
+        // $userId            = $this->_persistOne( $data );
+        // if ( $userId != 0 )
+        //     $this->inflate( $userId );
+        // return $userId != 0;
+        return false;
+    }
+
     // SO business logic input validation
     public function validateUserEmail( string $emailInput ): bool {
         $userDao = new UserDAO();
