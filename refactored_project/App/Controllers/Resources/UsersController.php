@@ -29,27 +29,26 @@ class UsersController extends ResourcesController {
 
     protected function _initCreateOneResponse(): void {
         $failed                 = true;
-        $payload                = isset( $_POST["userPayload"] )? json_decode( $_POST["userPayload"], true ) : [];
+        $payload                = count( $this->_request->getBody() ) > 0 ? $this->_request->getBody() : [];
         $payloadMandatoryFields = ["username", "password", "confirmPassword", "email", "gender", "recaptchaToken"]; 
         $user = new User( null );
         // validation rounds conditioning the registration of the user
         if ( 
             count( $payload ) > 0
-            && $this->_matchKeyValuePairs( $payloadMandatoryFields, $payload["userPayload"] ) 
-            && $this->verifyRecaptchaResponse( $payload["userPayload"]["recaptchaToken"] ) 
+            && $this->_matchKeyValuePairs( $payloadMandatoryFields ) 
+            && $this->verifyRecaptchaResponse( $payload["recaptchaToken"] ) 
             && $this->validateMatch( 
-                $this->sanitizeStringInput( $payload["userPayload"]["password"] ), 
-                $this->sanitizeStringInput( $payload["userPayload"]["confirmPassword"] )
+                $this->sanitizeStringInput( $payload["password"] ), 
+                $this->sanitizeStringInput( $payload["confirmPassword"] )
             )
-            && $user->validatePassword( $payload["userPayload"]["password"] )
-            && $user->validateUserEmail( $payload["userPayload"]["email"] ) 
-            && $user->validateUsername( $payload["userPayload"]["username"] )
-            && $user->validateGender( $payload["userPayload"]["gender"] )
+            && $user->validatePassword( $payload["password"] )
+            && $user->validateUserEmail( $payload["email"] ) 
+            && $user->validateUsername( $payload["username"] )
+            && $user->validateGender( $payload["gender"] )
         ) {
-            if ( $user->signUp( $payload["userPayload"] ) ) {
+            if ( $user->signUp( $payload ) ) {
                 $failed = false;
-                // TODO send back user object
-                $this->_response = new JsonResponse( 200, ["You have signed up successfully!"], true );
+                $this->_response = new JsonResponse( 200, ["You have signed up successfully!"], true, $user->read() );
             }
         } 
         if ( $failed != false ) $this->_response = new JsonResponse( 200, ["user registration failed"], false );

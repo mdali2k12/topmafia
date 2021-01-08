@@ -111,9 +111,9 @@
 
                             <!-- SO tabs buttons -->
                             <div class="tabs-buttons">
-                                <button data-tab="login" class="active">Login</button>
-                                <button data-tab="register" class="">Signup</button>
-                                <button data-tab="story" class="">Story</button>
+                                <button data-tab="login"  onclick="setActiveTab( 'login' )">Login</button>
+                                <button data-tab="signup" onclick="setActiveTab( 'signup' )">Signup</button>
+                                <button data-tab="story"  onclick="setActiveTab( 'story' )">Story</button>
                             </div>
                             <!-- EO tabs buttons -->
 
@@ -128,7 +128,7 @@
                             -->
 
                             <!-- SO login tab -->
-                            <div class="tabs-content active" data-tab="login">
+                            <div class="tabs-content" id="loginTab">
                                 <br />
                                 <form method="post" autocomplete="off" action="" id="form">
                                     <label class="font">Username</label>
@@ -144,10 +144,10 @@
                             </div>
                             <!-- EO login tab -->
 
-                            <!-- SO register tab -->
-                            <div class="tabs-content" data-tab="register">
+                            <!-- SO signup tab -->
+                            <div class="tabs-content" id="signupTab">
                                 <br />
-                                <form autocomplete="off" name="register" id="register">
+                                <form autocomplete="off" name="signup" id="signup">
                                     <label class="font" for="username">Username</label>
                                     <input type="text" id="username" name="username" class="text-general3" required>
                                     <label class="font" for="password">Password</label>
@@ -178,10 +178,10 @@
                                     </center>
                                 </form>
                             </div>
-                            <!-- EO register tab -->
+                            <!-- EO signup tab -->
 
                             <!-- SO story tab -->
-                            <div class="tabs-content" data-tab="story">
+                            <div class="tabs-content" id="storyTab">
                                 <div class="desc">
                                     <p>Join the ultimate battle of becoming the top gangster of your city while experiencing the utmost real life criminal pressure!</p>
                                     <p>Create fear and earn respect in your neighbourhood, operate the largest drug cartels, recruit the best gangsters for your gang and offer protection to the city. It doesn't stop there! Once your on top you can travel in your own private jet and hire the most powerful security team to keep you protected wherever you are. </p>
@@ -217,7 +217,6 @@
 
         <!-- page scripts -->
         <!-- TODO find out what does the first cript below do -->
-        <script src="./views/js/home/home.min.8aa9e3ed.js"></script>
         <script src="./views/js/common.js"></script>
         <script src="./views/js/home/home.js"></script>
         

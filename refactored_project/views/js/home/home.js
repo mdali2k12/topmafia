@@ -41,6 +41,7 @@ const signUp = async () => {
     [username, password, confirmPassword, email].forEach( item => {
         validated = valueIsNotEmpty( item );
     });
+    let signUpSuccess;
     if ( !validated || confirmPassword !== password ) {
         $('#succ').hide();
         $('#err').html("Please fill all the fields correctly!");
@@ -51,39 +52,76 @@ const signUp = async () => {
                 $(':hidden#grecaptcha_site_key').val(), 
                 {action: 'signUp'}
             ).then( ( token ) => {
-                // send register payload after generating Google Recaptcha token
+                // uncomment to debug
+                // console.log( token ); debugger;
+                // send signup payload after generating Google Recaptcha token
                 fetch( "/users", { // or appUrl + "/passwords", depending on your deployment env.
                     method: "POST",
                     body: JSON.stringify({
-                        userPayload: {
-                            confirmPassword: confirmPassword,
-                            email          : email,
-                            gender         : gender,
-                            password       : password,
-                            recaptchaToken : token,
-                            username       : username
-                        }
+                        confirmPassword: confirmPassword,
+                        email          : email,
+                        gender         : gender,
+                        password       : password,
+                        recaptchaToken : token,
+                        username       : username
                     }),
                     headers: {
                         "Content-type": "application/json; charset=UTF-8",
                         "json"        : "true"
                     }
                 })
+                .then( response => { 
+                    return response.json()
+                        // uncomment to debug
+                        // .then( res => console.log( res ) );
+                } ) 
+                .then( json => {
+                    json.success ? signUpSuccess = true : signUpSuccess = false;
+                })
+                .catch( err => {
+                    // uncomment to debug
+                    // console.log(err); 
+                    signUpSuccess = false;
+                }) 
+                .finally( () => {
+                    if ( signUpSuccess != undefined && signUpSuccess != false && signUpSuccess == true ) {
+                        getOnlineOfflineUsers();
+                        hideLoginAndSignUp();
+                        $( "#succ" ).show();
+                        $( "#succ" ).html( "You have signed up successfully!" );
+                    }
+                });
                 // TODO show and hide error/success divs depending on the outcome of the registration
-                // TODO case success => 
-                    // $(".tabs-buttons [data-tab=register]").removeClass("active");
-                    // $(".tabs-buttons [data-tab=login]").addClass("active");
-                    // $(".tabs-content [data-tab=register]").removeClass("active");
-                    // $(".tabs-content [data-tab=login]").addClass("active");
+                // TODO case error show validation errors
+                    // "Invalid E-mail address format"
+                    // "You must enter a password."
+                    // "You must fill in both password fields"
+                    // "Your email has been banned"
+                    //  "Sorry the Username you entered is too short"
+                    // "Sorry the Username you entered is too long"
+                    // "You entered invalid characters in your username Keep it simple."
+                    // "You entered invalid characters in your password."
+                    //  "The Username you entered is in use."
+                    // "The E-mail you entered is in use."
+                    //  "Your passwords do not match."
                 // TODO hide recaptcha on success
-                // TODO display validation errors to the user
                 // TODO log the user in
                 // TODO send verification email with one-time link
-                .then( response => response.json() ) 
-                .then(json => {
-                    console.log( json ); // TODO
-                })
-                .catch( err => console.log(err) );
+                    /** 
+                     * based on this template =>
+                     * <html>
+                            <body>
+                                <h2>Your login details for Top Mafia!</h2>
+                                <p>Your username is <strong>".htmlspecialchars($username)."</strong></p>
+                                <p>Your password is <strong>".htmlspecialchars($password)."</strong> </p>
+                                <p>Email verification code <strong> ".htmlspecialchars($verify_code)."</strong></p>- head back to <a href='https://www.topmafia.net/'>Top Mafia</a></p>
+                            </body>
+                        </html> 
+                        $mail->AddReplyTo("webmail@topmafia.net","Top Mafia");
+                        $mail->SetFrom('webmail@topmafia.net', 'Top Mafia');
+                        $mail->AddAddress($to);
+                        $mail->Subject  = "Your login details for Top Mafia!";
+                    */
             });
         });
     }

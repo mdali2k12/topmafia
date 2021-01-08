@@ -9,8 +9,6 @@ USE topmafia;
 
 CREATE TABLE `users` (
   `id`            int(11)      UNSIGNED NOT NULL AUTO_INCREMENT,
-  `firstName`     varchar(26)           NULL,
-  `lastName`      varchar(26)           NULL,
   -- case sensitive approach in users tables for username, email and password
   `username`      varchar(52)  CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `email`         varchar(317) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,

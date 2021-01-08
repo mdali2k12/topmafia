@@ -13,6 +13,7 @@ class User {
 
     private int    $_id = 0; // id 0 means user model has not been hydrated
     private string $_email;
+    private string $_gender;
     private string $_unhashedPassword;
     public  string $username; 
 
@@ -20,12 +21,13 @@ class User {
         $this->_init( $identifier );
     }
 
-    private function _init( $identifier ): void {
+    private function _init( $identifier ) {
         $userDao = new UserDAO();
         $fetched = $userDao->getUser( $identifier );
         if ( $fetched["rowCount"] > 0 ) {
             $this->_id      = $fetched["id"];
-            $this->email    = $fetched["email"];
+            $this->_email   = $fetched["email"];
+            $this->_gender  = $fetched["gender"];
             $this->username = $fetched["username"];
         }
     }
@@ -64,16 +66,22 @@ class User {
         $this->_unhashedPassword = " ";
     }
 
+    public function read() : array {
+        $payload = [];
+        $payload["user"] = [
+            "id"       => $this->_id,
+            "email"    => $this->_email,
+            "gender"   => $this->_gender,
+            "username" => $this->username
+        ];
+        return $payload;
+    }
+
     public function signUp( array $userPayload ) : bool {
-        // TODO check db connectivity
-        // $data["firstName"] = $this->_firstName = isset( $data["firstName"] ) ? $this->formatHumanNames( $data["firstName"] ) : "";
-        // $data["lastName"]  = $this->_lastName  = isset( $data["lastName"] )  ? $this->formatHumanNames( $data["lastName"] )  : "";
-        // $data["password"]  = $this->appHash( $data["password"] );
-        // $userId            = $this->_persistOne( $data );
-        // if ( $userId != 0 )
-        //     $this->inflate( $userId );
-        // return $userId != 0;
-        return false;
+        $userDao   = new UserDAO();
+        $this->_id = $userDao->signUp( $userPayload );
+        $this->_init( $this->_id );
+        return $this->_id != 0;
     }
 
     // SO business logic input validation

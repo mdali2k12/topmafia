@@ -2,7 +2,12 @@
 
 namespace App\Database;
 
+use App\Helpers\StringsTrait;
+
+// TODO DRY
 class UserDAO extends DAO {
+
+    use StringsTrait;
 
     public function __construct() {
        parent::__construct();
@@ -62,10 +67,10 @@ class UserDAO extends DAO {
 
     public function getUser( $identifier ) : array {
         $sql    = "
-            SELECT id, email, username, COUNT(*) AS rowCount 
+            SELECT id, email, username, gender, COUNT(*) AS rowCount 
             FROM users 
-            WHERE id = :id 
-            OR email = :email 
+            WHERE id    = :id 
+            OR email    = :email 
             OR username = :username
         ";
         $query  = $this->_mdbd->getDBConn()->prepare( $sql );
@@ -74,6 +79,23 @@ class UserDAO extends DAO {
         if ( !$result )
             $result = [];
         return $result;
+    }
+
+    public function signUp( array $userPayload ) : int {
+        $hashedPassword = $this->appHash( $userPayload["password"] );
+        $sql            = "
+            INSERT INTO users( username, email, password, gender )
+            VALUES( :username, :email, :password, :gender )
+        ";
+        $query = $this->_mdbd->getDBConn()->prepare( $sql );
+        $query->execute( [
+            ":username" => $userPayload["username"], 
+            ":email"    => $userPayload["email"],  
+            ":password" => $hashedPassword,
+            ":gender"   => $userPayload["gender"]
+        ] );
+        $query->rowCount() === 1 ? $insertedId = $this->_mdbd->getDBConn()->lastInsertId() : $insertedId = 0;
+        return $insertedId;
     }
 
     public function updateUserPassword( int $id, string $hash ): bool {

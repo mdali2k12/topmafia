@@ -307,10 +307,6 @@ textarea:focus {
 	padding: 10px;
 }
 
-#page-index div.tabs div.tabs-content:not(.active) {
-	display: none;
-}
-
 #page-index div.tabs form input {
 	padding: 10px;
 }

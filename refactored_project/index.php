@@ -36,7 +36,11 @@ $controllerClassName = "App\Controllers\\"; // will be concatenated with the rig
 
 // we check if we're dealing with a banned IP address
 $bipc = new BannedIPsController();
-if ( $bipc->ipIsBanned( $_SERVER["REMOTE_ADDR"] ) || $bipc->ipIsBanned( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+if ( 
+    $bipc->ipIsBanned( $_SERVER["REMOTE_ADDR"] ) 
+    ||
+   ( isset( $_SERVER["HTTP_X_FORWARDED_FOR"] ) && $bipc->ipIsBanned( $_SERVER["HTTP_X_FORWARDED_FOR"] ) )
+) {
     $bipc->setBannedIpResponseAndExit();
 }
 
