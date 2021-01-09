@@ -11,10 +11,12 @@ use App\Models\Session;
 use App\Models\User;
 
 use App\Validators\ArraysValidator;
+use App\Validators\RecaptchaValidator;
 
 class SessionsController extends ResourcesController {
 
     use ArraysValidator;
+    use RecaptchaValidator;
 
     public function __construct( Request $request )
     {
@@ -25,15 +27,18 @@ class SessionsController extends ResourcesController {
     protected function _initCreateOneResponse(): void {
         $failed                 = true;
         $payload                = count( $this->_request->getBody() ) > 0 ? $this->_request->getBody() : [];
-        $payloadMandatoryFields = ["username", "password"]; 
+        $payloadMandatoryFields = isset( $payload["recaptchaToken"] ) ? 
+                                    ["username", "password", "recaptchaToken"] : ["username", "password"];
         $session                = new Session();
         // validation rounds conditioning the creation of the session
         if ( 
             count( $payload ) > 0
             && $this->_matchKeyValuePairs( $payloadMandatoryFields ) 
         ) {
-            $user = new User( $payload["username"] );
-            if ( $user->matchPasswords( $payload["password"] ) && $session->create( $user->getId() ) ) {
+            $recaptchaValidationValue = isset( $payload["recaptchaToken"] ) ?
+                                            $this->verifyRecaptchaResponse( $payload["recaptchaToken"] ) : true;
+            $user                = new User( $payload["username"] );
+            if ( $user->matchPasswords( $payload["password"] ) && $session->create( $user->getId() ) && $recaptchaValidationValue ) {
                 $failed = false;
                 // sending the user AND the session on login success
                 $responsePayload            = $user->read();

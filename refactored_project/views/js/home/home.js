@@ -1,83 +1,103 @@
 
-//  SO login function
-const login = async ( username = null, password = null ) => {
+//  SO login functions
 
-    // TODO
-    // if ( username == null || password == null ) {}
-    // TODO recaptcha verification on dedicated route case request comes from form
+/** *  TODO regarding sessions and logging in
+*
+* auto logging in on page landing
+* 
+* if token or credentials sent along an interaction request do not match the session record user id
+* then the session record is destroyed;
+* 
+* if the user logs in on an another device or another browser,
+* the session record in db is destroyed,
+* as only one session associated to a user can exist at a time;
+* 
+* implement session hijacking protection
+*
+*/
 
-    let validated = true;
-    [username, password].forEach( item => {
-        validated = valueIsNotEmpty( item );
-    });
-    let loginSuccess;
-    if ( !validated ) {
-        $('#succ').hide();
-        $('#err').html( "You did not enter anything!" );
-        $('#err').show();
+const loginFeedback = loginSuccess => {
+    if ( loginSuccess != undefined && loginSuccess != false && loginSuccess == true ) {
+        // online users count is incremented
+        getOnlineOfflineUsers();
+        hideLoginAndSignUp();
+        $( "#succ" ).show();
+        $( "#succ" ).html( "You are now logged in!" );
+        $( ".grecaptcha-badge" ).hide();
     } else {
-        fetch( "/sessions", { // or appUrl + "/sessions", depending on your deployment env.
-            method: "POST",
-            body: JSON.stringify({
-                password       : password,
-                username       : username
-            }),
-            headers: {
-                "Content-type": "application/json; charset=UTF-8",
-                "json"        : "true"
-            }
-        })
-        .then( response => { 
-            return response.json()
-                // uncomment to debug
-                // .then( res => {console.log( res ); debugger;} ); 
-        } ) 
-        .then( json => {
-            json.success && !!json.session && !!json.user ? loginSuccess = true : loginSuccess = false;
-                /** *  TODO regarding sessions and logging in
-                *
-                * auto logging in on page landing
-                * 
-                * if token or credentials sent along an interaction request do not match the session record user id
-                * then the session record is destroyed;
-                * 
-                * if the user logs in on an another device or another browser,
-                * the session record in db is destroyed,
-                * as only one session associated to a user can exist at a time;
-                * 
-                * implement session hijacking protection
-                *
-                */
-            if ( loginSuccess != false ) {
-                localStorage.setItem( "session", json.session );
-                localStorage.setItem( "user", json.session );
-            }
-        })
-        .catch( err => {
+        $('#succ').hide();
+        $('#err').html( "Invalid username or password!" );
+        $('#err').show();
+    }
+};
+const loginRequest  = async ( username, password, token = null ) => {
+    let payload;
+    if ( token == null ) 
+        payload = {
+            password : password,
+            username : username,
+        };
+    else payload = {
+        password       : password,
+        username       : username,
+        recaptchaToken : token
+    }
+    fetch( "/sessions", { // or appUrl + "/sessions", depending on your deployment env.
+        method: "POST",
+        body: JSON.stringify( payload ),
+        headers: {
+            "Content-type": "application/json; charset=UTF-8",
+            "json"        : "true"
+        }
+    })
+    .then( response => { 
+        return response.json()
             // uncomment to debug
-            // console.log(err); 
-            loginSuccess = false;
-
-        }) 
-        .finally( () => {
-            if ( loginSuccess != undefined && loginSuccess != false && loginSuccess == true ) {
-                // online users count is incremented
-                getOnlineOfflineUsers();
-                // TODO hide login and sign up + recaptcha badge only if request comes from form
-                // hideLoginAndSignUp(); $( ".grecaptcha-badge" ).hide();
-                // TODO show success div only if request comes from form
-                // $( "#succ" ).show();
-                $( "#succ" ).html( "You are now logged in!" );
-            } else {
-                $('#succ').hide();
-                $('#err').html( "Invalid username or password!" );
+            // .then( res => {console.log( res ); debugger;} ); 
+    } ) 
+    .then( json => {
+        // console.log( json );
+        json.success && !!json.session && !!json.user ? loginSuccess = true : loginSuccess = false;
+        if ( loginSuccess != false ) {
+            localStorage.setItem( "session", JSON.stringify( json.session ) );
+            localStorage.setItem( "user", JSON.stringify( json.user ) );
+        }
+    })
+    .catch( err => {
+        // uncomment to debug
+        // console.log(err); 
+        loginSuccess = false;
+    }) 
+    .finally( () => {
+        loginFeedback( loginSuccess );
+    });
+}
+const loginFromForm = async () => {
+    grecaptcha.ready( () => {
+        grecaptcha.execute( 
+            $(':hidden#grecaptcha_site_key').val(), 
+            {action: 'signUp'}
+        ).then( ( token ) => {
+            let validated  = true;
+            const username = $( "#login-username" ).val();
+            const password = $( "#login-password" ).val();
+            [username, password].forEach( item => {
+                validated = valueIsNotEmpty( item );
+            });
+            let loginSuccess;
+            if ( !validated ) {
+                $('#err').html( "You did not enter anything!" );
                 $('#err').show();
+            } else {
+                loginRequest( username, password, token );
             }
         });
-    }
-
+    });
 };
-// EO login function
+const loginOnSignUp = async ( username, password ) => {
+    loginRequest( username, password );
+};
+// EO login functions
 
 // SO signUp function
 const signUp = async () => {
@@ -92,7 +112,6 @@ const signUp = async () => {
     });
     let signUpSuccess;
     if ( !validated || confirmPassword !== password ) {
-        $('#succ').hide();
         $('#err').html("Please fill all the fields correctly!");
         $('#err').show();
     } else {
@@ -134,12 +153,10 @@ const signUp = async () => {
                 }) 
                 .finally( () => {
                     if ( signUpSuccess != undefined && signUpSuccess != false && signUpSuccess == true ) {
-                        hideLoginAndSignUp();
                         $( "#succ" ).show();
                         $( "#succ" ).html( "You have signed up successfully!" );
-                        $( ".grecaptcha-badge" ).hide();
                         // logging in after signup
-                        login( username, password );
+                        loginOnSignUp( username, password );
                     }
                 });
                 // TODO case error show validation errors

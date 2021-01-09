@@ -60,15 +60,13 @@ class Session {
     }
 
     public function read() : array {
-        $payload = [];
-        $payload["session"] = [
+        return [
             "userId"             => $this->_userId, 
             "accessToken"        => $this->_accessToken,
             "accessTokenExpiry"  => $this->_accessTokenExpiry,  
             "refreshToken"       => $this->_refreshToken, 
             "refreshTokenExpiry" => $this->_refreshTokenExpiry
         ];
-        return $payload;
     }
 
 }

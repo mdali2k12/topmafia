@@ -2,6 +2,7 @@
 
 namespace App\Validators;
 
+use DateTime;
 use ReCaptcha\ReCaptcha as ReCaptcha;
 
 trait RecaptchaValidator {
@@ -17,7 +18,7 @@ trait RecaptchaValidator {
         if( !$recaptchaResponse->isSuccess() ) {
             $errors = json_encode( $recaptchaResponse->getErrorCodes() );
             error_log(
-                $this->getNow() . " - Recaptcha : error while verifying recaptcha => " . $errors . "\n",
+                ( new DateTime() )->format('Y-m-d H:i:s') . " - Recaptcha : error while verifying recaptcha => " . $errors . "\n",
                 3,
                 "./logs/app/apis.log"
             );

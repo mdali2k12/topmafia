@@ -128,7 +128,7 @@
                                     <input type="password" id="login-password" name="login-password" class="text-general3">
                                     <center>
                                     <br />
-                                    <input type="button" name="action" class="primary button" onclick="login();" value="Log in"></center>
+                                    <input type="button" name="action" class="primary button" onclick="loginFromForm();" value="Log in"></center>
                                 </form>
                                 <center><a href="https://topmafia.net/home/fbauthenticate.php"><button class="facebook button">Facebook Login</button></a></center>
                             </div>
