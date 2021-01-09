@@ -36,6 +36,7 @@ abstract class DAO {
         return $date->format('Y-m-d H:i:s'); 
     }
 
+    // TODO validate $start value input, e.g. make sure it's convertible into a date
     public function incrementDateTimeWithSeconds( int $seconds, string $start = null ) : string {
         $date = DateTime::createFromFormat(
             'Y-m-d H:i:s', 

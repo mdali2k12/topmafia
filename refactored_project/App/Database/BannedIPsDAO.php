@@ -8,6 +8,7 @@ class BannedIPsDAO extends DAO {
         parent::__construct();
      }
 
+    // TODO fix app' crash case db problem here
     public function exists( $ip ): bool {
         $sql   = "
             SELECT COUNT(*) AS rowCount 

@@ -39,6 +39,7 @@ class SessionDAO extends DAO {
             FROM sessions 
             WHERE id     = :id 
             AND   userId = :userId
+            ORDER BY createdAt DESC
         ";
         $query = $this->_mdbd->getDBConn()->prepare( $sql );
         $query->execute( [":id" => $id, ":userId" => $userId] );
@@ -47,7 +48,7 @@ class SessionDAO extends DAO {
     }
 
     public function findByUserId( int $userId ) : array {
-        $sql    = "
+        $sql = "
             SELECT 
                 id, 
                 userId, 
@@ -58,6 +59,8 @@ class SessionDAO extends DAO {
                 COUNT(*) AS rowCount 
             FROM sessions 
             WHERE userId = :userId 
+            ORDER BY createdAt DESC
+            LIMIT 1
         ";
         $query = $this->_mdbd->getDBConn()->prepare( $sql );
         $query->execute( [":userId" => $userId] );

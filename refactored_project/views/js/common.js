@@ -3,7 +3,7 @@ const valueIsNotEmpty = ( value ) => {
     return value != "";
 }
 
-// getting online/offline users 
+// SO getting online/offline users 
 const getRequestToUsersEndpoint = async ( url ) => {
     var xmlHttp = new XMLHttpRequest();
     xmlHttp.open( "GET", url, false );
@@ -11,7 +11,6 @@ const getRequestToUsersEndpoint = async ( url ) => {
     xmlHttp.send( null );
     return xmlHttp.responseText;
 }
-
 const getOnlineOfflineUsers = async () => {
     // const appUrl = $(':hidden#app_url').val();
     // getRequestToUsersEndpoint( appUrl + "/users" ) // if deployment issues
@@ -26,18 +25,66 @@ const getOnlineOfflineUsers = async () => {
             console.log( err );
     });
 };
+// EO getting online/offline users 
 
-const setActiveTab = ( tab ) => {
-    $( ".tabs-buttons > button.active" ).removeClass( "active" );
-    $( ".tabs-content" ).hide();
-    $( ".tabs-buttons [data-tab=" + tab + "]" ).addClass( "active" );
-    $( "#" + tab + "Tab" ).show();
+// SO function to check user logged in state
+const loggedInStateCheck = async () => {
+    let session;
+    let user;
+    let loginSuccess;
+    if ( localStorage.getItem( "session" ) != null && localStorage.getItem( "user" ) != null ) {
+        try {
+            session = JSON.parse( localStorage.getItem( "session" ) );
+            user    = JSON.parse( localStorage.getItem( "user" ) );
+        } catch ( e ) {
+            console.error( "parsing local storage error:", e );
+        }
+    }
+    else
+        return false;
+    if ( 
+        session == undefined
+        || user == undefined
+        || !session.hasOwnProperty( "id" )
+        || !session.hasOwnProperty( "accessToken" )
+        || !session.hasOwnProperty( "userId" )
+    ) 
+        return false;
+    else {
+        await fetch( "/auth", { // or appUrl + "/auth", depending on your deployment env.
+            method: "POST",
+            body: JSON.stringify({
+                sessionId: session.id,
+                userId   : session.userId
+            }),
+            headers: {
+                "Authorization": session.accessToken,
+                "Content-type" : "application/json; charset=UTF-8",
+                "json"         : "true"
+            }
+        })
+        .then( response => { 
+            // uncomment to debug
+            // response.text().then( res => {console.log( res ); debugger;} );
+            return response.json()
+        } ) 
+        .then( json => {
+            json.success && json.success != false ? loginSuccess = true : loginSuccess = false;
+        })
+        .catch( err => {
+            // uncomment to debug
+            // console.log(err); 
+            loginSuccess = false;
+        })
+        .finally( () => {
+            // TODO if fails but valid session/user association, then patch request with refresh token + same header to endpoint
+            // TODO if previous operation success session is refreshed and access token gains fifteen minutes expiry time starting now
+            // TODO if previous operation success update local storage with new access token
+        });
+        return loginSuccess;
+    }
 }
-const hideLoginAndSignUp = () => {
-    setActiveTab( "story" );
-    $( ".tabs-buttons [data-tab=login]" ).hide();
-    $( ".tabs-buttons [data-tab=signup]" ).hide();
-};
+// EO function to check user logged in state
 
 // SO page load behavior
 $(document).ready(function() {
@@ -47,8 +94,6 @@ $(document).ready(function() {
     $('#succ').hide();
 
     getOnlineOfflineUsers();
-
-    setActiveTab( "login" );
 
 });
 // EO page load behavior

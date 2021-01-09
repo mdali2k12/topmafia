@@ -18,6 +18,7 @@ use App\Http\Requests\PostRequest;
 // use App\Http\Requests\DeleteRequest;
 
 // loading app' controllers
+use App\Controllers\AuthController;
 use App\Controllers\HomeController; 
 use App\Controllers\NotFoundController;
 use App\Controllers\Resources\BannedIPsController;
@@ -56,6 +57,10 @@ if ( isset( $request->getHeaders()["json"] ) &&  $request->getHeaders()["json"] 
     switch ( $request->getEndpoint() ) {
         case "/":
             $controllerClassName .= "Home";
+            break;
+        case "/auth":
+            sleep( 1 );
+            $controllerClassName .= "Auth";
             break;
         case "/passwords":
             sleep( 1 );

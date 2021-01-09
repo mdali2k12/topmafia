@@ -1,10 +1,21 @@
 
-//  SO login functions
+
+// SO tab functions
+const setActiveTab = ( tab ) => {
+    $( ".tabs-buttons > button.active" ).removeClass( "active" );
+    $( ".tabs-content" ).hide();
+    $( ".tabs-buttons [data-tab=" + tab + "]" ).addClass( "active" );
+    $( "#" + tab + "Tab" ).show();
+}
+const hideLoginAndSignUp = () => {
+    setActiveTab( "story" );
+    $( ".tabs-buttons [data-tab=login]" ).hide();
+    $( ".tabs-buttons [data-tab=signup]" ).hide();
+};
+// EO tabs functions
 
 /** *  TODO regarding sessions and logging in
 *
-* auto logging in on page landing
-* 
 * if token or credentials sent along an interaction request do not match the session record user id
 * then the session record is destroyed;
 * 
@@ -15,22 +26,26 @@
 * implement session hijacking protection
 *
 */
-
-const loginFeedback = loginSuccess => {
-    if ( loginSuccess != undefined && loginSuccess != false && loginSuccess == true ) {
-        // online users count is incremented
+//  SO login functions
+const successfullyLoggedIn = () => {
+        // online users count is incremented on the front end
         getOnlineOfflineUsers();
         hideLoginAndSignUp();
+        $('#err').hide();
         $( "#succ" ).show();
         $( "#succ" ).html( "You are now logged in!" );
         $( ".grecaptcha-badge" ).hide();
+}
+const loginFeedback = loginSuccess => {
+    if ( loginSuccess != undefined && loginSuccess != false && loginSuccess == true ) {
+        successfullyLoggedIn();
     } else {
         $('#succ').hide();
         $('#err').html( "Invalid username or password!" );
         $('#err').show();
     }
 };
-const loginRequest  = async ( username, password, token = null ) => {
+const loginWithPassword  = async ( username, password, token = null ) => {
     let payload;
     if ( token == null ) 
         payload = {
@@ -84,22 +99,19 @@ const loginFromForm = async () => {
             [username, password].forEach( item => {
                 validated = valueIsNotEmpty( item );
             });
-            let loginSuccess;
             if ( !validated ) {
                 $('#err').html( "You did not enter anything!" );
                 $('#err').show();
             } else {
-                loginRequest( username, password, token );
+                loginWithPassword( username, password, token );
             }
         });
     });
 };
 const loginOnSignUp = async ( username, password ) => {
-    loginRequest( username, password );
+    loginWithPassword( username, password );
 };
-// EO login functions
-
-// SO signUp function
+// signing up
 const signUp = async () => {
     const confirmPassword = $('#confirm-password').val();
     const password        = $('#password').val();
@@ -192,4 +204,15 @@ const signUp = async () => {
         });
     }
 };
-// EO signUp function
+// EO login functions
+
+$( document ).ready( () => {
+
+    loggedInStateCheck().then( res => {
+        if ( res == false || res == undefined )
+            setActiveTab( "login" );
+        else 
+            successfullyLoggedIn();
+    });
+
+});

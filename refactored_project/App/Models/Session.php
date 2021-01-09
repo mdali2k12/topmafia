@@ -8,13 +8,13 @@ class Session {
 
     private int    $_id     = 0; // id 0 means session model has not been hydrated
     private int    $_userId;
-    private string $_accessToken;
+    private string $_accessToken = "";
     private string $_accessTokenExpiry;
     private string $_refreshToken;
     private string $_refreshTokenExpiry;
 
     public function __construct( int $id = 0 ) {
-        $id > 0 ?? $this->_init( $id );
+        if ( $id > 0 ) $this->_init( $id );
     }
 
     private function _inflate( array $fetched ) : void {
@@ -47,13 +47,6 @@ class Session {
         return $this->_id != 0;
     }
 
-    // TODO
-    public static function exists( string $identifier ): bool {
-        // $sessionDao = new SessionDAO();
-        // return $sessionDao->exists( $identifier );
-        return false;
-    }
-
     // TODO 
     public function refresh() : bool {
         return false;
@@ -61,6 +54,7 @@ class Session {
 
     public function read() : array {
         return [
+            "id"                 => $this->_id,
             "userId"             => $this->_userId, 
             "accessToken"        => $this->_accessToken,
             "accessTokenExpiry"  => $this->_accessTokenExpiry,  
