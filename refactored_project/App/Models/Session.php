@@ -6,14 +6,16 @@ use App\Database\SessionDAO;
 
 class Session {
 
-    private int    $_id     = 0; // id 0 means session model has not been hydrated
-    private int    $_userId;
-    private string $_accessToken = "";
-    private string $_accessTokenExpiry;
-    private string $_refreshToken;
-    private string $_refreshTokenExpiry;
+    private int        $_id     = 0; // id 0 means session model has not been hydrated
+    private int        $_userId;
+    private string     $_accessToken = "";
+    private string     $_accessTokenExpiry;
+    private string     $_refreshToken;
+    private string     $_refreshTokenExpiry;
+    private SessionDAO  $_sessionDAO;
 
     public function __construct( int $id = 0 ) {
+        $this->_sessionDAO = new SessionDAO();
         if ( $id > 0 ) $this->_init( $id );
     }
 
@@ -29,37 +31,39 @@ class Session {
     }
 
     private function _init( int $id ) {
-        $sessionDao = new SessionDAO();
-        $fetched = $sessionDao->get( $id );
+        $fetched = $this->_sessionDAO->get( $id );
         $this->_inflate( $fetched );
     }
 
     private function _initWithUserId( int $id ) {
-        $sessionDao = new SessionDAO();
-        $fetched = $sessionDao->findByUserId( $id );
+        $fetched = $this->_sessionDAO->findByUserId( $id );
         $this->_inflate( $fetched );
     }
 
     public function create( int $userId ) : bool {
-        $sessionDao = new SessionDAO();
-        $sessionDao->create( $userId);
+        $this->_sessionDAO->create( $userId);
         $this->_initWithUserId( $userId );
         return $this->_id != 0;
     }
 
-    // TODO 
-    public function refresh() : bool {
-        return false;
+    public function deleteAllOtherUserSessions() {
+        $this->_sessionDAO->deleteAllOtherUserSessions( $this->_id, $this->_userId );
+    }
+
+    public function refreshAccessToken() : bool {
+        $newExpiry                = $this->_sessionDAO->incrementDateTimeWithSeconds( $_ENV["ACCESS_TOKEN_EXPIRY"] );
+        $this->_accessTokenExpiry = $newExpiry;
+        return $this->_sessionDAO->refreshAccessToken( $this->_id, $newExpiry );
     }
 
     public function read() : array {
         return [
             "id"                 => $this->_id,
-            "userId"             => $this->_userId, 
+            "userId"             => isset( $this->_userId ) ? $this->_userId : null, 
             "accessToken"        => $this->_accessToken,
-            "accessTokenExpiry"  => $this->_accessTokenExpiry,  
-            "refreshToken"       => $this->_refreshToken, 
-            "refreshTokenExpiry" => $this->_refreshTokenExpiry
+            "accessTokenExpiry"  => isset( $this->_accessTokenExpiry ) ?  $this->_accessTokenExpiry : null,  
+            "refreshToken"       => isset( $this->_refreshToken ) ? $this->_refreshToken : null,
+            "refreshTokenExpiry" => isset( $this->_refreshTokenExpiry )? $this->_refreshTokenExpiry : null
         ];
     }
 

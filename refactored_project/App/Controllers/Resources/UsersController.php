@@ -72,4 +72,9 @@ class UsersController extends ResourcesController {
         $this->_setUnauthorizedResponse();
     }
 
+    protected function _initUpdateOneResponse(): void
+    {
+        $this->_setUnauthorizedResponse();
+    }
+
 }

@@ -11,8 +11,7 @@ $dotenv->load();
 
 // loading HTTP verbs-related objects
 use App\Http\Requests\GetRequest;
-// TODO
-// use App\Http\Requests\PatchRequest;
+use App\Http\Requests\PatchRequest;
 use App\Http\Requests\PostRequest;
 // TODO
 // use App\Http\Requests\DeleteRequest;

@@ -33,7 +33,7 @@ abstract class Controller {
     }
 
     protected function _setBadRequestResponse(): void {
-        $this->_response = new JsonResponse( 400, ["request method not allowed"], false );
+        $this->_response = new JsonResponse( 400, ["bad request"], false );
     }
 
     protected function _setMethodNotAllowedResponse(): void {

@@ -23,6 +23,10 @@ class BannedIPsController extends ResourcesController {
     protected function _initReadOneResponse(): void{
         $this->_setUnauthorizedResponse();
     }
+    protected function _initUpdateOneResponse(): void
+    {
+        $this->_setUnauthorizedResponse();
+    }
 
     public function ipIsBanned( $ip ) : bool {
         return $this->_bipdao->exists( $ip );

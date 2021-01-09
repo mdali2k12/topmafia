@@ -27,6 +27,11 @@ trait AuthValidator {
         return isset( $_SERVER['HTTP_AUTHORIZATION'] ) && strlen( $_SERVER['HTTP_AUTHORIZATION'] ) > 0;
     }
 
+    public function refreshTokenIsExpired( array $session ) : bool {
+        $sessionDao = new SessionDAO();
+        return $sessionDao->dateIsExpired( $session["refreshTokenExpiry"] );
+    }
+
     public function validateTokenUserAssociation( int $sessionId, int $userId ) : bool {
         $sessionDao = new SessionDAO();
         return $sessionDao->exists( $sessionId, $userId );

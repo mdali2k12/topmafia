@@ -15,12 +15,17 @@ abstract class ResourcesController extends Controller {
     abstract protected function _initCreateOneResponse(): void;
     abstract protected function _initReadAllResponse(): void;
     abstract protected function _initReadOneResponse(): void;
+    abstract protected function _initUpdateOneResponse(): void;
 
     protected function _initResponse() : void {
         switch( $this->_request->getMethod() ) {
             case "GET":
                 !$this->_request->hasIdentifier() ? $this->_initReadAllResponse() : 
                     $this->_initReadOneResponse();
+                break;
+            case "PATCH":
+                $this->_request->hasIdentifier() ? $this->_initUpdateOneResponse() :
+                    $this->_setBadRequestResponse();
                 break;
             case "POST":
                 !$this->_request->hasIdentifier() ? $this->_initCreateOneResponse() : 

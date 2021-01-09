@@ -4,7 +4,7 @@ namespace App\Controllers;
 
 use App\Http\Requests\Request;
 use App\Http\Responses\Json\JsonResponse;
-use App\Models\Session;
+
 use App\Models\User;
 
 use App\Validators\ArraysValidator;
@@ -33,9 +33,7 @@ class AuthController extends Controller {
                     && User::exists( $payload["userId"] )
                     && $this->validateTokenUserAssociation( $payload["sessionId"], $payload["userId"] ) 
                 ) {
-                    $this->accessTokenIsExpired( $payload["sessionId"] ) ?
-                        $this->_response = new JsonResponse( 200, ["Your session is expired!"], false ) :
-                        $this->_response = new JsonResponse( 200, ["You are being logged in.."], true );
+                    $this->_setLoggedInResponse( $this->accessTokenIsExpired( $payload["sessionId"] ) );
                 } else $this->_setUnauthorizedResponse();
                 break;
             default:
@@ -43,5 +41,10 @@ class AuthController extends Controller {
                 break;
         }
     } 
+
+    private function _setLoggedInResponse( bool $sessionExpired ) : void {
+        $sessionExpired != false ? $this->_response = new JsonResponse( 200, ["Your session is expired!"], false ) :
+            $this->_response = new JsonResponse( 200, ["You are being logged in.."], true );
+    }
 
 } // EO class

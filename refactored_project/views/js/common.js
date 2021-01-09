@@ -27,11 +27,46 @@ const getOnlineOfflineUsers = async () => {
 };
 // EO getting online/offline users 
 
-// SO function to check user logged in state
+// SO login-related functions
+const updateSession = async ( session ) => {
+    let sessionUpdateSuccess = false;
+    await fetch( "/sessions/" + session.id, { // or appUrl + "/sessions", depending on your deployment env.
+        method: "PATCH",
+        body: JSON.stringify({
+            refreshToken: session.refreshToken,
+        }),
+        headers: {
+            "Authorization": session.accessToken,
+            "Content-Type" : "application/json",
+            "json"         : "true"
+        }
+    })
+    .then( response => { 
+        // uncomment to debug
+        // response.text().then( res => {console.log( res ); debugger;} );
+        return response.json()
+    } ) 
+    .then( json => {
+        // uncomment to debug
+        json.success && json.success != false ? sessionUpdateSuccess = true : sessionUpdateSuccess = false;
+        if ( sessionUpdateSuccess != false ) {
+            session.accessTokenExpiry = json.session.accessTokenExpiry;
+            localStorage.removeItem( "session" );
+            localStorage.setItem( "session", JSON.stringify( session ) );
+        }
+    })
+    .catch( err => {
+        // uncomment to debug
+        // console.log(err); 
+        sessionUpdateSuccess = false;
+    })    
+    return sessionUpdateSuccess;
+}
 const loggedInStateCheck = async () => {
     let session;
     let user;
     let loginSuccess;
+    let sessionIsExpired;
     if ( localStorage.getItem( "session" ) != null && localStorage.getItem( "user" ) != null ) {
         try {
             session = JSON.parse( localStorage.getItem( "session" ) );
@@ -47,6 +82,7 @@ const loggedInStateCheck = async () => {
         || user == undefined
         || !session.hasOwnProperty( "id" )
         || !session.hasOwnProperty( "accessToken" )
+        || !session.hasOwnProperty( "refreshToken" )
         || !session.hasOwnProperty( "userId" )
     ) 
         return false;
@@ -59,7 +95,7 @@ const loggedInStateCheck = async () => {
             }),
             headers: {
                 "Authorization": session.accessToken,
-                "Content-type" : "application/json; charset=UTF-8",
+                "Content-type" : "application/json",
                 "json"         : "true"
             }
         })
@@ -69,22 +105,28 @@ const loggedInStateCheck = async () => {
             return response.json()
         } ) 
         .then( json => {
+            // uncomment to debug
+            // console.log( json );
             json.success && json.success != false ? loginSuccess = true : loginSuccess = false;
+            if ( json.success == false ) sessionIsExpired = true;
         })
         .catch( err => {
             // uncomment to debug
             // console.log(err); 
             loginSuccess = false;
         })
-        .finally( () => {
-            // TODO if fails but valid session/user association, then patch request with refresh token + same header to endpoint
-            // TODO if previous operation success session is refreshed and access token gains fifteen minutes expiry time starting now
-            // TODO if previous operation success update local storage with new access token
+        .finally( async () => {
+            if ( sessionIsExpired != undefined && sessionIsExpired == true )
+                await updateSession( session ).then( res => {loginSuccess = true} );
         });
+        if ( loginSuccess == false ) {
+            localStorage.removeItem( "session" );
+            localStorage.removeItem( "user" );
+        }
         return loginSuccess;
     }
 }
-// EO function to check user logged in state
+// EO login-related functions
 
 // SO page load behavior
 $(document).ready(function() {

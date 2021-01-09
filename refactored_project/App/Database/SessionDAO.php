@@ -33,6 +33,14 @@ class SessionDAO extends DAO {
         return $insertedId;
     }
 
+    public function deleteAllOtherUserSessions( int $sessionId, int $userId ) : void {
+        $sql = "
+            DELETE FROM sessions WHERE id != $sessionId AND userId = $userId
+        ";
+        $query = $this->_mdbd->getDBConn()->prepare( $sql );
+        $query->execute();
+    }
+
     public function exists( int $id, int $userId ): bool {
         $sql   = "
             SELECT COUNT(*) AS rowCount 
@@ -91,9 +99,10 @@ class SessionDAO extends DAO {
         return $result;
     }
 
-    public function update( int $id, string $type ): bool {
-        // TODO
-        return false;
+    public function refreshAccessToken( int $sessionId, string $newExpiry ): bool {
+        $updateSql = "UPDATE sessions SET accessTokenExpiry = '$newExpiry' WHERE id = $sessionId";
+        $query  = $this->_mdbd->getDBConn()->prepare( $updateSql );
+        return ( $query->execute() && $query->rowCount() === 1 );       
     }
 
 }

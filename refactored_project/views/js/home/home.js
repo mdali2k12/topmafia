@@ -16,13 +16,6 @@ const hideLoginAndSignUp = () => {
 
 /** *  TODO regarding sessions and logging in
 *
-* if token or credentials sent along an interaction request do not match the session record user id
-* then the session record is destroyed;
-* 
-* if the user logs in on an another device or another browser,
-* the session record in db is destroyed,
-* as only one session associated to a user can exist at a time;
-* 
 * implement session hijacking protection
 *
 */
@@ -66,9 +59,8 @@ const loginWithPassword  = async ( username, password, token = null ) => {
         }
     })
     .then( response => { 
-        return response.json()
-            // uncomment to debug
-            // .then( res => {console.log( res ); debugger;} ); 
+        // uncomment to debug
+        return response.json();
     } ) 
     .then( json => {
         // console.log( json );
@@ -209,7 +201,7 @@ const signUp = async () => {
 $( document ).ready( () => {
 
     loggedInStateCheck().then( res => {
-        if ( res == false || res == undefined )
+        if ( res == false || res == undefined ) 
             setActiveTab( "login" );
         else 
             successfullyLoggedIn();
