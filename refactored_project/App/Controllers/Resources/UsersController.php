@@ -49,7 +49,7 @@ class UsersController extends ResourcesController {
             if ( $user->signUp( $payload ) ) {
                 $failed = false;
                 $this->_response = new JsonResponse( 200, ["You have signed up successfully!"], true, $user->read() );
-            }
+            } 
         } 
         if ( $failed != false ) $this->_response = new JsonResponse( 200, ["user registration failed"], false );
     } // EO _initCreateOneResponse() method

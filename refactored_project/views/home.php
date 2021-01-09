@@ -117,16 +117,6 @@
                             </div>
                             <!-- EO tabs buttons -->
 
-                            <!-- TODO regarding sessions and logging in
-                                * create an authentication token within a session record
-                                * if token sent along an interaction request does not match the session record user id AND the PHP session id
-                                * then the PHP session is destroyed;
-                                * if the user logs in on an another device or another browser,
-                                * the session record in db is destroyed ( as well as the PHP session associated to it ? )
-                                * as only one session associated to a user can exist at a time;
-                                * implement session hijacking protection
-                            -->
-
                             <!-- SO login tab -->
                             <div class="tabs-content" id="loginTab">
                                 <br />
@@ -138,7 +128,7 @@
                                     <input type="password" id="login-password" name="login-password" class="text-general3">
                                     <center>
                                     <br />
-                                    <input type="button" name="action" class="primary button" onclick="login();"  value="Log in"></center>
+                                    <input type="button" name="action" class="primary button" onclick="login();" value="Log in"></center>
                                 </form>
                                 <center><a href="https://topmafia.net/home/fbauthenticate.php"><button class="facebook button">Facebook Login</button></a></center>
                             </div>

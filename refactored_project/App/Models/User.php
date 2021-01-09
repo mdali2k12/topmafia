@@ -48,6 +48,10 @@ class User {
         return $this->_email;
     }
 
+    public function getId(): int {
+        return $this->_id;
+    }
+
     public static function getOnlinePlayersCount() : int {
         $userDao = new UserDAO();
         return $userDao->getOnlinePlayersCount();
@@ -60,6 +64,13 @@ class User {
 
     public function getUnhashedPassword(): string {
         return $this->_unhashedPassword;
+    }
+
+    public function matchPasswords( string $inputPassword ) : bool {
+        $userDao    = new UserDAO();
+        $inputHash  = $this->appHash( $this->sanitizeStringInput( $inputPassword ) );
+        $sourceHash = $userDao->getHashedPassword( $this->_id );
+        return $inputHash === $sourceHash;
     }
 
     public function nullifyUnhashedPassword() : void {
@@ -78,9 +89,10 @@ class User {
     }
 
     public function signUp( array $userPayload ) : bool {
-        $userDao   = new UserDAO();
-        $this->_id = $userDao->signUp( $userPayload );
-        $this->_init( $this->_id );
+        $userDao                 = new UserDAO();
+        $userPayload["password"] = $this->appHash( $userPayload["password"] );
+        $userDao->signUp( $userPayload );
+        $this->_init( $userPayload["username"] );
         return $this->_id != 0;
     }
 

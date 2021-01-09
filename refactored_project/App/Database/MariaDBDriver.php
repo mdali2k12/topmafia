@@ -2,12 +2,10 @@
 
 namespace App\Database;
 
-use App\Helpers\TimeTrait as TimeTrait;
+use DateTime;
 use PDOException;
 
 class MariaDBDriver{
-
-    use TimeTrait;
 
     private        $_db_conn = null;
     private bool   $_dbIsUp;
@@ -41,7 +39,7 @@ class MariaDBDriver{
                 $this->_dbIsUp = true;
             } catch ( PDOException $pdoe ) {
                 error_log(
-                    $this->getNow() . " - DBConnection : error while connecting to database => " . $pdoe->getMessage() . "\n",
+                    ( new DateTime() )->format('Y-m-d H:i:s') . " - DBConnection : error while connecting to database => " . $pdoe->getMessage() . "\n",
                     3,
                     $this->_logFilePath
                 );

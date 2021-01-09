@@ -38,6 +38,19 @@ class UserDAO extends DAO {
         $rowCount = intval( $query->fetch()["rowCount"] );
         return $rowCount > 0;
     }
+
+    public function getHashedPassword( int $id ) : string {
+        $sql    = "
+            SELECT password, COUNT(*) AS rowCount 
+            FROM users 
+            WHERE id    = :id 
+        ";
+        $query  = $this->_mdbd->getDBConn()->prepare( $sql );
+        $query->execute( [":id" => $id] );
+        $result = $query->fetch(); 
+        if ( !$result ) return "";
+        return $result["password"];
+    }
     
     public function getPlayersCount() : int {
         if ( !is_null( $this->_mdbd->getDBConn() )) {
@@ -82,19 +95,21 @@ class UserDAO extends DAO {
     }
 
     public function signUp( array $userPayload ) : int {
-        $hashedPassword = $this->appHash( $userPayload["password"] );
-        $sql            = "
-            INSERT INTO users( username, email, password, gender )
-            VALUES( :username, :email, :password, :gender )
-        ";
-        $query = $this->_mdbd->getDBConn()->prepare( $sql );
-        $query->execute( [
-            ":username" => $userPayload["username"], 
-            ":email"    => $userPayload["email"],  
-            ":password" => $hashedPassword,
-            ":gender"   => $userPayload["gender"]
-        ] );
-        $query->rowCount() === 1 ? $insertedId = $this->_mdbd->getDBConn()->lastInsertId() : $insertedId = 0;
+        $insertedId = 0;
+        if ( !is_null( $this->_mdbd->getDBConn() ) ) {
+            $sql            = "
+                INSERT INTO users( username, email, password, gender )
+                VALUES( :username, :email, :password, :gender )
+            ";
+            $query = $this->_mdbd->getDBConn()->prepare( $sql );
+            $query->execute( [
+                ":username" => $userPayload["username"], 
+                ":email"    => $userPayload["email"],  
+                ":password" => $userPayload["password"],
+                ":gender"   => $userPayload["gender"]
+            ] );
+            $query->rowCount() === 1 ?? $insertedId = $this->_mdbd->getDBConn()->lastInsertId();
+        } 
         return $insertedId;
     }
 

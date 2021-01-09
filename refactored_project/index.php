@@ -14,14 +14,14 @@ use App\Http\Requests\GetRequest;
 // TODO
 // use App\Http\Requests\PatchRequest;
 use App\Http\Requests\PostRequest;
+// TODO
 // use App\Http\Requests\DeleteRequest;
 
 // loading app' controllers
 use App\Controllers\HomeController; 
 use App\Controllers\NotFoundController;
 use App\Controllers\Resources\BannedIPsController;
-// TODO
-// use App\Controllers\Entities\SessionsController;
+use App\Controllers\Resources\SessionsController;
 use App\Controllers\Resources\UsersController;
 
 // we set the default timezone
@@ -37,7 +37,7 @@ $controllerClassName = "App\Controllers\\"; // will be concatenated with the rig
 // we check if we're dealing with a banned IP address
 $bipc = new BannedIPsController();
 if ( 
-    $bipc->ipIsBanned( $_SERVER["REMOTE_ADDR"] ) 
+   ( isset( $_SERVER["REMOTE_ADDR"] ) && $bipc->ipIsBanned( $_SERVER["REMOTE_ADDR"] ) ) 
     ||
    ( isset( $_SERVER["HTTP_X_FORWARDED_FOR"] ) && $bipc->ipIsBanned( $_SERVER["HTTP_X_FORWARDED_FOR"] ) )
 ) {
@@ -61,11 +61,10 @@ if ( isset( $request->getHeaders()["json"] ) &&  $request->getHeaders()["json"] 
             sleep( 1 );
             $controllerClassName .= "Passwords";
             break;
-        // TODO
-        // case "/sessions":
-        //     sleep( 1 );
-        //     $controllerClassName .= "Entities\\Sessions";
-        //     break;
+        case "/sessions":
+            sleep( 1 );
+            $controllerClassName .= "Resources\\Sessions";
+            break;
         case "/users":
             sleep( 1 );
             $controllerClassName .= "Resources\\Users";

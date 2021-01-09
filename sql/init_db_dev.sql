@@ -33,11 +33,9 @@ CREATE TABLE `sessions` (
   `refreshTokenExpiry` DATETIME              NOT NULL,
   `createdAt`          DATETIME              NOT NULL DEFAULT current_timestamp(),
   `updatedAt`          DATETIME              NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  PRIMARY KEY (`id`)
+  CONSTRAINT `session_user_pk` PRIMARY KEY (`id`, `userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ALTER TABLE `sessions`
-  ADD UNIQUE KEY `unique_accessToken`  (`accessToken`),
-  ADD UNIQUE KEY `unique_refreshToken` (`refreshToken`),
   ADD KEY `userId` (`userId`);
 ALTER TABLE `sessions`
   ADD CONSTRAINT `sessions_user_fk` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE;

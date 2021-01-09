@@ -1,32 +1,81 @@
 
 //  SO login function
-const login = function() {
-    var formData = new FormData(form);
-    if ($('#username').val() == "" || $('#password').val() == "") {
-        $('#err').html("You did not enter anything!");
-        $('#err').show();
+const login = async ( username = null, password = null ) => {
+
+    // TODO
+    // if ( username == null || password == null ) {}
+    // TODO recaptcha verification on dedicated route case request comes from form
+
+    let validated = true;
+    [username, password].forEach( item => {
+        validated = valueIsNotEmpty( item );
+    });
+    let loginSuccess;
+    if ( !validated ) {
         $('#succ').hide();
+        $('#err').html( "You did not enter anything!" );
+        $('#err').show();
     } else {
-        $.ajax({
-            processData: false,
-            contentType: false,
-            url: 'ajax/ajax_login.php',
-            data: formData,
-            type: 'POST',
-            success: function(data) {
-                var status = JSON.parse(data);
-                $('#err').hide();
-                    $('#succ').html(status.success);
-                    $('#succ').show();
-                if (typeof status.error != "undefined") {
-                    $('#succ').hide();
-                    $('#err').html(status.error);
-                    $('#err').show();
-                } else
-                    window.location.href = '../index.php';
+        fetch( "/sessions", { // or appUrl + "/sessions", depending on your deployment env.
+            method: "POST",
+            body: JSON.stringify({
+                password       : password,
+                username       : username
+            }),
+            headers: {
+                "Content-type": "application/json; charset=UTF-8",
+                "json"        : "true"
+            }
+        })
+        .then( response => { 
+            return response.json()
+                // uncomment to debug
+                // .then( res => {console.log( res ); debugger;} ); 
+        } ) 
+        .then( json => {
+            json.success && !!json.session && !!json.user ? loginSuccess = true : loginSuccess = false;
+                /** *  TODO regarding sessions and logging in
+                *
+                * auto logging in on page landing
+                * 
+                * if token or credentials sent along an interaction request do not match the session record user id
+                * then the session record is destroyed;
+                * 
+                * if the user logs in on an another device or another browser,
+                * the session record in db is destroyed,
+                * as only one session associated to a user can exist at a time;
+                * 
+                * implement session hijacking protection
+                *
+                */
+            if ( loginSuccess != false ) {
+                localStorage.setItem( "session", json.session );
+                localStorage.setItem( "user", json.session );
+            }
+        })
+        .catch( err => {
+            // uncomment to debug
+            // console.log(err); 
+            loginSuccess = false;
+
+        }) 
+        .finally( () => {
+            if ( loginSuccess != undefined && loginSuccess != false && loginSuccess == true ) {
+                // online users count is incremented
+                getOnlineOfflineUsers();
+                // TODO hide login and sign up + recaptcha badge only if request comes from form
+                // hideLoginAndSignUp(); $( ".grecaptcha-badge" ).hide();
+                // TODO show success div only if request comes from form
+                // $( "#succ" ).show();
+                $( "#succ" ).html( "You are now logged in!" );
+            } else {
+                $('#succ').hide();
+                $('#err').html( "Invalid username or password!" );
+                $('#err').show();
             }
         });
     }
+
 };
 // EO login function
 
@@ -37,7 +86,7 @@ const signUp = async () => {
     const email           = $('#email').val();
     const gender          = $( "#gender" ).val();
     const username        = $('#username').val();
-    let validated = true;
+    let validated         = true;
     [username, password, confirmPassword, email].forEach( item => {
         validated = valueIsNotEmpty( item );
     });
@@ -55,7 +104,7 @@ const signUp = async () => {
                 // uncomment to debug
                 // console.log( token ); debugger;
                 // send signup payload after generating Google Recaptcha token
-                fetch( "/users", { // or appUrl + "/passwords", depending on your deployment env.
+                fetch( "/users", { // or appUrl + "/users", depending on your deployment env.
                     method: "POST",
                     body: JSON.stringify({
                         confirmPassword: confirmPassword,
@@ -71,9 +120,9 @@ const signUp = async () => {
                     }
                 })
                 .then( response => { 
+                    // uncomment to debug
+                    // response.text().then( res => {console.log( res ); debugger;} );
                     return response.json()
-                        // uncomment to debug
-                        // .then( res => console.log( res ) );
                 } ) 
                 .then( json => {
                     json.success ? signUpSuccess = true : signUpSuccess = false;
@@ -85,13 +134,14 @@ const signUp = async () => {
                 }) 
                 .finally( () => {
                     if ( signUpSuccess != undefined && signUpSuccess != false && signUpSuccess == true ) {
-                        getOnlineOfflineUsers();
                         hideLoginAndSignUp();
                         $( "#succ" ).show();
                         $( "#succ" ).html( "You have signed up successfully!" );
+                        $( ".grecaptcha-badge" ).hide();
+                        // logging in after signup
+                        login( username, password );
                     }
                 });
-                // TODO show and hide error/success divs depending on the outcome of the registration
                 // TODO case error show validation errors
                     // "Invalid E-mail address format"
                     // "You must enter a password."
@@ -104,8 +154,7 @@ const signUp = async () => {
                     //  "The Username you entered is in use."
                     // "The E-mail you entered is in use."
                     //  "Your passwords do not match."
-                // TODO hide recaptcha on success
-                // TODO log the user in
+                    // TODO recaptcha validation failure feedback
                 // TODO send verification email with one-time link
                     /** 
                      * based on this template =>
