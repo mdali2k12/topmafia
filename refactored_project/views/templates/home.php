@@ -128,7 +128,7 @@
                                     <input type="password" id="login-password" name="login-password" class="text-general3">
                                     <center>
                                     <br />
-                                    <input type="button" name="action" class="primary button" onclick="loginFromForm();" value="Log in"></center>
+                                    <input type="button" name="action" class="primary button" onclick="loginFromHomeForm();" value="Log in"></center>
                                 </form>
                                 <center><a href="https://topmafia.net/home/fbauthenticate.php"><button class="facebook button">Facebook Login</button></a></center>
                             </div>
@@ -164,7 +164,7 @@
 
                                     <br /><br />
                                     <center>
-                                    <input type="button" class="primary button" onclick="signUp();" value="Sign up">
+                                    <input type="button" class="primary button" id="signup_btn" value="Sign up">
                                     </center>
                                 </form>
                             </div>
@@ -205,8 +205,9 @@
         <input type="hidden" value="<?=$_ENV['APP_URL'];?>" id="app_url">
         <input type="hidden" value="<?=$_ENV["GRECAPTCHA_SITE_KEY"];?>" id="grecaptcha_site_key">
 
-        <!-- page scripts -->
-        <!-- TODO find out what does the first cript below do -->
+        <!-- page required scripts -->
+        <script src="./views/js/http.js"></script>
+        <script src="./views/js/auth.js"></script>
         <script src="./views/js/common.js"></script>
         <script src="./views/js/home/home.js"></script>
         

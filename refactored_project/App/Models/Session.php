@@ -6,20 +6,26 @@ use App\Database\SessionDAO;
 
 class Session {
 
-    private int        $_id     = 0; // id 0 means session model has not been hydrated
+    private int        $_id = 0; // id 0 means session model has not been hydrated
     private int        $_userId;
     private string     $_accessToken = "";
     private string     $_accessTokenExpiry;
     private string     $_refreshToken;
     private string     $_refreshTokenExpiry;
-    private SessionDAO  $_sessionDAO;
+    private SessionDAO $_sessionDAO;
 
-    public function __construct( int $id = 0 ) {
+    public function __construct( int $id = 0 ) { // id set to 0 means empty model
         $this->_sessionDAO = new SessionDAO();
-        if ( $id > 0 ) $this->_init( $id );
+        if ( $id > 0 ) $this->_inflate( $id );
     }
 
-    private function _inflate( array $fetched ) : void {
+    private function _destroyUserSessions( int $userId ) {
+        $this->_sessionDAO->destroyUserSessions( $userId );
+    }
+
+    // hydrating the model
+    private function _inflate( int $id ) : void {
+        $fetched = $this->_sessionDAO->get( $id );
         if ( $fetched["rowCount"] > 0 ) {
             $this->_id                 = $fetched["id"];
             $this->_userId             = $fetched["userId"];
@@ -30,24 +36,41 @@ class Session {
         }
     }
 
-    private function _init( int $id ) {
-        $fetched = $this->_sessionDAO->get( $id );
-        $this->_inflate( $fetched );
-    }
-
-    private function _initWithUserId( int $id ) {
-        $fetched = $this->_sessionDAO->findByUserId( $id );
-        $this->_inflate( $fetched );
-    }
-
+    /**
+     * 
+     * on creating a new session,
+     * we destroy all other user-linked sessions;
+     * it's because it's part of the business logic that 
+     * user can be logged in on only one device
+     * 
+     */
     public function create( int $userId ) : bool {
-        $this->_sessionDAO->create( $userId);
-        $this->_initWithUserId( $userId );
+        $this->_destroyUserSessions( $userId );
+        $this->_sessionDAO->create( $userId );
+        $this->_inflate( $userId );
         return $this->_id != 0;
     }
 
-    public function deleteAllOtherUserSessions() {
-        $this->_sessionDAO->deleteAllOtherUserSessions( $this->_id, $this->_userId );
+    public function dateIsExpired( string $tokenType ) : bool {
+        switch ($tokenType) {
+            case 'accessToken':
+                return $this->_sessionDAO->dateIsExpired( $this->_accessTokenExpiry );
+                break;
+            case 'refreshToken':
+                return $this->_sessionDAO->dateIsExpired( $this->_refreshTokenExpiry );
+                break;            
+            default:
+                return true;
+        }
+    }
+
+    public static function exists( int $id ): bool {
+        $sessionDAO = new SessionDAO();
+        return $sessionDAO->exists($id );
+    }
+
+    public function getId() : int {
+        return $this->_id;
     }
 
     public function refreshAccessToken() : bool {
@@ -59,11 +82,11 @@ class Session {
     public function read() : array {
         return [
             "id"                 => $this->_id,
-            "userId"             => isset( $this->_userId ) ? $this->_userId : null, 
+            "userId"             => $this->_userId, 
             "accessToken"        => $this->_accessToken,
-            "accessTokenExpiry"  => isset( $this->_accessTokenExpiry ) ?  $this->_accessTokenExpiry : null,  
-            "refreshToken"       => isset( $this->_refreshToken ) ? $this->_refreshToken : null,
-            "refreshTokenExpiry" => isset( $this->_refreshTokenExpiry )? $this->_refreshTokenExpiry : null
+            "accessTokenExpiry"  => $this->_accessTokenExpiry,  
+            "refreshToken"       => $this->_refreshToken,
+            "refreshTokenExpiry" => $this->_refreshTokenExpiry
         ];
     }
 

@@ -17,7 +17,6 @@ use App\Http\Requests\PostRequest;
 // use App\Http\Requests\DeleteRequest;
 
 // loading app' controllers
-use App\Controllers\AuthController;
 use App\Controllers\HomeController; 
 use App\Controllers\NotFoundController;
 use App\Controllers\Resources\BannedIPsController;
@@ -57,10 +56,6 @@ if ( isset( $request->getHeaders()["json"] ) &&  $request->getHeaders()["json"] 
         case "/":
             $controllerClassName .= "Home";
             break;
-        case "/auth":
-            sleep( 1 );
-            $controllerClassName .= "Auth";
-            break;
         case "/passwords":
             sleep( 1 );
             $controllerClassName .= "Passwords";
@@ -93,19 +88,19 @@ if ( isset( $request->getHeaders()["json"] ) &&  $request->getHeaders()["json"] 
 } else { // web routes
     switch ( $request->getEndpoint() ) {
         case "/":
-            require_once getcwd()."/views/home.php";
+            require_once getcwd()."/views/templates/home.php";
             break;
         case "/forgot-password":
-            require_once getcwd()."/views/auth/forgot_password.php";
+            require_once getcwd()."/views/templates/auth/forgot_password.php";
             break;
         case "/game-rules":
-            require_once getcwd()."/views/game_rules.php";
+            require_once getcwd()."/views/templates/game_rules.php";
             break;
         case "/privacy-policy":
-            require_once getcwd()."/views/privacy_policy.php";
+            require_once getcwd()."/views/templates/privacy_policy.php";
             break;
         default:
-            require_once getcwd()."/views/error.php";
+            require_once getcwd()."/views/templates/error.php";
             break;
     }
 }

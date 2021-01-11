@@ -4,7 +4,6 @@ namespace App\Database;
 
 use App\Helpers\StringsTrait;
 
-// TODO DRY
 class SessionDAO extends DAO {
 
     use StringsTrait;
@@ -33,49 +32,24 @@ class SessionDAO extends DAO {
         return $insertedId;
     }
 
-    public function deleteAllOtherUserSessions( int $sessionId, int $userId ) : void {
+    public function destroyUserSessions( int $userId ) : void {
         $sql = "
-            DELETE FROM sessions WHERE id != $sessionId AND userId = $userId
-        ";
-        $query = $this->_mdbd->getDBConn()->prepare( $sql );
-        $query->execute();
-    }
-
-    public function exists( int $id, int $userId ): bool {
-        $sql   = "
-            SELECT COUNT(*) AS rowCount 
-            FROM sessions 
-            WHERE id     = :id 
-            AND   userId = :userId
-            ORDER BY createdAt DESC
-        ";
-        $query = $this->_mdbd->getDBConn()->prepare( $sql );
-        $query->execute( [":id" => $id, ":userId" => $userId] );
-        $rowCount = intval( $query->fetch()["rowCount"] );
-        return $rowCount > 0;
-    }
-
-    public function findByUserId( int $userId ) : array {
-        $sql = "
-            SELECT 
-                id, 
-                userId, 
-                accessToken, 
-                accessTokenExpiry, 
-                refreshToken,
-                refreshTokenExpiry,
-                COUNT(*) AS rowCount 
-            FROM sessions 
-            WHERE userId = :userId 
-            ORDER BY createdAt DESC
-            LIMIT 1
+            DELETE FROM sessions WHERE userId = :userId
         ";
         $query = $this->_mdbd->getDBConn()->prepare( $sql );
         $query->execute( [":userId" => $userId] );
-        $result = $query->fetch(); 
-        if ( !$result )
-            $result = [];
-        return $result;
+    }
+
+    public function exists( int $id ): bool {
+        $sql   = "
+            SELECT COUNT(*) AS rowCount 
+            FROM sessions 
+            WHERE id = :id 
+        ";
+        $query = $this->_mdbd->getDBConn()->prepare( $sql );
+        $query->execute( [":id" => $id] );
+        $rowCount = intval( $query->fetch()["rowCount"] );
+        return $rowCount > 0;
     }
 
     public function get( int $id ) : array {
@@ -89,10 +63,15 @@ class SessionDAO extends DAO {
                 refreshTokenExpiry,
                 COUNT(*) AS rowCount 
             FROM sessions 
-            WHERE id = :id 
+            WHERE 
+                id = :id 
+            OR
+                userId = :userId
+            ORDER BY createdAt DESC
+            LIMIT 1
         ";
         $query = $this->_mdbd->getDBConn()->prepare( $sql );
-        $query->execute( [":id" => $id] );
+        $query->execute( [":id" => $id, ":userId" => $id] );
         $result = $query->fetch(); 
         if ( !$result )
             $result = [];
@@ -100,9 +79,59 @@ class SessionDAO extends DAO {
     }
 
     public function refreshAccessToken( int $sessionId, string $newExpiry ): bool {
-        $updateSql = "UPDATE sessions SET accessTokenExpiry = '$newExpiry' WHERE id = $sessionId";
-        $query  = $this->_mdbd->getDBConn()->prepare( $updateSql );
-        return ( $query->execute() && $query->rowCount() === 1 );       
+        $sql   = "UPDATE sessions SET accessTokenExpiry = :newExpiry WHERE id = :sessionId";
+        $query = $this->_mdbd->getDBConn()->prepare( $sql );
+        return ( 
+            $query->execute( [
+                ":newExpiry" => $newExpiry,
+                ":sessionId" => $sessionId
+            ]) 
+            && $query->rowCount() === 1 
+        );       
+    }
+
+    public function tokenIdAssociationIsValid( string $token, int $sessionId ) : bool {
+        $sql   = "
+            SELECT COUNT(*) AS rowCount 
+            FROM sessions 
+            WHERE id          = :id 
+            AND   accessToken = :accessToken
+            ORDER BY createdAt DESC
+        ";
+        $query = $this->_mdbd->getDBConn()->prepare( $sql );
+        $query->execute( [":id" => $sessionId, ":accessToken" => $token] );
+        $rowCount = intval( $query->fetch()["rowCount"] );
+        return $rowCount > 0;
+    }
+
+    public function tokensIdAssociationIsValid( string $accessToken, string $refreshToken, int $sessionId ): bool {
+        $sql   = "
+            SELECT COUNT(*) AS rowCount 
+            FROM sessions 
+            WHERE id           = :sessionId 
+            AND   accessToken  = :accessToken
+            AND   refreshToken = :refreshToken
+            ORDER BY createdAt DESC
+        ";
+        $query = $this->_mdbd->getDBConn()->prepare( $sql );
+        $query->execute( [":sessionId" => $sessionId, ":accessToken" => $accessToken, ":refreshToken" => $refreshToken] );
+        $rowCount = intval( $query->fetch()["rowCount"] );
+        return $rowCount > 0;
+    }
+
+    public function tokenUserAssociationIsValid( int $id, int $userId, string $accessToken ): bool {
+        $sql   = "
+            SELECT COUNT(*) AS rowCount 
+            FROM sessions 
+            WHERE id          = :id 
+            AND   userId      = :userId
+            AND   accessToken = :accessToken
+            ORDER BY createdAt DESC
+        ";
+        $query = $this->_mdbd->getDBConn()->prepare( $sql );
+        $query->execute( [":id" => $id, ":userId" => $userId, ":accessToken" => $accessToken] );
+        $rowCount = intval( $query->fetch()["rowCount"] );
+        return $rowCount > 0;
     }
 
 }

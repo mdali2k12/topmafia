@@ -39,27 +39,33 @@ class UserDAO extends DAO {
         return $rowCount > 0;
     }
 
+    public function get( $identifier ) : array {
+        $sql    = "
+            SELECT id, email, username, gender, password, COUNT(*) AS rowCount 
+            FROM users 
+            WHERE id    = :id 
+            OR email    = :email 
+            OR username = :username
+        ";
+        $query  = $this->_mdbd->getDBConn()->prepare( $sql );
+        $query->execute( [":id" => $identifier, ":email" => $identifier,  ":username" => $identifier] );
+        $result = $query->fetch(); 
+        if ( !$result )
+            $result = [];
+        return $result;
+    }
+
     public function getHashedPassword( int $id ) : string {
         $sql    = "
             SELECT password, COUNT(*) AS rowCount 
             FROM users 
-            WHERE id    = :id 
+            WHERE id = :id 
         ";
         $query  = $this->_mdbd->getDBConn()->prepare( $sql );
         $query->execute( [":id" => $id] );
         $result = $query->fetch(); 
         if ( !$result ) return "";
         return $result["password"];
-    }
-    
-    public function getPlayersCount() : int {
-        if ( !is_null( $this->_mdbd->getDBConn() )) {
-            $query = $this->_mdbd->getDBConn()->prepare( "SELECT COUNT(id) AS playersCount FROM users WHERE isPlayer = 1" );
-            $query->execute();
-            $count = intval( $query->fetch()["playersCount"] );
-            return $count;
-        }
-        else return 0;
     }
 
     public function getOnlinePlayersCount() : int {
@@ -75,23 +81,17 @@ class UserDAO extends DAO {
             $count = intval( $query->fetch()["onlinePlayersCount"] );
             return $count;
         }
-        else return 0;
+        return 0;
     }
 
-    public function getUser( $identifier ) : array {
-        $sql    = "
-            SELECT id, email, username, gender, COUNT(*) AS rowCount 
-            FROM users 
-            WHERE id    = :id 
-            OR email    = :email 
-            OR username = :username
-        ";
-        $query  = $this->_mdbd->getDBConn()->prepare( $sql );
-        $query->execute( [":id" => $identifier, ":email" => $identifier,  ":username" => $identifier] );
-        $result = $query->fetch(); 
-        if ( !$result )
-            $result = [];
-        return $result;
+    public function getPlayersCount() : int {
+        if ( !is_null( $this->_mdbd->getDBConn() )) {
+            $query = $this->_mdbd->getDBConn()->prepare( "SELECT COUNT(id) AS playersCount FROM users WHERE isPlayer = 1" );
+            $query->execute();
+            $count = intval( $query->fetch()["playersCount"] );
+            return $count;
+        }
+        return 0;
     }
 
     public function signUp( array $userPayload ) : int {
@@ -114,9 +114,15 @@ class UserDAO extends DAO {
     }
 
     public function updateUserPassword( int $id, string $hash ): bool {
-        $updateSql = "UPDATE users SET password = $hash WHERE id = $id";
+        $updateSql = "UPDATE users SET password = :hash WHERE id = :id";
         $query  = $this->_mdbd->getDBConn()->prepare( $updateSql );
-        return ( $query->execute() && $query->rowCount() === 1 );        
+        return ( 
+            $query->execute( [
+                ":hash" => $hash,
+                ":id"   => $id
+            ]) 
+            && $query->rowCount() === 1 
+        );        
     }
 
 }

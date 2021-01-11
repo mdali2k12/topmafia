@@ -14,21 +14,23 @@ class User {
     private int    $_id = 0; // id 0 means user model has not been hydrated
     private string $_email;
     private string $_gender;
-    private string $_unhashedPassword;
+    private string $_password;
+    private string $_unhashedPassword = "";
     public  string $username; 
 
     public function __construct( $identifier ) {
-        $this->_init( $identifier );
+        $this->_inflate( $identifier );
     }
 
-    private function _init( $identifier ) {
+    private function _inflate( $identifier ) {
         $userDao = new UserDAO();
-        $fetched = $userDao->getUser( $identifier );
+        $fetched = $userDao->get( $identifier );
         if ( $fetched["rowCount"] > 0 ) {
-            $this->_id      = $fetched["id"];
-            $this->_email   = $fetched["email"];
-            $this->_gender  = $fetched["gender"];
-            $this->username = $fetched["username"];
+            $this->_id       = $fetched["id"];
+            $this->_email    = $fetched["email"];
+            $this->_gender   = $fetched["gender"];
+            $this->_password = $fetched["password"];
+            $this->username  = $fetched["username"];
         }
     }
 
@@ -48,6 +50,10 @@ class User {
         return $this->_email;
     }
 
+    public function getHashedPassword() : string {
+        return $this->_password;
+    }
+
     public function getId(): int {
         return $this->_id;
     }
@@ -64,13 +70,6 @@ class User {
 
     public function getUnhashedPassword(): string {
         return $this->_unhashedPassword;
-    }
-
-    public function matchPasswords( string $inputPassword ) : bool {
-        $userDao    = new UserDAO();
-        $inputHash  = $this->appHash( $this->sanitizeStringInput( $inputPassword ) );
-        $sourceHash = $userDao->getHashedPassword( $this->_id );
-        return $inputHash === $sourceHash;
     }
 
     public function nullifyUnhashedPassword() : void {
@@ -92,7 +91,7 @@ class User {
         $userDao                 = new UserDAO();
         $userPayload["password"] = $this->appHash( $userPayload["password"] );
         $userDao->signUp( $userPayload );
-        $this->_init( $userPayload["username"] );
+        $this->_inflate( $userPayload["username"] );
         return $this->_id != 0;
     }
 

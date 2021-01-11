@@ -47,6 +47,14 @@ abstract class Request {
         return $this->_hasIdentifier;
     }
 
+    public function hasValidIntIdentifier() : bool {
+        return ( 
+            ctype_digit( $this->_identifier )
+            && is_numeric( $this->_identifier )
+            && floatval( intval( $this->_identifier )) === floatval( $this->_identifier )
+        );
+    }
+
     abstract public function isValid() : bool;
 
     // SO setters/getters
