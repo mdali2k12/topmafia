@@ -40,6 +40,7 @@ class SessionsController extends ResourcesController {
      *  - the user exists
      *  - the password is valid
      *  - the IP address is valid (pre validation has been made before this point in Request class)
+     *  - the user agent is not an empty string
      * 
      * when a session is created it's part of the business logic that 
      * all other sessions are deleted for the considered user;
@@ -59,10 +60,11 @@ class SessionsController extends ResourcesController {
             && User::exists( $payload["username"] )
             && $this->validateUserPassword( $payload["password"], $payload["username"] )
             && $this->_request->getIpAddress() != ""
+            && $this->_request->getUserAgent() != ""
         ) {
             $user    = new User( $payload["username"] );
             $session = new Session();
-            if ( $session->create( $user->getId(), $this->_request->getIpAddress() ) ) {
+            if ( $session->create( $user->getId(), $this->_request->getIpAddress(), $this->_request->getUserAgent() ) ) {
                 $failed = false;
                 // sending the user AND the session back on login success
                 $responsePayload            = $user->read();
@@ -81,13 +83,14 @@ class SessionsController extends ResourcesController {
      * 
      * checking valid session
      * by verifying if =>
-     *  that the session id is indeed an int
-     *  there is an auth header
-     *  that it is not empty
-     *  that session id from request url references an existing session
-     *  that session id from request url and provided access token match
-     *  that the access token provided in the header is not expired 
-     *  that session IP matches request IP
+     *  - that the session id is indeed an int
+     *  - there is an auth header
+     *  - that it is not empty
+     *  - that session id from request url references an existing session
+     *  - that session id from request url and provided access token match
+     *  - that the access token provided in the header is not expired 
+     *  - that session IP matches request IP
+     *  - that session user agent matches request user agent
      * 
      */
     protected function _initReadOneResponse(): void {
@@ -99,6 +102,7 @@ class SessionsController extends ResourcesController {
             && $this->validateTokenAndSessionIdAssociation( $this->getProvidedAccessToken(), $this->_request->getIdentifier() )
             && !$this->tokenIsExpired( $this->_request->getIdentifier(), "accessToken" )
             && $this->validateSessionIPsMatch( $this->_request->getIdentifier() , $this->_request->getIpAddress() )
+            && $this->validateSessionUserAgentMatch( $this->_request->getIdentifier() , $this->_request->getUserAgent() )
         )
             $this->_setLoggedInResponse();
         else $this->_setUnauthorizedResponse();
@@ -110,15 +114,16 @@ class SessionsController extends ResourcesController {
      * this means using the refresh token of the session 
      * to add 15 minutes from now to current session access token expiry;
      * to do this, we need to verify =>
-     *  that the request identifier is a valid int
-     *  that there is an auth header
-     *  that it is not empty
-     *  that session id from request url references an existing session
-     *  that the access token provided in the header is indeed expired
-     *  that there is a refresh token in the request body and the expected payload is valid
-     *  that session id from request url, the provided access token, and the provided refresh token match
-     *  that the provided refresh token is not expired
-     *  that session IP matches request IP;
+     *  - that the request identifier is a valid int
+     *  - that there is an auth header
+     *  - that it is not empty
+     *  - that session id from request url references an existing session
+     *  - that the access token provided in the header is indeed expired
+     *  - that there is a refresh token in the request body and the expected payload is valid
+     *  - that session id from request url, the provided access token, and the provided refresh token match
+     *  - that the provided refresh token is not expired
+     *  - that session IP matches request IP
+     *  - that session user agent matches request user agent;
      * we then refresh the session and send it back (updated) with the response
      * 
      */
@@ -136,7 +141,8 @@ class SessionsController extends ResourcesController {
             && $this->_matchKeyValuePairs( $payloadMandatoryFields ) 
             && $this->validateTokensAndId( $this->getProvidedAccessToken(), $payload["refreshToken"], $this->_request->getIdentifier() )
             && !$this->tokenIsExpired(  $this->_request->getIdentifier(), "refreshToken" )
-            && $this->validateSessionIPsMatch( $this->_request->getIdentifier() , $this->_request->getIpAddress() )
+            && $this->validateSessionIPsMatch( $this->_request->getIdentifier(), $this->_request->getIpAddress() )
+            && $this->validateSessionUserAgentMatch( $this->_request->getIdentifier(), $this->_request->getUserAgent() )
         ) {
             $session = new Session( $this->_request->getIdentifier() );
             $session->refreshAccessToken();

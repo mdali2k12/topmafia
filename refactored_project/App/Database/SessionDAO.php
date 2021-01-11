@@ -12,12 +12,12 @@ class SessionDAO extends DAO {
        parent::__construct();
     }
 
-    public function create( int $userId, string $ipAddress ) : int {
+    public function create( int $userId, string $ipAddress, string $userAgent ) : int {
         $insertedId = 0;
         if ( !is_null( $this->_mdbd->getDBConn() ) ) {
             $sql = "
-                INSERT INTO sessions( userId, accessToken, refreshToken, accessTokenExpiry, refreshTokenExpiry, ip )
-                VALUES( :userId, :accessToken, :refreshToken, :accessTokenExpiry, :refreshTokenExpiry, :ip )
+                INSERT INTO sessions( userId, accessToken, refreshToken, accessTokenExpiry, refreshTokenExpiry, ip, userAgent )
+                VALUES( :userId, :accessToken, :refreshToken, :accessTokenExpiry, :refreshTokenExpiry, :ip, :userAgent )
             ";
             $query = $this->_mdbd->getDBConn()->prepare( $sql );
             $query->execute( [
@@ -26,7 +26,8 @@ class SessionDAO extends DAO {
                 ":refreshToken"       => $this->buildToken(),
                 ":accessTokenExpiry"  => $this->incrementDateTimeWithSeconds( intval( $_ENV["ACCESS_TOKEN_EXPIRY"] ) ),
                 ":refreshTokenExpiry" => $this->incrementDateTimeWithSeconds( intval( $_ENV["REFRESH_TOKEN_EXPIRY"] ) ),
-                ":ip"                 => $ipAddress   
+                ":ip"                 => $ipAddress,
+                ":userAgent"          => $userAgent  
             ] );
             $query->rowCount() === 1 ?? $insertedId = $this->_mdbd->getDBConn()->lastInsertId();
         }
@@ -59,6 +60,7 @@ class SessionDAO extends DAO {
                 id, 
                 ip,
                 userId, 
+                userAgent,
                 accessToken, 
                 accessTokenExpiry, 
                 refreshToken,
@@ -90,6 +92,20 @@ class SessionDAO extends DAO {
         ";
         $query = $this->_mdbd->getDBConn()->prepare( $sql );
         $query->execute( [":id" => $sessionId, ":ipAddress" => $ipAddress] );
+        $rowCount = intval( $query->fetch()["rowCount"] );
+        return $rowCount > 0;
+    }
+
+    public function idUserAgentMatch( int $sessionId, string $userAgent ) : bool {
+        $sql   = "
+            SELECT COUNT(*) AS rowCount 
+            FROM sessions 
+            WHERE id        = :id 
+            AND   userAgent = :userAgent
+            ORDER BY createdAt DESC
+        ";
+        $query = $this->_mdbd->getDBConn()->prepare( $sql );
+        $query->execute( [":id" => $sessionId, ":userAgent" => $userAgent] );
         $rowCount = intval( $query->fetch()["rowCount"] );
         return $rowCount > 0;
     }

@@ -10,6 +10,7 @@ class Session {
     private string     $_accessTokenExpiry;
     private int        $_id = 0; // id 0 means session model has not been hydrated
     private string     $_ipAddress;
+    private string     $_userAgent;
     private string     $_refreshToken;
     private string     $_refreshTokenExpiry;
     private SessionDAO $_sessionDAO;
@@ -34,6 +35,7 @@ class Session {
             $this->_ipAddress          = $fetched["ip"];
             $this->_refreshToken       = $fetched["refreshToken"];
             $this->_refreshTokenExpiry = $fetched["refreshTokenExpiry"];
+            $this->_userAgent          = $fetched["userAgent"];
             $this->_userId             = $fetched["userId"];
         }
     }
@@ -46,9 +48,9 @@ class Session {
      * user can be logged in on only one device
      * 
      */
-    public function create( int $userId, string $ipAddress ) : bool {
+    public function create( int $userId, string $ipAddress, string $userAgent ) : bool {
         $this->_destroyUserSessions( $userId );
-        $this->_sessionDAO->create( $userId, $ipAddress );
+        $this->_sessionDAO->create( $userId, $ipAddress, $userAgent );
         $this->_inflate( $userId );
         return $this->_id != 0;
     }

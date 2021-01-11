@@ -30,6 +30,7 @@ CREATE TABLE `sessions` (
   `accessToken`        VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `accessTokenExpiry`  DATETIME     NOT NULL,
   `ip`                 VARCHAR(40)  NOT NULL,
+  `userAgent`          VARCHAR(200) NOT NULL,
   `refreshToken`       VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `refreshTokenExpiry` DATETIME              NOT NULL,
   `createdAt`          DATETIME              NOT NULL DEFAULT current_timestamp(),

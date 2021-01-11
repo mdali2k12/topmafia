@@ -38,6 +38,11 @@ trait AuthValidator {
         return $sessionDao->idIPMatch( $sessionId, $ipAddress ); 
     }
 
+    public function validateSessionUserAgentMatch( int $sessionId, string $userAgent ) : bool {
+        $sessionDao = new SessionDAO();
+        return $sessionDao->idUserAgentMatch( $sessionId, $userAgent );
+    }
+
     public function validateUserPassword( string $inputPassword, $userIdentifier ) : bool {
         $user       = new User( $userIdentifier );
         $inputHash  = $this->appHash( $this->sanitizeStringInput( $inputPassword ) );

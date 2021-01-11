@@ -16,13 +16,15 @@ abstract class Request {
     private string   $_ipAddress;
     private string   $_method;
     private bool     $_urlIsValid    = false;
+    private string   $_userAgent;
 
     public function __construct() {
         $this->_init();
     } // EO constructor
 
     private function _init() {
-        $this->_method = $_SERVER["REQUEST_METHOD"];
+        $this->_method    = $_SERVER["REQUEST_METHOD"];
+        $this->_userAgent = $this->sanitizeStringInput( $_SERVER["HTTP_USER_AGENT"] );
         $this->_setIpAddress();
         $this->_setHeaders();
         $this->_setCompleteUrl();
@@ -119,6 +121,9 @@ abstract class Request {
     }
     public function getMethod() : string {
         return $this->_method;
+    }
+    public function getUserAgent() : string {
+        return $this->_userAgent;
     }
     // EO setters/getters
 
