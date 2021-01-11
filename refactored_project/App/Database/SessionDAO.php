@@ -12,12 +12,12 @@ class SessionDAO extends DAO {
        parent::__construct();
     }
 
-    public function create( int $userId ) : int {
+    public function create( int $userId, string $ipAddress ) : int {
         $insertedId = 0;
         if ( !is_null( $this->_mdbd->getDBConn() ) ) {
             $sql = "
-                INSERT INTO sessions( userId, accessToken, refreshToken, accessTokenExpiry, refreshTokenExpiry )
-                VALUES( :userId, :accessToken, :refreshToken, :accessTokenExpiry, :refreshTokenExpiry )
+                INSERT INTO sessions( userId, accessToken, refreshToken, accessTokenExpiry, refreshTokenExpiry, ip )
+                VALUES( :userId, :accessToken, :refreshToken, :accessTokenExpiry, :refreshTokenExpiry, :ip )
             ";
             $query = $this->_mdbd->getDBConn()->prepare( $sql );
             $query->execute( [
@@ -25,7 +25,8 @@ class SessionDAO extends DAO {
                 ":accessToken"        => $this->buildToken(),
                 ":refreshToken"       => $this->buildToken(),
                 ":accessTokenExpiry"  => $this->incrementDateTimeWithSeconds( intval( $_ENV["ACCESS_TOKEN_EXPIRY"] ) ),
-                ":refreshTokenExpiry" => $this->incrementDateTimeWithSeconds( intval( $_ENV["REFRESH_TOKEN_EXPIRY"] ) )   
+                ":refreshTokenExpiry" => $this->incrementDateTimeWithSeconds( intval( $_ENV["REFRESH_TOKEN_EXPIRY"] ) ),
+                ":ip"                 => $ipAddress   
             ] );
             $query->rowCount() === 1 ?? $insertedId = $this->_mdbd->getDBConn()->lastInsertId();
         }
@@ -56,6 +57,7 @@ class SessionDAO extends DAO {
         $sql    = "
             SELECT 
                 id, 
+                ip,
                 userId, 
                 accessToken, 
                 accessTokenExpiry, 
@@ -77,6 +79,21 @@ class SessionDAO extends DAO {
             $result = [];
         return $result;
     }
+
+    public function idIPMatch( int $sessionId, string $ipAddress ) : bool {
+        $sql   = "
+            SELECT COUNT(*) AS rowCount 
+            FROM sessions 
+            WHERE id = :id 
+            AND   ip = :ipAddress
+            ORDER BY createdAt DESC
+        ";
+        $query = $this->_mdbd->getDBConn()->prepare( $sql );
+        $query->execute( [":id" => $sessionId, ":ipAddress" => $ipAddress] );
+        $rowCount = intval( $query->fetch()["rowCount"] );
+        return $rowCount > 0;
+    }
+
 
     public function refreshAccessToken( int $sessionId, string $newExpiry ): bool {
         $sql   = "UPDATE sessions SET accessTokenExpiry = :newExpiry WHERE id = :sessionId";

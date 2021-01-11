@@ -87,9 +87,6 @@ if ( isset( $request->getHeaders()["json"] ) &&  $request->getHeaders()["json"] 
         ->send();
 } else { // web routes
     switch ( $request->getEndpoint() ) {
-        case "/":
-            require_once getcwd()."/views/templates/home.php";
-            break;
         case "/forgot-password":
             require_once getcwd()."/views/templates/auth/forgot_password.php";
             break;
@@ -99,8 +96,9 @@ if ( isset( $request->getHeaders()["json"] ) &&  $request->getHeaders()["json"] 
         case "/privacy-policy":
             require_once getcwd()."/views/templates/privacy_policy.php";
             break;
-        default:
-            require_once getcwd()."/views/templates/error.php";
+        case "/":
+        default :
+            require_once getcwd()."/views/templates/home.php";
             break;
     }
 }

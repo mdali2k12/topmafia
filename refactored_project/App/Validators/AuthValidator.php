@@ -33,6 +33,11 @@ trait AuthValidator {
         return false;
     }
 
+    public function validateSessionIPsMatch( int $sessionId, string $ipAddress ) : bool {
+        $sessionDao = new SessionDAO();
+        return $sessionDao->idIPMatch( $sessionId, $ipAddress ); 
+    }
+
     public function validateUserPassword( string $inputPassword, $userIdentifier ) : bool {
         $user       = new User( $userIdentifier );
         $inputHash  = $this->appHash( $this->sanitizeStringInput( $inputPassword ) );

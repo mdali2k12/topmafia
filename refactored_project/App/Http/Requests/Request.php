@@ -13,6 +13,7 @@ abstract class Request {
     private bool     $_hasIdentifier = false;
     protected array  $_headers       = [];
     private string   $_identifier    = "";
+    private string   $_ipAddress;
     private string   $_method;
     private bool     $_urlIsValid    = false;
 
@@ -22,6 +23,7 @@ abstract class Request {
 
     private function _init() {
         $this->_method = $_SERVER["REQUEST_METHOD"];
+        $this->_setIpAddress();
         $this->_setHeaders();
         $this->_setCompleteUrl();
         $this->_setUrlValidity();
@@ -92,6 +94,14 @@ abstract class Request {
             $this->_endpoint      = "/".$pathToParse[1];
         }
     } // EO _setIdentifier(
+    private function _setIpAddress() : void {
+        $ip = "";
+        if ( isset( $_SERVER["REMOTE_ADDR"] ) )           
+            $ip = filter_var( $this->sanitizeStringInput( $_SERVER["REMOTE_ADDR"] ), FILTER_VALIDATE_IP );
+        else isset( $_SERVER["HTTP_X_FORWARDED_FOR"] ) ?? 
+            $ip = filter_var( $this->sanitizeStringInput( $_SERVER["HTTP_X_FORWARDED_FOR"] ), FILTER_VALIDATE_IP ); 
+        $this->_ipAddress = !$ip ? "" : $ip;
+    } // EO _setIpAddress
     public function getCompleteUrl() : string {
         return $this->_completeUrl;
     }
@@ -103,6 +113,9 @@ abstract class Request {
     }
     public function getIdentifier() : string {
         return $this->_identifier;
+    }
+    public function getIpAddress() : string {
+        return $this->_ipAddress;
     }
     public function getMethod() : string {
         return $this->_method;

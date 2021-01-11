@@ -3,24 +3,10 @@
 
 ## current requirement
 
-### user can only be logged in one device at a time 
-- given I log into the app' on a device a,
-  when I log into the app' on a device b,
-  then the session created with my device a login is deleted,
-  and a new session is created with my device b login
-- given I logged in in Firefox,
-  when I log in to the application in Chrome,
-  and I reload the page on Firefox,
-  then I shouldnt be auto logged in on Firefox
-- given I logged in in Firefox,
-  when I log in to the application in Chrome,
-  and I reload the page on Chrome,
-  then I shouldnt be auto logged in on Chrome
-
 ### session hijacking protection is implemented
 - given I make an HTTP call from the frontend to the "/sessions/{id}" endpoint aiming at verifying or updating my session,
   when my session is verified,
-  then the API checks the match between my IP address and the IP address registered for the session,
+  ✅ then the API checks the match between my IP address and the IP address registered for the session,
   and it checks the match between my user agent and the user agent registered for the session,
   and it checks that my access/refresh tokens are not expired,
   and it sends back a success or failure response accordingly

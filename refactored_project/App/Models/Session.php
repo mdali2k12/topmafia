@@ -6,13 +6,14 @@ use App\Database\SessionDAO;
 
 class Session {
 
-    private int        $_id = 0; // id 0 means session model has not been hydrated
-    private int        $_userId;
     private string     $_accessToken = "";
     private string     $_accessTokenExpiry;
+    private int        $_id = 0; // id 0 means session model has not been hydrated
+    private string     $_ipAddress;
     private string     $_refreshToken;
     private string     $_refreshTokenExpiry;
     private SessionDAO $_sessionDAO;
+    private int        $_userId;
 
     public function __construct( int $id = 0 ) { // id set to 0 means empty model
         $this->_sessionDAO = new SessionDAO();
@@ -27,12 +28,13 @@ class Session {
     private function _inflate( int $id ) : void {
         $fetched = $this->_sessionDAO->get( $id );
         if ( $fetched["rowCount"] > 0 ) {
-            $this->_id                 = $fetched["id"];
-            $this->_userId             = $fetched["userId"];
             $this->_accessToken        = $fetched["accessToken"];
             $this->_accessTokenExpiry  = $fetched["accessTokenExpiry"];
+            $this->_id                 = $fetched["id"];
+            $this->_ipAddress          = $fetched["ip"];
             $this->_refreshToken       = $fetched["refreshToken"];
             $this->_refreshTokenExpiry = $fetched["refreshTokenExpiry"];
+            $this->_userId             = $fetched["userId"];
         }
     }
 
@@ -44,9 +46,9 @@ class Session {
      * user can be logged in on only one device
      * 
      */
-    public function create( int $userId ) : bool {
+    public function create( int $userId, string $ipAddress ) : bool {
         $this->_destroyUserSessions( $userId );
-        $this->_sessionDAO->create( $userId );
+        $this->_sessionDAO->create( $userId, $ipAddress );
         $this->_inflate( $userId );
         return $this->_id != 0;
     }

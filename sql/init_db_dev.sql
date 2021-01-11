@@ -28,7 +28,8 @@ CREATE TABLE `sessions` (
   `id`                 int(11)      UNSIGNED NOT NULL AUTO_INCREMENT,
   `userId`             INT(11)      UNSIGNED NOT NULL,
   `accessToken`        VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `accessTokenExpiry`  DATETIME              NOT NULL,
+  `accessTokenExpiry`  DATETIME     NOT NULL,
+  `ip`                 VARCHAR(40)  NOT NULL,
   `refreshToken`       VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
   `refreshTokenExpiry` DATETIME              NOT NULL,
   `createdAt`          DATETIME              NOT NULL DEFAULT current_timestamp(),
@@ -42,8 +43,7 @@ ALTER TABLE `sessions`
 
 CREATE TABLE `bannedips`(
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  -- encoded for insert with INET_ATON, decoded for read with INET_NTOA
-  `ip`                  INT     UNSIGNED NOT NULL, 
+  `ip`                  VARCHAR(40)  NOT NULL,
   `createdAt`           DATETIME NOT NULL DEFAULT current_timestamp(),
   `updatedAt`           DATETIME NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
