@@ -9,7 +9,6 @@ class AppTokenDAO extends DAO {
     }
 
     public function create( int $userId, string $type, string $token ) : void {
-        $insertedId = 0;
         if ( !is_null( $this->_mdbd->getDBConn() ) ) {
             $sql = "
                 INSERT INTO apptokens( userId, type, token )
@@ -21,7 +20,6 @@ class AppTokenDAO extends DAO {
                 ":type"        => $type,
                 ":token"       => $token
             ] );
-            $query->rowCount() === 1 ?? $insertedId = $this->_mdbd->getDBConn()->lastInsertId();
         }
     }
 

@@ -17,9 +17,10 @@ class AppToken {
     }
 
     // the type must be one of the types present in the corresponding field enum in db
-    public function create( int $userId, string $type ) : void {
+    public function create( int $userId, string $type ) : string {
         $token = $this->buildToken();
         $this->_atdao->create( $userId, $type, $token );
+        return $token;
     }
 
 }

@@ -2,12 +2,16 @@
 
 namespace App\Controllers;
 
+use App\Helpers\StringsTrait;
+
 use App\Http\Requests\Request;
 use App\Http\Responses\Json\JsonResponse;
+
 use App\Models\User;
-use App\Notifications\Email;
 
 class PasswordsController extends Controller {
+
+    use StringsTrait;
 
     public function __construct( Request $request ) {
         parent::__construct( $request );
@@ -16,14 +20,18 @@ class PasswordsController extends Controller {
     protected function _initResponse() : void {
         switch( $this->_request->getMethod() ) {
             case "POST":
+                // pessimistic assumption
+                $failed = true;
                 if ( 
                     $this->_request->isValid() 
                     && isset( $this->_request->getBody()["email"] )
+                    && $this->sanitizeStringInput( $this->_request->getBody()["email"] ) != ""
                     && User::exists( $this->_request->getBody()["email"] )
                 ) {
                     $user = new User( $this->_request->getBody()["email"] );
                     if ( $user->id && $user->generateNewPassword() ) {
-                        $mailContent = "
+                        $failed = false;
+                        $mailContents = "
                             <html>
                                 <body>
                                     <h2>We've reset your password!</h2>
@@ -34,27 +42,23 @@ class PasswordsController extends Controller {
                         ";
                         // nullifying unencrypted password since we're not using it again
                         $user->nullifyUnhashedPassword();
-                        Email::sendEmail(
-                            $user->username,
-                            "Your new password for Top Mafia!",
+                        // sending the password reset email
+                        $this->sendEmailAndSetResponse( 
+                            $_ENV["MAIL_FROM_NAME"] , 
+                            "Your new password for Top Mafia!", 
                             $user->getEmail(),
-                            $mailContent
-                        ) ?
-                            $this->_response = new JsonResponse( 
-                                200, 
-                                ["your password has been reset"],
-                                true
-                            )
-                            :
-                            $this->_setServerErrorResponse( "There was an issue delivering your email. Please try again later." );
+                            $mailContents,
+                            "Your password has been reset",
+                            "There was an issue delivering your email. Please try again later." 
+                        );
                     }
-                    else $this->_setServerErrorResponse( "There was an issue delivering your email. Please try again later." );
                 } 
-                else $this->_response = new JsonResponse( 
-                    200, 
-                    ["Email is incorrect or invalid!"],
-                    false
-                );
+                $failed ?? 
+                    $this->_response = new JsonResponse( 
+                        200, 
+                        ["Email is incorrect or invalid!"],
+                        false
+                    );
                 break;
             default:
                 $this->_setBadRequestResponse();

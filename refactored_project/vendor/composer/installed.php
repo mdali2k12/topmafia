@@ -6,7 +6,7 @@
     'aliases' => 
     array (
     ),
-    'reference' => '4b343faa94d9b25b74552cc815a325a9ebe6174e',
+    'reference' => '491edf3444ca94e8338824080b8e75f79c00d85d',
     'name' => 'mdali2k12/topmafia',
   ),
   'versions' => 
@@ -36,7 +36,16 @@
       'aliases' => 
       array (
       ),
-      'reference' => '4b343faa94d9b25b74552cc815a325a9ebe6174e',
+      'reference' => '491edf3444ca94e8338824080b8e75f79c00d85d',
+    ),
+    'monolog/monolog' => 
+    array (
+      'pretty_version' => '2.2.0',
+      'version' => '2.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '1cb1cde8e8dd0f70cc0fe51354a59acad9302084',
     ),
     'phpoption/phpoption' => 
     array (
@@ -46,6 +55,22 @@
       array (
       ),
       'reference' => '994ecccd8f3283ecf5ac33254543eb0ac946d525',
+    ),
+    'psr/log' => 
+    array (
+      'pretty_version' => '1.1.3',
+      'version' => '1.1.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '0f73288fd15629204f9d42b7055f72dacbe811fc',
+    ),
+    'psr/log-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0.0',
+      ),
     ),
     'sendgrid/php-http-client' => 
     array (

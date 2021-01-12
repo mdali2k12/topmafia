@@ -2,6 +2,8 @@
 
 namespace App\Database;
 
+use App\Services\MariaDBService;
+
 use DateInterval;
 use DateTime;
 
@@ -10,7 +12,7 @@ abstract class DAO {
     protected $_mdbd;
 
     public function __construct() {
-        $this->_mdbd = MariaDBDriver::getInstance();
+        $this->_mdbd = MariaDBService::getInstance();
     }
 
     // MariaDB default datetime format is 'Y-m-d H:i:s'

@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Database;
+namespace App\Services;
 
 use DateTime;
 use PDOException;
 
-class MariaDBDriver{
+class MariaDBService{
 
-    private        $_db_conn = null;
-    private bool   $_dbIsUp;
-    private string $_logFilePath = "./logs/app/db.log";
+    private               $_db_conn = null;
+    private bool          $_dbIsUp;
+    private LoggerService $_loggerService;
 
     private static $_instance = null;
 
@@ -19,13 +19,15 @@ class MariaDBDriver{
     public static function getInstance() 
     {
         if ( is_null( self::$_instance ) ) {
-            self::$_instance = new MariaDBDriver();  
+            self::$_instance = new MariaDBService();  
         }
         return self::$_instance;
     }
     // EO pair constructor/get instance
 
     private function _init() : void {
+        // getting the logger
+        $this->_loggerService = LoggerService::getInstance();
         // check that PDO extension is enabled
         if( in_array ( 'pdo_mysql', get_loaded_extensions() ) ) {
             // TODO admin feedback with getAttribute(PDO::ATTR_SERVER_INFO) and/or getAttribute(PDO::ATTR_CONNECTION_STATUS)
@@ -38,10 +40,9 @@ class MariaDBDriver{
                 $this->_db_conn = new \PDO( $dsn, $_ENV['DB_NAME'], $_ENV['DB_PASSWORD'], $opt );
                 $this->_dbIsUp = true;
             } catch ( PDOException $pdoe ) {
-                error_log(
-                    ( new DateTime() )->format('Y-m-d H:i:s') . " - DBConnection : error while connecting to database => " . $pdoe->getMessage() . "\n",
-                    3,
-                    $this->_logFilePath
+                $this->_loggerService->log( 
+                    "error",
+                    ( new DateTime() )->format('Y-m-d H:i:s') . " - DBConnection : error while connecting to database => " . $pdoe->getMessage() . "\n"
                 );
                 $this->_dbIsUp = false;
             }

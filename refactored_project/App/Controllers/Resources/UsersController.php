@@ -8,7 +8,7 @@ use App\Helpers\StringsTrait;
 
 use App\Http\Requests\Request;
 use App\Http\Responses\Json\JsonResponse;
-
+use App\Models\AppToken;
 use App\Models\User;
 
 use App\Validators\ArraysValidator;
@@ -44,8 +44,35 @@ class UsersController extends ResourcesController {
             )
         ) 
             $succeeded = $user->signUp( $payload ); // the outcome of the operation depends on successul execution of model signUp method
-        $succeeded ? $this->_response = new JsonResponse( 200, ["You have signed up successfully!"], true, $user->read() ) : 
-            $this->_response = new JsonResponse( 200, ["user registration failed"], false ); 
+        if ( $succeeded ) {
+            $this->_response = new JsonResponse( 200, ["You have signed up successfully!"], true, $user->read() );
+            // sending the account verification link email
+            $token  = ( new AppToken() )->create( $user->getId(), "accountVerification" );
+            $mailContents = "
+                <html>
+                    <body>
+                        <h2>Your login details for Top Mafia!</h2>
+                        <p>Your username is "
+                            ."<strong>".$user->username."</strong>"
+                        ."</p>
+                        <p>Email verification code <strong> ".$token."</strong></p>"
+                        ."<p>"
+                            ."- head back to <a href='.".$_ENV["APP_URL"]."/apptokens?token=".$token."&type=accountverification".".'>Top Mafia</a>"
+                        ."</p>
+                    </body>
+                </html> 
+            ";
+            // sending the password reset email
+            $this->sendEmailAndSetResponse( 
+                $_ENV["MAIL_FROM_NAME"] , 
+                "Verify your Top Mafia account!", 
+                $user->getEmail(),
+                $mailContents,
+                "Please verify your account",
+                "There was an issue during the registration process. Please try again later to validate your account." 
+            );
+        }  
+        else $this->_response = new JsonResponse( 200, ["user registration failed"], false ); 
     } // EO _initCreateOneResponse() method
 
     protected function _initReadAllResponse(): void {

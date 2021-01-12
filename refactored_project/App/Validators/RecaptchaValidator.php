@@ -2,12 +2,15 @@
 
 namespace App\Validators;
 
+use App\Services\LoggerService;
+
 use DateTime;
 use ReCaptcha\ReCaptcha as ReCaptcha;
 
 trait RecaptchaValidator {
 
     protected function verifyRecaptchaResponse( string $token ): bool {
+        $logger            = LoggerService::getInstance();
         $recaptcha         = new ReCaptcha( $_ENV['GRECAPTCHA_SECRET'] );
         $recaptchaResponse = 
             $recaptcha
@@ -17,10 +20,9 @@ trait RecaptchaValidator {
                 ->verify( $token );
         if( !$recaptchaResponse->isSuccess() ) {
             $errors = json_encode( $recaptchaResponse->getErrorCodes() );
-            error_log(
-                ( new DateTime() )->format('Y-m-d H:i:s') . " - Recaptcha : error while verifying recaptcha => " . $errors . "\n",
-                3,
-                "./logs/app/apis.log"
+            $logger->log( 
+               "error", 
+               "Recaptcha => ".( new DateTime() )->format('Y-m-d H:i:s') . " - Recaptcha : error while verifying recaptcha => " . $errors . "\n" 
             );
         }
         return $recaptchaResponse->isSuccess();

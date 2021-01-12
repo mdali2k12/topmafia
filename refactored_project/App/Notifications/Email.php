@@ -2,28 +2,33 @@
 
 namespace App\Notifications;
 
+use App\Services\LoggerService;
+
 use SendGrid;
 use SendGrid\Mail\Mail as Mail;
 
 class Email {
 
     public static function sendEmail( 
-        string $username,
+        string $fromName,
         string $subject,
-        string $userEmail, 
-        string $mailContent
+        string $toEmail, 
+        string $emailContents
     ): bool {
+        $logger = LoggerService::getInstance();
         $email = new Mail(); 
-        $email->setFrom( $_ENV["SENDGRID_SENDER_IDENTITY"], $username );
+        $email->setFrom( $_ENV["SENDGRID_SENDER_IDENTITY"], $fromName );
         $email->setSubject( $subject );
-        $email->addTo( $userEmail, $username );
+        $email->addTo( $toEmail );
         $email->addContent(
-            "text/html", $mailContent
+            "text/html", $emailContents
         );
         $sendgrid = new SendGrid( $_ENV["SENDGRD_API_KEY"] );
         try {
             $response = $sendgrid->send($email);
-            // TODO log $response->statusCode(), $response->headers() & $response->body() to file
+            $logger->log( "info", "SendGrid email response status code => ".  $response->statusCode() );
+            $logger->log( "info", "SendGrid email response headers => ".  json_encode( $response->headers() ) );
+            $logger->log( "info", "SendGrid email response body => ".  $response->body() );
             return true;
         } catch ( \Exception $e ) {
             // TODO log sending email error to file

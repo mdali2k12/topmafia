@@ -2,7 +2,7 @@
 
 namespace App\Controllers;
 
-use App\Database\MariaDBDriver           as MariaDBDriver;
+use App\Database\MariaDBService           as MariaDBService;
 use App\Http\Requests\Request            as Request;
 use App\Http\Responses\Json\JsonResponse as JsonResponse;
 
@@ -14,7 +14,7 @@ class HomeController extends Controller {
 
     protected function _initResponse() : void {
         if ( $this->_request->getMethod() === "GET" ) {
-            $mdbd = MariaDBDriver::getInstance();
+            $mdbd = MariaDBService::getInstance();
             $this->_response = 
                 $mdbd->isUp() ?
                     new JsonResponse(

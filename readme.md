@@ -1,13 +1,13 @@
 
 # app' memo
 
-## last updatesa 
+## last updates 
 
 ### account verification with one-time link
 - ✅ user has a "verified" field in db, which is a boolean set to false by default
 - ✅ an apptokens table exists in db, containing a verifiedAt, a token, a type, and a userId field
 - ✅ on signup, an account verification token linked to the new user is created and stored in apptokens entity
-- an email object is configured with below data
+- ✅ an email object is configured with below data
     * AddReplyTo                         => "webmail@topmafia.net", "Top Mafia" 
     * SetFrom                            => "webmail@topmafia.net", "Top Mafia" 
     * AddAddressTo                       => $to parameter
@@ -23,8 +23,10 @@
                 </body>
             </html> 
         ```
-- this email is sent to the user who just signed up
-- when the user clicks on the link in the email a request hits a /apptokens endpoint with a GET request that contains the verification token as a query string
+✅ - this email is sent to the user who just signed up
+- the token is stripped from any equal signs in it or these equal signs are handled at request level for parsing
+✅ - when the user clicks on the link in the email a request hits a /apptokens endpoint with a GET request that contains the verification token as a query string
+- the email doesnt show the token, just a link "click here to verify email"
 - the query string is then parsed by the API for validation
 - if validation passes, the "verified" in the users table is set to true for the new user and the "verifiedAt" field of the token record is also set to 
 - if validation doesnt pass then 

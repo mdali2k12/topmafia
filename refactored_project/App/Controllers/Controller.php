@@ -4,7 +4,10 @@ namespace App\Controllers;
 
 use App\Http\Requests\Request            as Request;
 use App\Http\Responses\Response          as Response;
+
 use App\Http\Responses\Json\JsonResponse as JsonResponse;
+
+use App\Notifications\Email;
 
 abstract class Controller {
 
@@ -57,6 +60,29 @@ abstract class Controller {
         $response = null;
         !isset( $this->_response ) ? $response =  $this->_setBadRequestResponse() : $response = $this->_response;
         return $response;
+    }
+
+    public function sendEmailAndSetResponse( 
+        string $fromName, 
+        string $subject, 
+        string $toEmail, 
+        string $emailContents,
+        string $successResponseText,
+        string $failureResponseText
+    ) : void {
+            Email::sendEmail(
+                $fromName,
+                $subject,
+                $toEmail,
+                $emailContents
+            ) ?
+                $this->_response = new JsonResponse( 
+                    200, 
+                    [$successResponseText],
+                    true
+                )
+                :
+                $this->_setServerErrorResponse( $failureResponseText );
     }
 
 } // EO Controller class
