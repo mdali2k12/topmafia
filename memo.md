@@ -1,21 +1,6 @@
 
 # app' memo
 
-## current requirement
-
-### session hijacking protection is implemented
-- given I make an HTTP call from the frontend to the "/sessions/{id}" endpoint aiming at verifying or updating my session,
-  when my session is verified,
-  ✅ then the API checks the match between my IP address and the IP address registered for the session,
-  ✅ and it checks the match between my user agent and the user agent registered for the session,
-  and it checks that my access/refresh tokens are not expired,
-  and it sends back a success or failure response accordingly
-
-### offline/online users count
-- given I make any HTTP call from the frontend to the "/sessions" endpoint, 
-  when the response from the API is successful,
-  then the count of online/offline players is updated
-
 ## app' routes
 
 - **/** 

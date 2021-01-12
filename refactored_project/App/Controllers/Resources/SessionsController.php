@@ -100,11 +100,14 @@ class SessionsController extends ResourcesController {
             && $this->authHeaderIsNotNullish()
             && Session::exists( $this->_request->getIdentifier() )
             && $this->validateTokenAndSessionIdAssociation( $this->getProvidedAccessToken(), $this->_request->getIdentifier() )
-            && !$this->tokenIsExpired( $this->_request->getIdentifier(), "accessToken" )
             && $this->validateSessionIPsMatch( $this->_request->getIdentifier() , $this->_request->getIpAddress() )
             && $this->validateSessionUserAgentMatch( $this->_request->getIdentifier() , $this->_request->getUserAgent() )
-        )
-            $this->_setLoggedInResponse();
+        ) {
+            if ( !$this->tokenIsExpired( $this->_request->getIdentifier(), "accessToken" ) )
+                $this->_setLoggedInResponse();
+            else 
+                $this->_setSessionExpiredResponse();
+        }
         else $this->_setUnauthorizedResponse();
     }
 
