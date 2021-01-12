@@ -12,22 +12,6 @@
     // "The E-mail you entered is in use."
     //  "Your passwords do not match."
     // TODO recaptcha validation failure feedback
-// TODO send verification email with one-time link
-    /** 
-     * based on this template =>
-     * <html>
-            <body>
-                <h2>Your login details for Top Mafia!</h2>
-                <p>Your username is <strong>".htmlspecialchars($username)."</strong></p>
-                <p>Your password is <strong>".htmlspecialchars($password)."</strong> </p>
-                <p>Email verification code <strong> ".htmlspecialchars($verify_code)."</strong></p>- head back to <a href='https://www.topmafia.net/'>Top Mafia</a></p>
-            </body>
-        </html> 
-        $mail->AddReplyTo("webmail@topmafia.net","Top Mafia");
-        $mail->SetFrom('webmail@topmafia.net', 'Top Mafia');
-        $mail->AddAddress($to);
-        $mail->Subject  = "Your login details for Top Mafia!";
-    */
 
 const setActiveTab = ( tab ) => {
     $( ".tabs-buttons > button.active" ).removeClass( "active" );

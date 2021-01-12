@@ -88,11 +88,25 @@ class User {
     }
 
     public function signUp( array $userPayload ) : bool {
-        $userDao                 = new UserDAO();
-        $userPayload["password"] = $this->appHash( $userPayload["password"] );
-        $userDao->signUp( $userPayload );
-        $this->_inflate( $userPayload["username"] );
-        return $this->_id != 0;
+        // business logic validation rounds
+        if (
+            $this->validatePassword( $userPayload["password"] )
+            && $this->validateUserEmail( $userPayload["email"] ) 
+            && $this->validateUsername( $userPayload["username"] )
+            && $this->validateGender( $userPayload["gender"] )
+        ) {
+            $userDao                 = new UserDAO();
+            $userPayload["password"] = $this->appHash( $userPayload["password"] );
+            $userDao->signUp( $userPayload );
+            $this->_inflate( $userPayload["username"] );
+            // we create the account verification token
+            $verificationLink = new AppToken();
+            if ( $this->_id != 0 ) {
+                $verificationLink->create( $this->_id, "accountVerification" );
+                return true;
+            }
+        }
+        return false;
     }
 
     // SO business logic input validation

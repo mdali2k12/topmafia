@@ -28,30 +28,24 @@ class UsersController extends ResourcesController {
     }
 
     protected function _initCreateOneResponse(): void {
-        $failed                 = true;
+        // pessimistic assumption
+        $succeeded              = false;
         $payload                = count( $this->_request->getBody() ) > 0 ? $this->_request->getBody() : [];
         $payloadMandatoryFields = ["username", "password", "confirmPassword", "email", "gender", "recaptchaToken"]; 
         $user = new User( null );
-        // validation rounds conditioning the registration of the user
         if ( 
             count( $payload ) > 0
             && $this->_matchKeyValuePairs( $payloadMandatoryFields ) 
             && $this->verifyRecaptchaResponse( $payload["recaptchaToken"] ) 
             && $this->validateMatch( 
-                $this->sanitizeStringInput( $payload["password"] ), 
-                $this->sanitizeStringInput( $payload["confirmPassword"] )
+                    $this->sanitizeStringInput( $payload["password"] ), 
+                    $this->sanitizeStringInput( $payload["confirmPassword"] 
+                )
             )
-            && $user->validatePassword( $payload["password"] )
-            && $user->validateUserEmail( $payload["email"] ) 
-            && $user->validateUsername( $payload["username"] )
-            && $user->validateGender( $payload["gender"] )
-        ) {
-            if ( $user->signUp( $payload ) ) {
-                $failed = false;
-                $this->_response = new JsonResponse( 200, ["You have signed up successfully!"], true, $user->read() );
-            } 
-        } 
-        if ( $failed != false ) $this->_response = new JsonResponse( 200, ["user registration failed"], false );
+        ) 
+            $succeeded = $user->signUp( $payload ); // the outcome of the operation depends on successul execution of model signUp method
+        $succeeded ? $this->_response = new JsonResponse( 200, ["You have signed up successfully!"], true, $user->read() ) : 
+            $this->_response = new JsonResponse( 200, ["user registration failed"], false ); 
     } // EO _initCreateOneResponse() method
 
     protected function _initReadAllResponse(): void {
