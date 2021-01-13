@@ -56,7 +56,7 @@ class UsersController extends ResourcesController {
                             ."<strong>".$user->username."</strong>"
                         ."</p>"
                         ."<p>"
-                            ."<a href='.".$_ENV["APP_URL"]."/apptokens?token=".$token."&type=accountverification".".'>Click here to verify email</a>"
+                            ."<a href='".$_ENV["APP_URL"]."/apptokens?token=".$token."&type=accountverification"."'>Click here to verify email</a>"
                         ."</p>
                     </body>
                 </html> 

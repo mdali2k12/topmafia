@@ -212,7 +212,7 @@
             && strlen( $_GET["token"] ) > 0
             && strlen( $_GET["type"] ) > 0
         ):?>
-            <input type="hidden" id="apptoken" data-token="$_GET['token']" data-type="$_GET['type']">
+            <input type="hidden" id="apptoken" data-token="<?=$_GET['token']?>" data-type="<?=$_GET['type']?>">
         <?php endif ?>
 
         <!-- page required scripts -->
