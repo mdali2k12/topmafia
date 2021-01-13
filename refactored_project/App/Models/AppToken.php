@@ -16,9 +16,15 @@ class AppToken {
         $this->_atdao = new AppTokenDAO();
     }
 
-    // the type must be one of the types present in the corresponding field enum in db
+    // the provided type must be one of the types present in the corresponding field enum in db
     public function create( int $userId, string $type ) : string {
-        $token = $this->buildToken();
+
+        // we create the token and get rid of equal signs in it since it can lead to query string parsing errors
+        $randomChar = $this->generateRandomChar();
+        while ( $randomChar == '=' )
+            $randomChar = $this->generateRandomChar();
+        $token = str_replace( "=", $randomChar, $this->buildToken() );
+
         $this->_atdao->create( $userId, $type, $token );
         return $token;
     }

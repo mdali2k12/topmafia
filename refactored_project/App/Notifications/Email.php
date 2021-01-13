@@ -28,7 +28,7 @@ class Email {
             $response = $sendgrid->send($email);
             $logger->log( "info", "SendGrid email response status code => ".  $response->statusCode() );
             $logger->log( "info", "SendGrid email response headers => ".  json_encode( $response->headers() ) );
-            $logger->log( "info", "SendGrid email response body => ".  $response->body() );
+            $logger->log( "info", "SendGrid email response body => ".  json_encode( $response->body() ) );
             return true;
         } catch ( \Exception $e ) {
             // TODO log sending email error to file

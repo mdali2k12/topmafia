@@ -54,10 +54,9 @@ class UsersController extends ResourcesController {
                         <h2>Your login details for Top Mafia!</h2>
                         <p>Your username is "
                             ."<strong>".$user->username."</strong>"
-                        ."</p>
-                        <p>Email verification code <strong> ".$token."</strong></p>"
+                        ."</p>"
                         ."<p>"
-                            ."- head back to <a href='.".$_ENV["APP_URL"]."/apptokens?token=".$token."&type=accountverification".".'>Top Mafia</a>"
+                            ."<a href='.".$_ENV["APP_URL"]."/apptokens?token=".$token."&type=accountverification".".'>Click here to verify email</a>"
                         ."</p>
                     </body>
                 </html> 

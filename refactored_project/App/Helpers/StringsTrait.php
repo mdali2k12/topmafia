@@ -38,6 +38,23 @@ trait StringsTrait {
         return $pw;        
     }
 
+    public function generateRandomChar() : string {
+        return substr( 
+            // input string is an md5-hashed timestamp
+            md5( microtime() ), 
+            /**
+             * 
+             * since md5( func. returns a 32-character hexadecimal number,
+             * we select a random number within its length bounds
+             * at index n of the input string
+             * 
+             */
+            rand( 0, 31 ),  
+            // we get a single char
+            1
+        );
+    }
+
     protected function getDNSFromEmail( string $emailAddress ) {
         $domain = explode( "@", $emailAddress )[1];
         return $domain;

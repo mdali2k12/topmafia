@@ -205,6 +205,16 @@
         <input type="hidden" value="<?=$_ENV['APP_URL'];?>" id="app_url">
         <input type="hidden" value="<?=$_ENV["GRECAPTCHA_SITE_KEY"];?>" id="grecaptcha_site_key">
 
+        <!-- setting one-time links as hidden inputs if any -->
+        <?php if( 
+            isset( $_GET["token"] ) 
+            && isset( $_GET["type"] ) 
+            && strlen( $_GET["token"] ) > 0
+            && strlen( $_GET["type"] ) > 0
+        ):?>
+            <input type="hidden" id="apptoken" data-token="$_GET['token']" data-type="$_GET['type']">
+        <?php endif ?>
+
         <!-- page required scripts -->
         <script src="./views/js/http.js"></script>
         <script src="./views/js/auth.js"></script>
