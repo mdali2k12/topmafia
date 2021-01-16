@@ -3,6 +3,7 @@
 namespace App\Http\Responses\Json;
 
 use App\Http\Responses\Response as Response;
+use App\Services\LoggerService;
 
 class JsonResponse extends Response {
 
@@ -24,7 +25,9 @@ class JsonResponse extends Response {
         $this->_responsePayload["success"]        = $this->_success;
         if ( count( $this->_messages ) > 0 )
             $this->_responsePayload["messages"] = $this->_messages;
-        echo json_encode( $this->_responsePayload );
+        $finalResp = json_encode( $this->_responsePayload );
+        LoggerService::getInstance()->log( "info", "SENT RESPONSE => ".$finalResp );
+        echo $finalResp;
     }
     // EO overriding abstract parent class
 

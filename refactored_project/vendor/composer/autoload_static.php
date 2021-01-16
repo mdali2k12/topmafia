@@ -122,9 +122,11 @@ class ComposerStaticInite96dd24e805b2559e61cf6cbb75dcc9e
 
     public static $classMap = array (
         'App\\Controllers\\Controller' => __DIR__ . '/../..' . '/App/Controllers/Controller.php',
+        'App\\Controllers\\EmailsController' => __DIR__ . '/../..' . '/App/Controllers/EmailsController.php',
         'App\\Controllers\\HomeController' => __DIR__ . '/../..' . '/App/Controllers/HomeController.php',
         'App\\Controllers\\NotFoundController' => __DIR__ . '/../..' . '/App/Controllers/NotFoundController.php',
         'App\\Controllers\\PasswordsController' => __DIR__ . '/../..' . '/App/Controllers/PasswordsController.php',
+        'App\\Controllers\\Resources\\AppTokensController' => __DIR__ . '/../..' . '/App/Controllers/Resources/AppTokensController.php',
         'App\\Controllers\\Resources\\BannedIPsController' => __DIR__ . '/../..' . '/App/Controllers/Resources/BannedIPsController.php',
         'App\\Controllers\\Resources\\ResourcesController' => __DIR__ . '/../..' . '/App/Controllers/Resources/ResourcesController.php',
         'App\\Controllers\\Resources\\SessionsController' => __DIR__ . '/../..' . '/App/Controllers/Resources/SessionsController.php',
@@ -147,6 +149,7 @@ class ComposerStaticInite96dd24e805b2559e61cf6cbb75dcc9e
         'App\\Models\\Session' => __DIR__ . '/../..' . '/App/Models/Session.php',
         'App\\Models\\User' => __DIR__ . '/../..' . '/App/Models/User.php',
         'App\\Notifications\\Email' => __DIR__ . '/../..' . '/App/Notifications/Email.php',
+        'App\\Services\\EmailsService' => __DIR__ . '/../..' . '/App/Services/EmailsService.php',
         'App\\Services\\LoggerService' => __DIR__ . '/../..' . '/App/Services/LoggerService.php',
         'App\\Services\\MariaDBService' => __DIR__ . '/../..' . '/App/Services/MariaDBService.php',
         'App\\Validators\\ArraysValidator' => __DIR__ . '/../..' . '/App/Validators/ArraysValidator.php',

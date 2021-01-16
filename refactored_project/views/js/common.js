@@ -19,15 +19,3 @@ const getOnlineOfflineUsers = async () => {
     });
 };
 // EO getting online/offline users 
-
-// SO page load behavior
-jQuery( () => {
-
-    // success and error feedback  
-    $('#err').hide();
-    $('#succ').hide();
-
-    getOnlineOfflineUsers();
-
-});
-// EO page load behavior

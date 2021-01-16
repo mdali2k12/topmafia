@@ -2,37 +2,7 @@
 # app' memo
 
 ## last updates 
-
-### account verification with one-time link
-- ✅ user has a "verified" field in db, which is a boolean set to false by default
-- ✅ an apptokens table exists in db, containing a verifiedAt, a token, a type, and a userId field
-- ✅ on signup, an account verification token linked to the new user is created and stored in apptokens entity
-- ✅ an email object is configured with below data
-    * AddReplyTo                         => "webmail@topmafia.net", "Top Mafia" 
-    * SetFrom                            => "webmail@topmafia.net", "Top Mafia" 
-    * AddAddressTo                       => $to parameter
-    * Subject                            => "Your login details for Top Mafia!"
-    * template with necessary parameters => 
-        ```html
-            <html>
-                <body>
-                    <h2>Your login details for Top Mafia!</h2>
-                    <p>Your username is <strong>".$username."</strong></p>
-                    <p>Your password is <strong>".$password."</strong> </p>
-                    <p>Email verification code <strong> ".$accountVerificationToken."</strong></p>- head back to <a href='https://www.topmafia.net'>Top Mafia</a></p>
-                </body>
-            </html> 
-        ```
-✅ - this email is sent to the user who just signed up
-✅ - the token is stripped from any equal signs in it or these equal signs are handled at request level for parsing
-✅ - when the user clicks on the link in the email a request hits a /apptokens endpoint with a GET request that contains the verification token as a query string
-✅ - the email doesnt show the token, just a link "click here to verify email"
-- the query string is then parsed by the API for validation
-- if validation passes, the "verified" in the users table is set to true for the new user and the "verifiedAt" field of the token record is also set to 
-- if validation doesnt pass then 
-- in the meantime, user lands on home view, which shows the outcome of the operation
-- in the UI, user is thanked for having verified and auto logged in
-- in the UI, user is invited to be resent an account verification link if operation fails; on click of button outcome of resending the email appears as a feedback
+    ...
 
 ## app' routes
 

@@ -14,36 +14,36 @@
     // TODO recaptcha validation failure feedback
 
 const setActiveTab = ( tab ) => {
-    $( ".tabs-buttons > button.active" ).removeClass( "active" );
     $( ".tabs-content" ).hide();
+    $( ".tabs-buttons > button.active" ).removeClass( "active" );
     $( ".tabs-buttons [data-tab=" + tab + "]" ).addClass( "active" );
     $( "#" + tab + "Tab" ).show();
 }
 
-const hideLoginAndSignUpTabs = () => {
-    setActiveTab( "story" );
-    $( ".tabs-buttons [data-tab=login]" ).hide();
-    $( ".tabs-buttons [data-tab=signup]" ).hide();
-};
+const triggerLoginFailureBehavior = ( feedbackMessage ) => {
+    setActiveTab( "login" );
+    $('#succ').hide();
+    $('#err').html( feedbackMessage );
+    $('#err').show();
+}
 
-const triggerLoginSuccessBehavior = () => {
+const triggerLoginSuccessBehavior = ( feedbackMessage ) => {
         // online users count is incremented on the front end
-        getOnlineOfflineUsers();
-        hideLoginAndSignUpTabs();
+        // getOnlineOfflineUsers();
+        setActiveTab( "story" );
+        // hiding other content tabs
+        $( ".tabs-buttons [data-tab='login']" ).hide();
+        $( ".tabs-buttons [data-tab='signup']" ).hide();
         $('#err').hide();
         $( "#succ" ).show();
-        $( "#succ" ).html( "You are now logged in!" );
+        $( "#succ" ).html( feedbackMessage );
         $( ".grecaptcha-badge" ).hide();
 }
 
 const loginFeedback = loginSuccess => {
-    if ( loginSuccess != undefined && loginSuccess != false && loginSuccess == true ) {
-        triggerLoginSuccessBehavior();
-    } else {
-        $('#succ').hide();
-        $('#err').html( "Invalid username or password!" );
-        $('#err').show();
-    }
+    if ( loginSuccess != undefined && loginSuccess != false && loginSuccess == true ) 
+        triggerLoginSuccessBehavior( "You are now logged in!" );
+    else triggerLoginFailureBehavior( "Invalid username or password!" );
 };
 
 const authenticator = new Authenticator( http );
@@ -130,21 +130,109 @@ const signup = async () => {
         });
     }
 };
+// EO signup function
+
+// SO request to /apptokens endpoint
+const getRequestToAppTokens = async ( type, token ) => {
+    return http.sendGetRequest( `/apptokens?type=${type}&token=${token}` )
+        .then( responseObject => { return responseObject;} )
+        .catch( error =>  {
+            console.log( error ); // TODO better error handling ?
+    });
+};
+// EO request to /apptokens endpoint
+
+const autoLoginBehavior = async ( feedbackMessage ) => {
+    authenticator.autoLogin().then( res => {
+        if ( res == false || res == undefined ) {
+            authenticator._removeAuthDataFromLocalStorage();
+            setActiveTab( "login" );
+            triggerLoginFailureBehavior( feedbackMessage );
+        }
+        else 
+            triggerLoginSuccessBehavior( feedbackMessage );
+    });
+}
+
+const resendAccountVerificationEmail = async ( email ) => {
+    http.sendRequestWithPayload( "/emails", "POST", {email:email, type:"accountverification"} ); 
+}
 
 // SO page load behavior
 jQuery( () => {
 
+    // setting active tab to "login" by default
+    setActiveTab( "login" );
+
+    // hiding error/success feedbacks divs
+    $('#err').hide();
+    $('#succ').hide();
+
+    // updating offline/users on page load
+    // getOnlineOfflineUsers();
+
+    // registering on click event for signup button
     $( "#signup_btn" ).on( "click", e => {
         e.preventDefault();
         signup();
     });
 
-    authenticator.autoLogin().then( res => {
-        if ( res == false || res == undefined ) 
-            setActiveTab( "login" );
-        else 
-            triggerLoginSuccessBehavior();
-    });
+    // sending requests to app' tokens endpoint if input exists
+    if ( $( "#apptoken" ).length ) {
+        const tokenType = $( "#apptoken" ).attr( "data-type" );
+        const token     = $( "#apptoken" ).attr( "data-token" );
+        getRequestToAppTokens( tokenType, token )
+            .then( responseObject => {
+                if ( responseObject != undefined && responseObject.success != false ) {
+                    // setting user and session in local storage
+                    authenticator._removeAuthDataFromLocalStorage();
+                    localStorage.setItem( "session", JSON.stringify( responseObject.session ) );
+                    localStorage.setItem( "user", JSON.stringify( responseObject.user ) );
+                    triggerLoginSuccessBehavior( "Thank you for having verified your account" );
+                } 
+                if ( responseObject != undefined && responseObject.success == false ) {
+                    switch( responseObject.messages[0]) {
+                        case "account verification failed":
+                            let canResendEmail = false;
+                            try {
+                                session = JSON.parse( localStorage.getItem( "session" ) );
+                                user    = JSON.parse( localStorage.getItem( "user" ) );
+                                if ( authenticator.checkValidSessionAndUser( session, user ) ) 
+                                    canResendEmail = true;
+                            } catch ( error ) {
+                                console.error( error );
+                            }
+                            if ( canResendEmail ) {
+                                triggerLoginFailureBehavior( 
+                                    `Account verification failed ! &nbsp;
+                                    <input type='button' class='primary button' id='account_verif_btn' value='Resend verification email'>
+                                `);
+                                // registering on click event for account verification mail send button
+                                $( "#account_verif_btn" ).on( "click", e => {
+                                    e.preventDefault();
+                                    resendAccountVerificationEmail( user.email );
+                                    $( "#err" ).hide();
+                                    $( "#succ" ).show();
+                                    $( "#succ").html( "Account verification email sent !" );
+                                });
+                            } else 
+                                triggerLoginFailureBehavior( `Account verification failed !`);
+                            break;
+                        case "account already verified":
+                            autoLoginBehavior( `This account has been verified, no further action required` );
+                            break;
+                    }
+
+                }
+            })
+            .catch( error => {
+                console.error( error );
+        });
+    } else {
+        // auto login
+        autoLoginBehavior( "You are now logged in!" );
+    }
+
 
 });
 // EO page load behavior

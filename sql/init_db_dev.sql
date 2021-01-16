@@ -44,13 +44,12 @@ ALTER TABLE `sessions`
   ADD CONSTRAINT `session_user_fk` FOREIGN KEY (`userId`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 CREATE TABLE `apptokens` (
-  `id`                 int(11)      UNSIGNED NOT NULL AUTO_INCREMENT,
-  `userId`             INT(11)      UNSIGNED NOT NULL,
-  `token`              VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `type`               ENUM( 'accountVerification' ),
-  `createdAt`          DATETIME NOT     NULL DEFAULT current_timestamp(),
-  `updatedAt`          DATETIME NOT     NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `verifiedAt`         DATETIME DEFAULT NULL,
+  `id`         int(11)      UNSIGNED NOT NULL AUTO_INCREMENT,
+  `userId`     INT(11)      UNSIGNED NOT NULL,
+  `token`      VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
+  `type`       ENUM( 'accountverification' ),
+  `createdAt`  DATETIME NOT     NULL DEFAULT current_timestamp(),
+  `consumedAt` DATETIME DEFAULT NULL,
   CONSTRAINT `apptoken_user_pk` PRIMARY KEY (`id`, `userId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 ALTER TABLE `apptokens`

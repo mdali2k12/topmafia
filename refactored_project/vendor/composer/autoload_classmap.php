@@ -7,9 +7,11 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'App\\Controllers\\Controller' => $baseDir . '/App/Controllers/Controller.php',
+    'App\\Controllers\\EmailsController' => $baseDir . '/App/Controllers/EmailsController.php',
     'App\\Controllers\\HomeController' => $baseDir . '/App/Controllers/HomeController.php',
     'App\\Controllers\\NotFoundController' => $baseDir . '/App/Controllers/NotFoundController.php',
     'App\\Controllers\\PasswordsController' => $baseDir . '/App/Controllers/PasswordsController.php',
+    'App\\Controllers\\Resources\\AppTokensController' => $baseDir . '/App/Controllers/Resources/AppTokensController.php',
     'App\\Controllers\\Resources\\BannedIPsController' => $baseDir . '/App/Controllers/Resources/BannedIPsController.php',
     'App\\Controllers\\Resources\\ResourcesController' => $baseDir . '/App/Controllers/Resources/ResourcesController.php',
     'App\\Controllers\\Resources\\SessionsController' => $baseDir . '/App/Controllers/Resources/SessionsController.php',
@@ -32,6 +34,7 @@ return array(
     'App\\Models\\Session' => $baseDir . '/App/Models/Session.php',
     'App\\Models\\User' => $baseDir . '/App/Models/User.php',
     'App\\Notifications\\Email' => $baseDir . '/App/Notifications/Email.php',
+    'App\\Services\\EmailsService' => $baseDir . '/App/Services/EmailsService.php',
     'App\\Services\\LoggerService' => $baseDir . '/App/Services/LoggerService.php',
     'App\\Services\\MariaDBService' => $baseDir . '/App/Services/MariaDBService.php',
     'App\\Validators\\ArraysValidator' => $baseDir . '/App/Validators/ArraysValidator.php',

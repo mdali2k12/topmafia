@@ -6,7 +6,7 @@ use App\Http\Requests\Request as Request;
 
 class GetRequest extends Request {
 
-    protected array  $_queryStrings  = [];
+    public array  $_queryStrings  = [];
 
     public function __construct() {
         parent::__construct();
@@ -27,11 +27,12 @@ class GetRequest extends Request {
         foreach ( $_GET as $key => $value ) {
             if (
                 $this->sanitizeStringInput( $this->removeSpaces( $key ) ) != "" 
-                && $this->sanitizeStringInput( $this->removeSpaces( $key ) ) != false 
-                && $this->sanitizeStringInput( urldecode( $value ) ) != null
+                && $this->sanitizeStringInput( $this->removeSpaces( $value ) ) != false 
+                && $this->sanitizeStringInput( urldecode( $key ) ) != null
                 && $this->sanitizeStringInput( urldecode( $value ) ) != false
-            )
+            ) {
                 $sanitizedQueryStringsArr[$key] = $value;
+            }
         }
         $this->_queryStrings = $sanitizedQueryStringsArr;
     }

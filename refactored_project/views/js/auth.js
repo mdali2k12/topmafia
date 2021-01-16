@@ -67,6 +67,7 @@ class Authenticator {
             || !session.hasOwnProperty( "accessToken" )
             || !session.hasOwnProperty( "refreshToken" )
             || !session.hasOwnProperty( "userId" )
+            || !user.hasOwnProperty( "email" )
         ) 
             return false;
         return true;
@@ -85,16 +86,16 @@ class Authenticator {
             authPayload,
             headers
         )
-            .then( responseObject => {
-                responseObject.success && !!responseObject.session && !!responseObject.user ? loginSuccess = true : loginSuccess = false;
-                if ( loginSuccess != false ) {
-                    localStorage.setItem( "session", JSON.stringify( responseObject.session ) );
-                    localStorage.setItem( "user", JSON.stringify( responseObject.user ) );
-                }
-                return loginSuccess;
-            })
-            .catch( error => {
-                return false;
+        .then( responseObject => {
+            responseObject.success && !!responseObject.session && !!responseObject.user ? loginSuccess = true : loginSuccess = false;
+            if ( loginSuccess != false ) {
+                localStorage.setItem( "session", JSON.stringify( responseObject.session ) );
+                localStorage.setItem( "user", JSON.stringify( responseObject.user ) );
+            }
+            return loginSuccess;
+        })
+        .catch( error => {
+            return false;
         });
     }
 

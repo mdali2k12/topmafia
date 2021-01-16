@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Database\UserDAO;
 use App\Helpers\StringsTrait;
+use App\Services\LoggerService;
 use App\Validators\StringsValidator;
 
 class User {
@@ -76,6 +77,11 @@ class User {
         $this->_unhashedPassword = " ";
     }
 
+    public function isVerified() : bool {
+        $userDao = new UserDAO();
+        return $userDao->checkIsVerified( $this->_id );
+    }
+
     public function read() : array {
         $payload = [];
         $payload["user"] = [
@@ -99,12 +105,7 @@ class User {
             $userPayload["password"] = $this->appHash( $userPayload["password"] );
             $userDao->signUp( $userPayload );
             $this->_inflate( $userPayload["username"] );
-            // we create the account verification token
-            $verificationLink = new AppToken();
-            if ( $this->_id != 0 ) {
-                $verificationLink->create( $this->_id, "accountVerification" );
-                return true;
-            }
+            return $this->_id != 0;
         }
         return false;
     }
@@ -142,5 +143,10 @@ class User {
         return false;
     }
     // EO business logic specific validation
+
+    public function verifyAccount() : bool {
+        $userDao = new UserDAO();
+        return $userDao->updateIsVerifiedField( $this->_id );
+    }
 
 }

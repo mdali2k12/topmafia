@@ -3,6 +3,7 @@
 namespace App\Database;
 
 use App\Helpers\StringsTrait;
+use App\Services\LoggerService;
 
 // TODO DRY
 class UserDAO extends DAO {
@@ -11,6 +12,19 @@ class UserDAO extends DAO {
 
     public function __construct() {
        parent::__construct();
+    }
+
+    public function checkIsVerified( int $id ): bool {
+        $sql    = "
+            SELECT isVerified, COUNT(*) AS rowCount 
+            FROM users 
+            WHERE id = :id 
+        ";
+        $query  = $this->_mdbd->getDBConn()->prepare( $sql );
+        $query->execute( [":id" => $id] );
+        $result = $query->fetch(); 
+        if ( !$result ) return boolval( 0 );
+        return boolval( $result["isVerified"] );
     }
 
     public function emailIsBanned( string $email ): bool {
@@ -41,17 +55,20 @@ class UserDAO extends DAO {
 
     public function get( $identifier ) : array {
         $sql    = "
-            SELECT id, email, username, gender, password, COUNT(*) AS rowCount 
-            FROM users 
-            WHERE id    = :id 
-            OR email    = :email 
-            OR username = :username
+            SELECT u.id AS id, email, username, gender, password, COUNT(*) AS rowCount 
+            FROM users u
+            LEFT JOIN apptokens at ON at.userId = u.id
+            WHERE u.id   = :id 
+            OR email     = :email 
+            OR username  = :username
+            OR at.token  = :attoken
         ";
         $query  = $this->_mdbd->getDBConn()->prepare( $sql );
-        $query->execute( [":id" => $identifier, ":email" => $identifier,  ":username" => $identifier] );
+        $query->execute( [":id" => $identifier, ":email" => $identifier,  ":username" => $identifier, ":attoken" => $identifier] );
         $result = $query->fetch(); 
         if ( !$result )
             $result = [];
+        // LoggerService::getInstance()->log( "info", "GET USER FROM DAO => ".json_encode( $result ) );
         return $result;
     }
 
@@ -111,6 +128,17 @@ class UserDAO extends DAO {
             $query->rowCount() === 1 ?? $insertedId = $this->_mdbd->getDBConn()->lastInsertId();
         } 
         return $insertedId;
+    }
+
+    public function updateIsVerifiedField( int $id ): bool {
+        $updateSql = "UPDATE users SET isVerified = TRUE WHERE id = :id";
+        $query  = $this->_mdbd->getDBConn()->prepare( $updateSql );
+        return ( 
+            $query->execute( [
+                ":id"   => $id
+            ]) 
+            && $query->rowCount() === 1 
+        );        
     }
 
     public function updateUserPassword( int $id, string $hash ): bool {

@@ -57,9 +57,8 @@ abstract class Controller {
 
 
     public function handleRequest() : Response {
-        $response = null;
-        !isset( $this->_response ) ? $response =  $this->_setBadRequestResponse() : $response = $this->_response;
-        return $response;
+        if ( !isset( $this->_response ) ) $this->_setBadRequestResponse();
+        return $this->_response;
     }
 
     public function sendEmailAndSetResponse( 
