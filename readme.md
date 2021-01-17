@@ -34,10 +34,6 @@
 
     <Directory "C:\xampp\htdocs\topmafia\refactored_project">
         Options -Indexes
-        Options FollowSymLinks
-        AllowOverride All
-        Order allow,deny
-        Allow from all
         FallbackResource /index.php
     </Directory>
 
