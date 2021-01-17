@@ -19,7 +19,7 @@ trait StringsTrait {
         return $output;
     }
 
-    public function generateRandomPassword() : string {
+    public function generateHumanReadablePassword() : string {
         $pw = '';
         $c  = 'bcdfghjklmnprstvwz'; //consonants except hard to speak ones
         $v  = 'aeiou'; //vowels

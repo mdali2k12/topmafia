@@ -93,6 +93,7 @@ abstract class Request {
         if( count( $pathToParse ) === 3 && !is_null( $pathToParse[2] ) ) {
             $this->_hasIdentifier = true;
             $this->_identifier    = $this->sanitizeStringInput( $pathToParse[2] );
+            // resetting endpoint to avoid not found errors when trying to get a resource
             $this->_endpoint      = "/".$pathToParse[1];
         }
     } // EO _setIdentifier(

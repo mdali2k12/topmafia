@@ -56,7 +56,7 @@ class SessionsController extends ResourcesController {
         // validation rounds
         if ( 
             count( $payload ) > 0
-            && $this->_matchKeyValuePairs( $payloadMandatoryFields ) 
+            && $this->matchKeyValuePairs( $payloadMandatoryFields ) 
             && User::exists( $payload["username"] )
             && $this->validateUserPassword( $payload["password"], $payload["username"] )
             && $this->_request->getIpAddress() != ""
@@ -141,7 +141,7 @@ class SessionsController extends ResourcesController {
             && Session::exists( $this->_request->getIdentifier() )
             && $this->tokenIsExpired( $this->_request->getIdentifier(), "accessToken" )
             && count( $payload ) > 0
-            && $this->_matchKeyValuePairs( $payloadMandatoryFields ) 
+            && $this->matchKeyValuePairs( $payloadMandatoryFields ) 
             && $this->validateTokensAndId( $this->getProvidedAccessToken(), $payload["refreshToken"], $this->_request->getIdentifier() )
             && !$this->tokenIsExpired(  $this->_request->getIdentifier(), "refreshToken" )
             && $this->validateSessionIPsMatch( $this->_request->getIdentifier(), $this->_request->getIpAddress() )

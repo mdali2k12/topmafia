@@ -21,7 +21,7 @@ trait RecaptchaValidator {
         if( !$recaptchaResponse->isSuccess() ) {
             $errors = json_encode( $recaptchaResponse->getErrorCodes() );
             $logger->log( 
-               "error", 
+               "info", 
                "Recaptcha => ".( new DateTime() )->format('Y-m-d H:i:s') . " - Recaptcha : error while verifying recaptcha => " . $errors . "\n" 
             );
         }

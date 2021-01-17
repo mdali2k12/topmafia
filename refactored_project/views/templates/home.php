@@ -5,7 +5,7 @@
 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-        <link rel="shortcut icon" type="image/x-icon" href="https://topmafia.net/favicon.ico">
+        <link rel="shortcut icon" type="image/x-icon" href="./../../favicon.ico">
 
         <!-- SEO -->
         <title> Top Mafia - Free text based role playing game</title>
@@ -138,17 +138,17 @@
                             <!-- SO signup tab -->
                             <div class="tabs-content" id="signupTab">
                                 <br />
-                                <form autocomplete="off" name="signup" id="signup">
+                                <form autocomplete="off" id="signup">
                                     <label class="font" for="username">Username</label>
-                                    <input type="text" id="username" name="username" class="text-general3" required>
+                                    <input type="text" id="username" class="text-general3" required>
                                     <label class="font" for="password">Password</label>
-                                    <input type="password" id="password" name="password" class="text-general3" required>
+                                    <input type="password" id="password" class="text-general3" required>
                                     <label class="font" for="confirm-password">Confirm Password</label>
-                                    <input type="password" id="confirm-password" name="confirm-password" class="text-general3" required>
+                                    <input type="password" id="confirm-password" class="text-general3" required>
                                     <label class="font" for="email">Email</label>
-                                    <input type="email" id="email" name="email" class="text-general3" required>
+                                    <input type="email" id="email" class="text-general3" required>
                                     <label class="font" for="gender">Gender</label>
-                                    <select name="gender" id="gender" class="text-general3" id="gender">
+                                    <select id="gender" class="text-general3" id="gender">
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                     </select>

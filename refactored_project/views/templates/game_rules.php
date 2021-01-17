@@ -5,7 +5,7 @@
 
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
 
-        <link rel="shortcut icon" type="image/x-icon" href="https://topmafia.net/favicon.ico">
+        <link rel="shortcut icon" type="image/x-icon" href="./../../favicon.ico">
 
         <!-- SEO -->
         <title> Top Mafia - Free text based role playing game</title>
@@ -14,13 +14,14 @@
         <meta name="keywords" content="mafia, rpg, mafia game, top mafia, text based rpg, rpg, mmorpg">
         <meta name="author" content="Top Mafia Ltd" />
         <link rel="canonical" href="https://www.topmafia.net" />
-        <link rel="image_src" href="https://topmafia.net/home/images/backgrounds/newbged.png" />
         <meta property="og:url" content="https://www.topmafia.net/" />
         <meta property="og:title" content="Top Mafia - Free Text Based RPG">
         <meta property="og:site_name" content="Top Mafia - Free Text Based RPG">
         <meta property="og:image" content="https://topmafia.net/home/images/backgrounds/newred.png" />
         <meta property="og:description" content="Join the ultimate battle of becoming the top gangster of your city while experiencing the utmost real life criminal pressure. Do you think your ready to turn your dream into reality? Join the free massively multiplayer mafia text based role playing game and begin your journey." />
         <meta property="site_name" content="Top Mafia" />
+
+        <link rel="image_src" href="./../assets/images/newbged.png" />
 
         <!-- fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" media="all">

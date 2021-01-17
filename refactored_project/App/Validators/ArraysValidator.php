@@ -8,7 +8,7 @@ trait ArraysValidator {
 
     use StringsTrait;
 
-    public function _matchKeyValuePairs( array $fields, $specificPayload = null ) : bool {
+    public function matchKeyValuePairs( array $fields, $specificPayload = null ) : bool {
         $go = ( count( $this->_request->getBody() ) === count( $fields ) ) && is_null( $specificPayload );
         if ( $go != false ) {
             $arrToIterateOn = $this->_request->getBody();
@@ -29,12 +29,15 @@ trait ArraysValidator {
         return $go;
     }
 
-    public function _matchUpdatableFields( array $updatableFields ) : bool {
+    public function matchUpdatableFields( array $updatableFields ) : bool {
         $go = true;
-        if ( count( $this->_request->getBody() ) > 0 && count( $this->_request->getBody() ) <= count( $updatableFields ) ) {
-            foreach( $this->_request->getBody() as $key => $value ) {
+        $fieldsToIterateOn = array_filter( $this->_request->getBody(), function( $key ) {
+            return $key != "confirmPassword" && $key != "recaptchaToken" && $key != "tokenType" && $key != "appToken";
+        }, ARRAY_FILTER_USE_KEY);
+        if ( count( $fieldsToIterateOn ) > 0 ) {
+            foreach( $fieldsToIterateOn as $key => $value ) {
                 if ( 
-                    !in_array( $key, array_keys( $updatableFields ) ) 
+                    !in_array( $this->sanitizeStringInput( $key ), $updatableFields ) 
                     ||
                     $this->sanitizeStringInput( $value ) == ""
                 )

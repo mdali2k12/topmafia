@@ -42,7 +42,7 @@ class User {
 
     public function generateNewPassword() : bool {
         $userDao                 = new UserDAO();
-        $this->_unhashedPassword = $this->generateRandomPassword();
+        $this->_unhashedPassword = $this->generateHumanReadablePassword();
         $hash                    = $this->appHash( $this->_unhashedPassword );
         return $userDao->updateUserPassword( $this->_id, $hash );
     }
@@ -108,6 +108,12 @@ class User {
             return $this->_id != 0;
         }
         return false;
+    }
+
+    public function updatePassword( string $password ): bool {
+        $userDao = new UserDAO();
+        $hash    = $this->appHash( $password);
+        return $userDao->updateUserPassword( $this->_id, $hash );
     }
 
     // SO business logic input validation

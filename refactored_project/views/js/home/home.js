@@ -46,8 +46,6 @@ const loginFeedback = loginSuccess => {
     else triggerLoginFailureBehavior( "Invalid username or password!" );
 };
 
-const authenticator = new Authenticator( http );
-
 const loginRequest = async ( username, password ) => {
     authenticator.loginWithCredentials( username, password ).then( outcome => {
         loginFeedback( outcome ); 
@@ -145,7 +143,7 @@ const getRequestToAppTokens = async ( type, token ) => {
 const autoLoginBehavior = async ( feedbackMessage ) => {
     authenticator.autoLogin().then( res => {
         if ( res == false || res == undefined ) {
-            authenticator._removeAuthDataFromLocalStorage();
+            authenticator.removeAuthDataFromLocalStorage();
             setActiveTab( "login" );
         }
         else 
@@ -184,7 +182,7 @@ jQuery( () => {
             .then( responseObject => {
                 if ( responseObject != undefined && responseObject.success != false ) {
                     // setting user and session in local storage
-                    authenticator._removeAuthDataFromLocalStorage();
+                    authenticator.removeAuthDataFromLocalStorage();
                     localStorage.setItem( "session", JSON.stringify( responseObject.session ) );
                     localStorage.setItem( "user", JSON.stringify( responseObject.user ) );
                     triggerLoginSuccessBehavior( "Thank you for having verified your account" );

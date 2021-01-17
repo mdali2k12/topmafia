@@ -24,7 +24,8 @@ class AppToken {
         switch ( $type ) {
             case "accountverification":
                 return $user->verifyAccount() && $this->_atdao->updateVerifiedAt( $token );
-            // TODO password reset flow
+            case "passwordreset":
+                return $this->_atdao->updateVerifiedAt( $token );
         }
         return false;
     }

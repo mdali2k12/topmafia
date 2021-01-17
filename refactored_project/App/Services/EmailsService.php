@@ -10,7 +10,7 @@ use App\Notifications\Email;
 class EmailsService {
 
     // sending the account verification link email
-    public function sendAccountVerificationEmail( User $user ) : void {
+    public function sendAccountVerificationEmail( User $user ) : bool {
         $token  = ( new AppToken() )->create( $user->getId(), "accountverification" );
         $mailContents = "
             <html>
@@ -20,14 +20,38 @@ class EmailsService {
                         ."<strong>".$user->username."</strong>"
                     ."</p>"
                     ."<p>"
-                        ."<a href='".$_ENV["APP_URL"]."apptokens?token=".$token."&type=accountverification"."'>Click here to verify email</a>"
+                        ."<a href='".$_ENV["APP_URL"]."/apptokens?token=".$token."&type=accountverification"."'>Click here to verify email</a>"
                     ."</p>
                 </body>
             </html> 
         ";
-        Email::sendEmail(
+        return Email::sendEmail(
             $_ENV["MAIL_FROM_NAME"] , 
             "Verify your Top Mafia account!", 
+            $user->getEmail(),
+            $mailContents
+        );
+    }
+
+    public function sendPasswordResetEmail( User $user ) : bool {
+        $token  = ( new AppToken() )->create( $user->getId(), "passwordreset" );
+        $mailContents = "
+            <html>
+                <body>
+                    <h2>Password reset request for Top Mafia!</h2>
+                    <p>You receive this mail because a request to reset password has been sent for this account.</p>
+                    <p>If you did not request this, you can safely ignore this email.</p>
+                    .<p>"
+                        ."<a href='".$_ENV["APP_URL"]
+                        ."/reset-password?token=".$token."&type=passwordreset&userid=".$user->getId()
+                        ."'>Click here to reset password</a>"
+                    ."</p>
+                </body>
+            </html>
+        ";
+        return Email::sendEmail(
+            $_ENV["MAIL_FROM_NAME"] , 
+            "Top Mafia password reset", 
             $user->getEmail(),
             $mailContents
         );

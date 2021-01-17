@@ -1,10 +1,12 @@
+
 const valueIsNotEmpty = ( value ) => {
     return value != "";
-}
+};
 
-// const appUrl = $(':hidden#app_url').val();
-// let http = new HttpClient( null, appUrl ); // case deployment issues
-let http = new HttpClient();
+const validateEmail = (email) => {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+};
 
 // SO getting online/offline users 
 const getOnlineOfflineUsers = async () => {
@@ -18,3 +20,11 @@ const getOnlineOfflineUsers = async () => {
     });
 };
 // EO getting online/offline users 
+
+// setting up the HTTP client that will be used throughout the app'
+// const appUrl = $(':hidden#app_url').val();
+// let http = new HttpClient( null, appUrl ); // case deployment issues
+let http = new HttpClient();
+
+// setting up the authenticator
+const authenticator = new Authenticator( http );

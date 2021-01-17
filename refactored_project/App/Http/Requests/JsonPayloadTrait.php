@@ -38,7 +38,11 @@ trait JsonPayloadTrait {
         if ( 
             ( isset( $_SERVER["CONTENT_TYPE"] ) && $_SERVER["CONTENT_TYPE"] == "application/json" )
             &&
-            ( isset( $this->_headers["Content-Type"] ) && $this->_headers["Content-Type"] == "application/json"  )
+            ( 
+                isset( $this->_headers["Content-Type"] ) && $this->_headers["Content-Type"] == "application/json"  
+                ||
+                isset( $this->_headers["content-type"] ) && $this->_headers["content-type"] == "application/json"  
+            )
             &&
             count( $this->_body ) > 0
         )

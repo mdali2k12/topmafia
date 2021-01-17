@@ -125,7 +125,6 @@ class ComposerStaticInite96dd24e805b2559e61cf6cbb75dcc9e
         'App\\Controllers\\EmailsController' => __DIR__ . '/../..' . '/App/Controllers/EmailsController.php',
         'App\\Controllers\\HomeController' => __DIR__ . '/../..' . '/App/Controllers/HomeController.php',
         'App\\Controllers\\NotFoundController' => __DIR__ . '/../..' . '/App/Controllers/NotFoundController.php',
-        'App\\Controllers\\PasswordsController' => __DIR__ . '/../..' . '/App/Controllers/PasswordsController.php',
         'App\\Controllers\\Resources\\AppTokensController' => __DIR__ . '/../..' . '/App/Controllers/Resources/AppTokensController.php',
         'App\\Controllers\\Resources\\BannedIPsController' => __DIR__ . '/../..' . '/App/Controllers/Resources/BannedIPsController.php',
         'App\\Controllers\\Resources\\ResourcesController' => __DIR__ . '/../..' . '/App/Controllers/Resources/ResourcesController.php',

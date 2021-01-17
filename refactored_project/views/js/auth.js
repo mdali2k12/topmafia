@@ -6,7 +6,7 @@ class Authenticator {
         this.httpClient = httpClient;
     }
 
-    _removeAuthDataFromLocalStorage() {
+    removeAuthDataFromLocalStorage() {
         localStorage.removeItem( "session" );
         localStorage.removeItem( "user" );
     }
@@ -44,14 +44,14 @@ class Authenticator {
                             loginSuccess = outcome;
                         })
                     if ( !loginSuccess ) 
-                        this._removeAuthDataFromLocalStorage();
+                        this.removeAuthDataFromLocalStorage();
                     return loginSuccess;
                 })
                 .catch( error => {
                     console.error( error );
             });
         } else {
-            this._removeAuthDataFromLocalStorage();
+            this.removeAuthDataFromLocalStorage();
             return new Promise( ( resolve, reject ) => {
                 resolve( false );
                 reject( new Error( "something went wrong with autologin" ) )

@@ -7,13 +7,12 @@ use App\Http\Responses\Response          as Response;
 
 use App\Http\Responses\Json\JsonResponse as JsonResponse;
 
-use App\Notifications\Email;
-
 abstract class Controller {
 
     protected array    $_mandatoryFields = [];
     protected Request  $_request;
     protected Response $_response;
+    protected array    $_validationErrors = [];
 
     protected function __construct( Request $request ) {
         $this->_request = $request;
@@ -28,6 +27,10 @@ abstract class Controller {
      * 
      */
     abstract protected function _initResponse() : void;
+
+    protected function _addValidationError( string $key, string $value ) : void {
+        $this->_validationErrors[$key] = $value;
+    }
 
     protected function _setMandatoryFields( ...$els ) : void {
         foreach ( $els as $el ) {
@@ -55,33 +58,13 @@ abstract class Controller {
         $this->_response = new JsonResponse( 422, [$message], false );
     }
 
+    public function getValidationErrors() : array {
+        return $this->_validationErrors;
+    }
 
     public function handleRequest() : Response {
         if ( !isset( $this->_response ) ) $this->_setBadRequestResponse();
         return $this->_response;
-    }
-
-    public function sendEmailAndSetResponse( 
-        string $fromName, 
-        string $subject, 
-        string $toEmail, 
-        string $emailContents,
-        string $successResponseText,
-        string $failureResponseText
-    ) : void {
-            Email::sendEmail(
-                $fromName,
-                $subject,
-                $toEmail,
-                $emailContents
-            ) ?
-                $this->_response = new JsonResponse( 
-                    200, 
-                    [$successResponseText],
-                    true
-                )
-                :
-                $this->_setServerErrorResponse( $failureResponseText );
     }
 
 } // EO Controller class

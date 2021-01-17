@@ -16,7 +16,7 @@ class PatchRequest extends Request {
     } 
 
     public function isValid() : bool {
-        return $this->_urlIsValid() && $this->_validJsonAttached && $this->getMethod() == "PATCH";
+        return $this->_urlIsValid() && $this->hasValidJsonAttached() && $this->getMethod() == "PATCH";
     }
 
 } // EO class

@@ -64,10 +64,6 @@ if ( isset( $request->getHeaders()["json"] ) &&  $request->getHeaders()["json"] 
         case "/emails":
             $controllerClassName .= "Emails";
             break;
-        case "/passwords":
-            sleep( 1 );
-            $controllerClassName .= "Passwords";
-            break;
         case "/sessions":
             sleep( 1 );
             $controllerClassName .= "Resources\\Sessions";
@@ -103,6 +99,9 @@ if ( isset( $request->getHeaders()["json"] ) &&  $request->getHeaders()["json"] 
             break;
         case "/privacy-policy":
             require_once getcwd()."/views/templates/privacy_policy.php";
+            break;
+        case "/reset-password":
+            require_once getcwd()."/views/templates/reset_password.php";
             break;
         case "/":
         default :

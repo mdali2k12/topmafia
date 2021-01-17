@@ -10,7 +10,6 @@ return array(
     'App\\Controllers\\EmailsController' => $baseDir . '/App/Controllers/EmailsController.php',
     'App\\Controllers\\HomeController' => $baseDir . '/App/Controllers/HomeController.php',
     'App\\Controllers\\NotFoundController' => $baseDir . '/App/Controllers/NotFoundController.php',
-    'App\\Controllers\\PasswordsController' => $baseDir . '/App/Controllers/PasswordsController.php',
     'App\\Controllers\\Resources\\AppTokensController' => $baseDir . '/App/Controllers/Resources/AppTokensController.php',
     'App\\Controllers\\Resources\\BannedIPsController' => $baseDir . '/App/Controllers/Resources/BannedIPsController.php',
     'App\\Controllers\\Resources\\ResourcesController' => $baseDir . '/App/Controllers/Resources/ResourcesController.php',

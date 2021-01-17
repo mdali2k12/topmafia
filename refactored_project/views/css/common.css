@@ -43,7 +43,7 @@ body{
 
 .containerlogin {
 	margin: 0 auto;
-	background: url(https://topmafia.net/home/images/backgrounds/newbged.png) top center no-repeat;
+	background: url(./../assets/images/newbged.png) top center no-repeat;
 	height: 350px;
 }
 
@@ -374,7 +374,7 @@ textarea:focus {
 
 .topbar {
 	font-family: 'Jersey M54';
-	background: url(https://topmafia.net/home/images/navbar/gradientbar.png) top center repeat-x;
+	background: url(./../assets/images/gradientbar.png) top center repeat-x;
 	position: fixed;
 	padding: 10px;
 	box-shadow: 5px 0 10px #000;

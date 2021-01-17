@@ -100,17 +100,15 @@
             <div id="content">
                 <div style="text-align:left;">
                     <center><h2 class="font">RESET PASSWORD</h2></center>
-                    <div id="err">
-                        <!-- error message is filled dynamically -->
-                        <p id="errMess"></p>
-                        <br /><br />
-                    </div> 
+                    <div id="err"></div> 
                     <div id="succ"></div>
                     <form>
-                        <label class="font">Email Address</label>
-                        <input type="email" id="email" class="text-general3" required>
+                        <label class="font" for="password">Password</label>
+                        <input type="password" id="password" class="text-general3" required>
+                        <label class="font" for="confirm-password">Confirm Password</label>
+                        <input type="password" id="confirm-password" class="text-general3" required>
                         <center>
-                        <input type="button" class="primary button passwordReset" id="pwd_reset_btn" value="Send password reset email">
+                        <input type="button" class="primary button passwordReset" id="pwd_reset_btn" value="Reset password">
                         </center>
                     </form>
                 </div>            
@@ -132,11 +130,27 @@
         <input type="hidden" name="app_url" value="<?=$_ENV['APP_URL'];?>" id="app_url">
         <input type="hidden" value="<?=$_ENV["GRECAPTCHA_SITE_KEY"];?>" id="grecaptcha_site_key">
 
+        <!-- setting one-time link data from email as hidden inputs if any -->
+        <?php if( 
+            isset( $_GET["token"] ) 
+            && isset( $_GET["type"] ) 
+            && strlen( $_GET["token"] ) > 0
+            && strlen( $_GET["type"] ) > 0
+        ):?>
+            <input type="hidden" id="apptoken" data-token="<?=$_GET['token']?>" data-type="<?=$_GET['type']?>">
+        <?php endif ?>
+        <?php if( 
+            isset( $_GET["userid"] ) 
+            && strlen( $_GET["userid"] ) > 0
+        ):?>
+            <input type="hidden" id="userid" data-userid="<?=$_GET['userid']?>">
+        <?php endif ?>
+
         <!-- page scripts -->
         <script src="./views/js/http.js"></script>
         <script src="./views/js/auth.js"></script>
         <script src="./views/js/common.js"></script>
-        <script src="./views/js/forgot-password/forgot-password.js"></script>
+        <script src="./views/js/reset-password/reset-password.js"></script>
 
    </body>
 
