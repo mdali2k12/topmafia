@@ -1,30 +1,17 @@
 
 # app' memo
 
-## last updates : reset password link
-- ✅ user forgot his password, he clicks on link to display the form
-- ✅ form is protected by recaptcha
-- ✅ user inputs his email
-- ✅ user sends request to API for validation
-- on the UI, user gets feedback
-    * ✅ `<div id='err'>Email is incorrect or invalid! </div> <br /><br /><center> <a href='forgot_password.php'>Try Again</a> </center>`
-    * ✅ "Sorry, no user with that email was found."
-    * ✅ "There was an issue delivering your email. Please try again later."
-    * ✅ `<p id="succ">An email was sent to <?php echo htmlspecialchars($user['email']);?> with your new password.</p>`
-- ✅ API parses request and validates it (recaptcha token + email format + existing account)
-- ✅ an app' token is generated
-- ✅ when user receives email and clicks on link containing the token 
-    * ✅ he's redirected to a form inviting him to update his password 
-    * ✅ user local storage data is deleted
-    * ✅ reset password form is validated (with recaptcha) with feedback to user & app' token is consumed on submit
-    * ✅ app' token and user password are updated
+## current assignement : validation feedback in signup form
+    ...
 
-## app' routes
+## API routes
 
 - **/** 
     * home route
-- **/passwords** 
-    * current route for password reset flow
+- **/apptokens** 
+    * endpoint for handling app' tokens
+- **/emails** 
+    * endpoint for trigerring app' emails (including account verification and reset password)
 - **/sessions** 
     * route to login and signout a user, a POST request will create a session (e.g. signing the user in), a DELETE request will log out the user (e.g. delete the session)
 - **/users** 
