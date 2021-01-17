@@ -1,8 +1,19 @@
 
 # app' memo
 
-## last updates 
-    ...
+## last updates : reset password link
+- ✅ user forgot his password, he clicks on link to display the form
+- ✅ form is protected by recaptcha
+- user inputs his email
+- user sends request to API by validating his input
+- on the UI, recaptcha disappears and user gets feedback
+- API parses request and validates it (recaptcha token + email format + existing account)
+- an app' token is generated
+- when user receives email and clicks on link containing the token 
+    * he's redirected to a form inviting him to update his password 
+    * app' token is consumed
+- reset password form is validated with feedback to user
+- user password is updated
 
 ## app' routes
 

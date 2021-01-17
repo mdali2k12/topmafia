@@ -42,6 +42,7 @@ class AppTokenDAO extends DAO {
             FROM apptokens 
             WHERE type  = :type 
             AND   token = :token
+            AND   consumedAt IS NULL
             ORDER BY createdAt DESC
         ";
         $query = $this->_mdbd->getDBConn()->prepare( $sql );

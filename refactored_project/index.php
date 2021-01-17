@@ -96,7 +96,7 @@ if ( isset( $request->getHeaders()["json"] ) &&  $request->getHeaders()["json"] 
 } else { // web routes
     switch ( $request->getEndpoint() ) {
         case "/forgot-password":
-            require_once getcwd()."/views/templates/auth/forgot_password.php";
+            require_once getcwd()."/views/templates/forgot_password.php";
             break;
         case "/game-rules":
             require_once getcwd()."/views/templates/game_rules.php";

@@ -1,29 +1,19 @@
 
+// SO page load behavior
+jQuery( () => {
 
-$ (document ).ready(function() {
+    // hiding error/success feedbacks divs
+    $('#err').hide();
+    $('#succ').hide();
 
-    // const appUrl = $(':hidden#app_url').val();
+    // updating offline/users on page load
+    getOnlineOfflineUsers();
 
-    $( ".passwordReset" ).click( e => {
+    $( "pwd_reset_btn" ).on( "click", (e) => {
         e.preventDefault();
-        // HTTP call to trigger the password reset flow
-        fetch( "/passwords", { // or appUrl + "/passwords"
-                method: "POST",
-                body: JSON.stringify({email:$( "#email" ).val()}),
-                headers: {
-                    "Content-type": "application/json; charset=UTF-8",
-                    "json"        : "true"
-                }
-            })
-            .then(response => response.json()) 
-            .then(json => {
-                if ( json.success == false ) {
-                    $( "#err" ).show();
-                    $( "#errMess" ).html( json.messages[0] );
-                } else $( "#succ" ).show();
-            })
-            .catch(err => console.log(err)
-        );
+        // TODO
+        console.log( "clicked" );
     });
 
 });
+// EO page load behavior

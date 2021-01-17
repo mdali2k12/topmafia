@@ -14,13 +14,14 @@
         <meta name="keywords" content="mafia, rpg, mafia game, top mafia, text based rpg, rpg, mmorpg">
         <meta name="author" content="Top Mafia Ltd" />
         <link rel="canonical" href="https://www.topmafia.net" />
-        <link rel="image_src" href="https://topmafia.net/home/images/backgrounds/newbged.png" />
         <meta property="og:url" content="https://www.topmafia.net/" />
         <meta property="og:title" content="Top Mafia - Free Text Based RPG">
         <meta property="og:site_name" content="Top Mafia - Free Text Based RPG">
         <meta property="og:image" content="https://topmafia.net/home/images/backgrounds/newred.png" />
         <meta property="og:description" content="Join the ultimate battle of becoming the top gangster of your city while experiencing the utmost real life criminal pressure. Do you think your ready to turn your dream into reality? Join the free massively multiplayer mafia text based role playing game and begin your journey." />
         <meta property="site_name" content="Top Mafia" />
+
+        <link rel="image_src" href="./../assets/images/newbged.png" />
 
         <!-- fonts -->
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" media="all">
@@ -50,6 +51,9 @@
             gtag('js', new Date());
             gtag('config', '<?= $_ENV["GTAG2"]; ?>');
         </script>
+
+        <!-- GRecaptcha -->
+        <script src="https://www.google.com/recaptcha/api.js?render=<?=$_ENV["GRECAPTCHA_SITE_KEY"];?>"></script>
 
     </head>
 
@@ -105,11 +109,11 @@
                     <div id="succ">
                         <p>An email was sent to USER_EMAIL with your new password.</p>
                     </div>
-                    <form action="forgot_password.php" method="post" name="forgot_password">
+                    <form>
                         <label class="font">Email Address</label>
-                        <input type="email" id="email" name="email" class="text-general3" value="" required>
+                        <input type="email" id="email" class="text-general3" value="" required>
                         <center>
-                        <input type="button" class="primary button passwordReset" value="Reset">
+                        <input type="button" class="primary button passwordReset" id="pwd_reset_btn" value="Reset">
                         </center>
                     </form>
                 </div>            
@@ -131,6 +135,8 @@
         <input type="hidden" name="app_url" value="<?=$_ENV['APP_URL'];?>" id="app_url">
 
         <!-- page scripts -->
+        <script src="./views/js/http.js"></script>
+        <script src="./views/js/auth.js"></script>
         <script src="./views/js/common.js"></script>
         <script src="./views/js/forgot-password/forgot-password.js"></script>
 

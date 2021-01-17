@@ -1,4 +1,3 @@
-
 const valueIsNotEmpty = ( value ) => {
     return value != "";
 }

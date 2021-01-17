@@ -29,7 +29,7 @@ const triggerLoginFailureBehavior = ( feedbackMessage ) => {
 
 const triggerLoginSuccessBehavior = ( feedbackMessage ) => {
         // online users count is incremented on the front end
-        // getOnlineOfflineUsers();
+        getOnlineOfflineUsers();
         setActiveTab( "story" );
         // hiding other content tabs
         $( ".tabs-buttons [data-tab='login']" ).hide();
@@ -147,7 +147,6 @@ const autoLoginBehavior = async ( feedbackMessage ) => {
         if ( res == false || res == undefined ) {
             authenticator._removeAuthDataFromLocalStorage();
             setActiveTab( "login" );
-            triggerLoginFailureBehavior( feedbackMessage );
         }
         else 
             triggerLoginSuccessBehavior( feedbackMessage );
@@ -169,7 +168,7 @@ jQuery( () => {
     $('#succ').hide();
 
     // updating offline/users on page load
-    // getOnlineOfflineUsers();
+    getOnlineOfflineUsers();
 
     // registering on click event for signup button
     $( "#signup_btn" ).on( "click", e => {

@@ -47,7 +47,7 @@ CREATE TABLE `apptokens` (
   `id`         int(11)      UNSIGNED NOT NULL AUTO_INCREMENT,
   `userId`     INT(11)      UNSIGNED NOT NULL,
   `token`      VARCHAR(100) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL,
-  `type`       ENUM( 'accountverification' ),
+  `type`       ENUM( 'accountverification', 'passwordreset' ),
   `createdAt`  DATETIME NOT     NULL DEFAULT current_timestamp(),
   `consumedAt` DATETIME DEFAULT NULL,
   CONSTRAINT `apptoken_user_pk` PRIMARY KEY (`id`, `userId`)
