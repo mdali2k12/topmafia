@@ -29,10 +29,10 @@
     SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
 
     ServerAdmin webmaster@topmafia.net
-    DocumentRoot "C:\xampp\htdocs\topmafia\refactored_project"
+    DocumentRoot "C:\xampp\htdocs\topmafia\API"
     ServerName topmafia.net.localhost
 
-    <Directory "C:\xampp\htdocs\topmafia\refactored_project">
+    <Directory "C:\xampp\htdocs\topmafia\API">
         Options -Indexes
         FallbackResource /index.php
     </Directory>

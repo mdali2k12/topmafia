@@ -35,24 +35,54 @@ class UsersController extends ResourcesController {
         $succeeded              = false;
         $payload                = count( $this->_request->getBody() ) > 0 ? $this->_request->getBody() : [];
         $payloadMandatoryFields = ["username", "password", "confirmPassword", "email", "gender", "recaptchaToken"]; 
-        $user = new User( null );
+        $user                   = new User( null );
+        // first set of validation rounds
         if ( 
             count( $payload ) > 0
             && $this->matchKeyValuePairs( $payloadMandatoryFields ) 
-            && $this->verifyRecaptchaResponse( $payload["recaptchaToken"] ) 
-            && $this->validateMatch( 
-                    $this->sanitizeStringInput( $payload["password"] ), 
-                    $this->sanitizeStringInput( $payload["confirmPassword"] 
-                )
-            )
-        ) 
-            $succeeded = $user->signUp( $payload ); // the outcome of the operation depends on successul execution of model signUp method
-        if ( $succeeded ) {
-            $this->_response = new JsonResponse( 200, ["You have signed up successfully!"], true, $user->read() );
-            $emailsService   = new EmailsService();
-            $emailsService->sendAccountVerificationEmail( $user );
-        }  
-        else $this->_response = new JsonResponse( 200, ["user registration failed"], false ); 
+        ) {
+
+            // second set of validation rounds
+            foreach ( ["username", "email"] as $field ) {
+                $succeeded = $this->sanitizeStringInput( $payload[$field] ) != "";
+            }
+
+            // third set of validation rounds aimed at filling the validation errors array for user feedback
+            if ( $succeeded ) {
+                if ( !$this->validateEmail( $payload["email"] ) ) 
+                    $this->_addValidationError( "Email", "Invalid E-mail address" );
+                if ( !$user->validateUserEmailIsNotBanned( $payload["email"] )  ) 
+                    $this->_addValidationError( "Email", "Your email has been banned" );
+                if ( !$user->validateUserEmail( $payload["email"] )  ) 
+                    $this->_addValidationError( "Email", "The E-mail you entered is in use." );
+                if ( !$user->validateUsernameLength( $payload["username"] ) )
+                    $this->_addValidationError( "Username", "Sorry the Username must be between 6 and 15 characters inclusive." );
+                if ( !$this->validateAlphaNumeric( $payload["username"] ) )
+                    $this->_addValidationError( "Username", "You entered invalid characters in your username Keep it simple." );
+                if ( !$user->validateUsername( $payload["username"] ) )
+                    $this->_addValidationError( "Username", "The Username you entered is in use." );
+                if ( !$this->validateAlphaNumeric( $payload["password"] ) )
+                    $this->_addValidationError( "Password", "You entered invalid characters in your password." );
+                if ( !$this->validateMatch( $this->sanitizeStringInput( $payload["password"] ), $this->sanitizeStringInput( $payload["confirmPassword"] )))
+                    $this->_addValidationError( "Password", "Your passwords do not match." );
+                if ( !$this->verifyRecaptchaResponse( $payload["recaptchaToken"] ) )
+                    $this->_addValidationError( "Recaptcha", "Google says you're a robot 🤖" );
+                $succeeded = count( $this->getValidationErrors() ) === 0;
+            }
+
+            // we proceed with persisting the user in db only if there are no validation errors
+            if ( $succeeded )
+                $succeeded = $user->signUp( $payload ); // the outcome of the operation depends on successul execution of model signUp method
+
+            if ( $succeeded != false ) {
+                $this->_response = new JsonResponse( 200, ["You have signed up successfully!"], true, $user->read() );
+                $emailsService   = new EmailsService();
+                $emailsService->sendAccountVerificationEmail( $user );
+            }  
+
+        } 
+        // if failure, we send the validation errors array back for user feedback
+        if ( !$succeeded ) $this->_response = new JsonResponse( 200, ["user registration failed"], false, ["validation errors" => $this->getValidationErrors()] ); 
     } // EO _initCreateOneResponse() method
 
     protected function _initReadAllResponse(): void {
@@ -79,7 +109,6 @@ class UsersController extends ResourcesController {
         $success                = false;
         $payload                = count( $this->_request->getBody() ) > 0 ? $this->_request->getBody() : [];
         $payloadUpdatableFields = ["password"];
-        // uncomment to debug
         // validation rounds
         if ( 
             count( $payload ) > 0

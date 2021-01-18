@@ -1,19 +1,7 @@
 
-// TODO case error show validation errors
-    // "Invalid E-mail address format"
-    // "You must enter a password."
-    // "You must fill in both password fields"
-    // "Your email has been banned"
-    //  "Sorry the Username you entered is too short"
-    // "Sorry the Username you entered is too long"
-    // "You entered invalid characters in your username Keep it simple."
-    // "You entered invalid characters in your password."
-    //  "The Username you entered is in use."
-    // "The E-mail you entered is in use."
-    //  "Your passwords do not match."
-    // TODO recaptcha validation failure feedback
-
 const setActiveTab = ( tab ) => {
+    $( "#err" ).hide();
+    $( "#succ" ).hide();
     $( ".tabs-content" ).hide();
     $( ".tabs-buttons > button.active" ).removeClass( "active" );
     $( ".tabs-buttons [data-tab=" + tab + "]" ).addClass( "active" );
@@ -110,20 +98,27 @@ const signup = async () => {
                 )
                 .then( responseObject => {
                     responseObject.success ? signupSuccess = true : signupSuccess = false;
-                })
-                .catch( error => {
-                    // uncomment to debug
-                    // console.log(error); 
-                    signupSuccess = false;
-                }) 
-                .finally( () => {
                     if ( signupSuccess ) {
                         $( "#succ" ).show();
                         $( "#succ" ).html( "You have signed up successfully!" );
                         // logging in after signup
                         loginRequest( username, password );
+                    } else {
+                        let errorFeedbacks = "<p>Sorry we could not sign you up!</p>";
+                        if ( responseObject["validation errors"] ) {
+                            for ( let errorFeedback in responseObject["validation errors"] ) {
+                                console.log( errorFeedback );
+                                errorFeedbacks += `<p>${responseObject["validation errors"][errorFeedback]}</p>`;
+                            }
+                        } 
+                        $( "#err" ).show();
+                        $( "#err" ).html( errorFeedbacks );
                     }
-                });
+                })
+                .catch( error => {
+                    // uncomment to debug
+                    // console.log(error); 
+                }) 
             });
         });
     }
