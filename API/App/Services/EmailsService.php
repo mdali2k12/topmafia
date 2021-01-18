@@ -33,6 +33,24 @@ class EmailsService {
         );
     }
 
+    public function sendContactFormEmailToAdmin( string $contactFormSenderEmailAddress, string $message ) : bool {
+        $mailContents = "
+          <html>
+          <body>
+            <h2>You've received a message below:</h2>
+            <p>Email: ".$contactFormSenderEmailAddress."
+            <p>".$message."</p>
+          </body>
+          </html>
+        ";
+        return Email::sendEmail(
+            $_ENV["MAIL_FROM_NAME"], 
+            "Top Mafia password reset", 
+            $_ENV["APP_ADMIN_EMAIL"],
+            $mailContents
+        );
+    }
+
     public function sendPasswordResetEmail( User $user ) : bool {
         $token  = ( new AppToken() )->create( $user->getId(), "passwordreset" );
         $mailContents = "

@@ -1,7 +1,6 @@
 
 const setActiveTab = ( tab ) => {
-    $( "#err" ).hide();
-    $( "#succ" ).hide();
+    hideFeedbackDivsIfAny();
     $( ".tabs-content" ).hide();
     $( ".tabs-buttons > button.active" ).removeClass( "active" );
     $( ".tabs-buttons [data-tab=" + tab + "]" ).addClass( "active" );
@@ -155,13 +154,6 @@ jQuery( () => {
 
     // setting active tab to "login" by default
     setActiveTab( "login" );
-
-    // hiding error/success feedbacks divs
-    $('#err').hide();
-    $('#succ').hide();
-
-    // updating offline/users on page load
-    getOnlineOfflineUsers();
 
     // registering on click event for signup button
     $( "#signup_btn" ).on( "click", e => {

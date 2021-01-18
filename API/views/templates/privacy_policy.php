@@ -75,11 +75,9 @@
                             <button class="dropbtn"><img src="https://topmafia.net/home/images/extra/hamburger.png"></button>
                             <div class="dropdown-content">
                                 <a href="/">Home</a>
-                                <!-- TODO -->
                                 <a href="/forgot-password"> Forgot Password </a> 
                                 <a href="/game-rules"> Game Rules</a>
-                                <!-- TODO -->
-                                <!-- <a href="contact.php"> Contact Us</a> -->
+                                <a href="/contact"> Contact Us</a>
                             </div>
                         </div>
                     </div>
@@ -90,8 +88,8 @@
             <div style="clear: both;"></div>
             <br /><br />
 
-            <!-- TODO find out what this is used for -->
-            <div class="containerlogin"></div>
+            
+            <div class="templateTopContainer"></div>
             <div style="clear: both;"></div>
 
             <!-- SO main -->

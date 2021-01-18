@@ -25,45 +25,86 @@ class EmailsController extends Controller {
         parent::__construct( $request );
     }
 
+    private function _addToValidationErrorsIfUserDoesntExist( string $userEmail ) : void {
+        if ( !User::exists( $userEmail ) ) 
+            $this->_addValidationError( "Email", "Sorry, no user with that email was found." );
+    }
+
+    private function _checkIfValidAppTokenEmail( string $type ) : bool {
+        return $this->sanitizeStringInput( $type ) != "" 
+            && in_array( $type, explode( ',', $_ENV["ALLOWED_APP_TOKENS"] ) );
+    }
+
     protected function _initResponse() : void {
-        LoggerService::getInstance()->log( "info", "RESPONSE FROM EMAILS CONTROLLER" );
         // pessimistic assumption
         $success = false;
+        $logger = LoggerService::getInstance();
+        $logger->log( "info", "RESPONSE FROM EMAILS CONTROLLER" );
         switch( $this->_request->getMethod() ) {
             case "POST":
-                $type  = isset( $this->_request->getBody()["type"] ) ? $this->_request->getBody()["type"] : "";
                 $email = isset( $this->_request->getBody()["email"] ) ? $this->_request->getBody()["email"] : "";
-                if ( 
-                    $this->_request->isValid() 
-                    && $this->sanitizeStringInput( $email ) != ""
-                    && $this->sanitizeStringInput( $type ) != ""
-                    && in_array( $type, explode( ',', $_ENV["ALLOWED_APP_TOKENS"] ) )
-                    && $this->validateEmail( $email )
-                ) {
+                $type  = isset( $payload["type"] ) ? $payload["type"] : "";
+                if ( !$this->validateEmail( $email ) ) $this->_addValidationError( "Email", "Invalid email format!" );
+                if ( $this->_request->isValid() && $this->_hasNoValidationErrors() ) {
                     $emailsService = new EmailsService();
-                    $user          = new User( $email );
-                    if ( !User::exists( $email ) ) {
-                        $this->_addValidationError( "Email", "Sorry, no user with that email was found." );
-                    } else {
-                        switch ($type) {
-                            case 'accountverification':
+                    switch ($type) {
+                        case 'accountverification':
+                            $this->_addToValidationErrorsIfUserDoesntExist( $email );
+                            if ( 
+                                $this->_checkIfValidAppTokenEmail( $type )
+                                && $this->_hasNoValidationErrors() 
+                            ) {
+                                $user    = new User( $email );
                                 $success = $emailsService->sendAccountVerificationEmail( $user );
-                                break;
-                            case 'passwordreset':
+                            }
+                            break;
+                        case 'passwordreset':
+                            $this->_addToValidationErrorsIfUserDoesntExist( $email );
+                            if ( 
+                                $this->_checkIfValidAppTokenEmail( $type )
+                                && $this->_hasNoValidationErrors() 
+                            ) {
+                                $user    = new User( $email );
                                 $success = 
                                     isset( $this->_request->getBody()["recaptchaToken"] )
                                     && $this->verifyRecaptchaResponse( $this->_request->getBody()["recaptchaToken"] )
                                     && $emailsService->sendPasswordResetEmail( $user );
-                                break;                        
-                            default:
-                                $this->_setBadRequestResponse();
-                                break;
-                        }
+                            }
+                            if ( $success ) $this->_response = new JsonResponse( 200, ["password reset link sent to ".$email], true );
+                            break;   
+                        case "contactform":
+                            if ( 
+                                !isset( $this->_request->getBody()["msg"] )
+                                || $this->sanitizeStringInput( $this->_request->getBody()["msg"] ) == ""
+                            )
+                                $this->_addValidationError( "Message", "You need to fill in all fields correctly!" );
+                            if ( 
+                                $this->sanitizeStringInput( $type ) != ""  
+                                && $this->_hasNoValidationErrors()
+                            ) {
+                                // logging the contact form to file case something goes wrong with emailing it
+                                $logger->log( "info", "CONTACT FORM SENT BY ".$email );
+                                $logger->log( "info", "CONTACT FORM MESSAGE => ".$this->_request->getBody()["msg"] );
+                                $success = $emailsService->sendContactFormEmailToAdmin(
+                                    $email,
+                                    $this->_request->getBody()["msg"]
+                                );
+                            }
+                            if ( $success ) 
+                                $this->_response = new JsonResponse( 
+                                    200, 
+                                    ["Message has been sent successfully and will be responded to within 24 hours."], 
+                                    true 
+                                );
+                            break;
                     }
                 } 
+            break;
+            default:
+                $this->_setMethodNotAllowedResponse();
+            break;
         }
         if ( $success == false ) $this->_response = new JsonResponse( 200, $this->getValidationErrors(), false );
-        else $this->_response = new JsonResponse( 200, ["password reset link sent to ".$email], true );
     } // EO _initResponse( method
 
 } // EO class

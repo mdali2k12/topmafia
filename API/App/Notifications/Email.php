@@ -31,8 +31,7 @@ class Email {
             $logger->log( "info", "SendGrid email response body => ".  json_encode( $response->body() ) );
             return true;
         } catch ( \Exception $e ) {
-            // TODO log sending email error to file
-            echo 'Caught exception: '. $e->getMessage() ."\n";
+            $logger->log( "info", "Caught exception: ". $e->getMessage() );
             return false;
         }
     }

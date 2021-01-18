@@ -32,6 +32,10 @@ abstract class Controller {
         $this->_validationErrors[$key] = $value;
     }
 
+    protected function _hasNoValidationErrors() : bool {
+        return count( $this->getValidationErrors() ) === 0;
+    }
+
     protected function _setMandatoryFields( ...$els ) : void {
         foreach ( $els as $el ) {
             array_push( $this->_mandatoryFields, $el );

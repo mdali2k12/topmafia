@@ -1,7 +1,7 @@
 
 # app' memo
 
-## current assignement : validation feedback in signup form
+## current assignement : contact form
     ...
 
 ## API routes

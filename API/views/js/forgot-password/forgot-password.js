@@ -37,9 +37,6 @@ jQuery( () => {
     $('#err').hide();
     $('#succ').hide();
 
-    // updating offline/users on page load
-    getOnlineOfflineUsers();
-
     $( "#pwd_reset_btn" ).on( "click", (e) => {
         e.preventDefault();
         // we validate the email on client side

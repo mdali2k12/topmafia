@@ -80,8 +80,7 @@
                                 <a href="/">Home</a>
                                 <a href="/game-rules"> Game Rules</a>
                                 <a href="/privacy-policy"> Privacy Policy</a>
-                                <!-- TODO -->
-                                <!-- <a href="contact.php"> Contact Us</a> -->
+                                <a href="/contact"> Contact Us</a>
                             </div>
                         </div>
                     </div>
@@ -92,8 +91,8 @@
             <div style="clear: both;"></div>
             <br /><br />
 
-            <!-- TODO find out what this is used for -->
-            <div class="containerlogin"></div>
+            
+            <div class="templateTopContainer"></div>
             <div style="clear: both;"></div>
 
             <!-- SO main -->

@@ -91,6 +91,9 @@ if ( isset( $request->getHeaders()["json"] ) &&  $request->getHeaders()["json"] 
         ->send();
 } else { // web routes
     switch ( $request->getEndpoint() ) {
+        case "/contact":
+            require_once getcwd()."/views/templates/contact.php";
+            break;
         case "/forgot-password":
             require_once getcwd()."/views/templates/forgot_password.php";
             break;

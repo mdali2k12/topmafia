@@ -41,7 +41,7 @@ body{
 	background: #444;
 }
 
-.containerlogin {
+.templateTopContainer {
 	margin: 0 auto;
 	background: url(./../assets/images/newbged.png) top center no-repeat;
 	height: 350px;
@@ -368,10 +368,6 @@ textarea:focus {
 	display: block;
 }
 
-.containerloginbox {
-	display: inline;
-}
-
 .topbar {
 	font-family: 'Jersey M54';
 	background: url(./../assets/images/gradientbar.png) top center repeat-x;
@@ -487,10 +483,10 @@ textarea:focus {
 		width: 200px;
 		height: 100px;
 	}
-	.containerlogin {
+	.templateTopContainer {
 		margin: 0 auto;
 		margin-top: 10px;
-		background: url(https://topmafia.net/home/images/backgrounds/newmob.png) top center no-repeat;
+		background: url(./../assets/images/newmob.png) top center no-repeat;
 		height: 195px;
 		background-size: cover;
 	}

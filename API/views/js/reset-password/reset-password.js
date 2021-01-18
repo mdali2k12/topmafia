@@ -62,9 +62,6 @@ jQuery( () => {
     $('#err').hide();
     $('#succ').hide();
 
-    // updating offline/users on page load
-    getOnlineOfflineUsers();
-
     $( "#pwd_reset_btn" ).on( "click", (e) => {
         e.preventDefault();
         if ( $( "#apptoken" ).length ) {

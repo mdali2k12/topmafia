@@ -67,7 +67,7 @@ class UsersController extends ResourcesController {
                     $this->_addValidationError( "Password", "Your passwords do not match." );
                 if ( !$this->verifyRecaptchaResponse( $payload["recaptchaToken"] ) )
                     $this->_addValidationError( "Recaptcha", "Google says you're a robot 🤖" );
-                $succeeded = count( $this->getValidationErrors() ) === 0;
+                $succeeded = $this->_hasNoValidationErrors();
             }
 
             // we proceed with persisting the user in db only if there are no validation errors

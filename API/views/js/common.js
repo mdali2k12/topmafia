@@ -1,12 +1,5 @@
 
-const valueIsNotEmpty = ( value ) => {
-    return value != "";
-};
-
-const validateEmail = (email) => {
-    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    return re.test(String(email).toLowerCase());
-};
+// SO functions that will be used throughout the frontend app'
 
 // SO getting online/offline users 
 const getOnlineOfflineUsers = async () => {
@@ -21,10 +14,28 @@ const getOnlineOfflineUsers = async () => {
 };
 // EO getting online/offline users 
 
-// setting up the HTTP client that will be used throughout the app'
+const hideFeedbackDivsIfAny = () => {
+    if ( $( "#err" ).length ) $( "#err" ).hide();
+    if ( $( "#succ" ).length ) $( "#succ" ).hide();
+}
+
+const valueIsNotEmpty = ( value ) => {
+    return value != "";
+};
+const validateEmail = (email) => {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+};
+
+// EO functions that will be used throughout the frontend app'
+
+// setting up the HTTP client that will be used throughout the frontend app'
 // const appUrl = $(':hidden#app_url').val();
 // let http = new HttpClient( null, appUrl ); // case deployment issues
 let http = new HttpClient();
 
 // setting up the authenticator
 const authenticator = new Authenticator( http );
+
+// updating offline/users on page load
+window.onload=getOnlineOfflineUsers;
