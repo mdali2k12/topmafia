@@ -59,27 +59,28 @@
 
     <body>
 
-        <!-- loading Facebook SDK -->
+        <!-- Facebook SDK code -->
         <script>
-        window.fbAsyncInit = function() {
-            FB.init({
-            appId      : '<?=$_ENV["FACEBOOK_APP_ID"];?>',
-            cookie     : true,
-            xfbml      : true,
-            version    : '<?=$_ENV["CURRENT_FACEBOOK_API_VERSION"];?>'
-            });
-            
-            FB.AppEvents.logPageView();   
-            
-        };
-
-        (function(d, s, id){
-            var js, fjs = d.getElementsByTagName(s)[0];
-            if (d.getElementById(id)) {return;}
-            js = d.createElement(s); js.id = id;
-            js.src = "https://connect.facebook.net/en_US/sdk.js";
-            fjs.parentNode.insertBefore(js, fjs);
-        }(document, 'script', 'facebook-jssdk'));
+            window.fbAsyncInit = function() {
+                FB.init({
+                    appId      : '<?=$_ENV["FACEBOOK_APP_ID"];?>',
+                    cookie     : true,
+                    xfbml      : true,
+                    version    : '<?=$_ENV["CURRENT_FACEBOOK_API_VERSION"];?>'
+                });
+                FB.AppEvents.logPageView();  
+                // getLoginStatus needs HTTPS
+                FB.getLoginStatus(function(response) {
+                    statusChangeCallback(response);
+                }); 
+            };
+            (function(d, s, id){
+                var js, fjs = d.getElementsByTagName(s)[0];
+                if (d.getElementById(id)) {return;}
+                js = d.createElement(s); js.id = id;
+                js.src = "https://connect.facebook.net/en_US/sdk.js";
+                fjs.parentNode.insertBefore(js, fjs);
+            }(document, 'script', 'facebook-jssdk'));
         </script>
 
         <!-- SO template -->
@@ -152,7 +153,7 @@
                                     <br />
                                     <input type="button" name="action" class="primary button" onclick="loginFromHomeForm();" value="Log in"></center>
                                 </form>
-                                <center><a href="https://topmafia.net/home/fbauthenticate.php"><button class="facebook button">Facebook Login</button></a></center>
+                                <center><a href="#"><button class="facebook button">Facebook Login</button></a></center>
                             </div>
                             <!-- EO login tab -->
 
