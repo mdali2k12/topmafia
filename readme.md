@@ -1,8 +1,8 @@
 
 # app' memo
 
-## current assignement : contact form
-    ...
+## current assignement : Facebook login
+- needs HTTPS !
 
 ## API routes
 
