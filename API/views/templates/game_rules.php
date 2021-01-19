@@ -167,6 +167,8 @@
         <input type="hidden" name="app_url" value="<?=$_ENV['APP_URL'];?>" id="app_url">
 
         <!-- page scripts -->
+        <script src="./views/js/http.js"></script>
+        <script src="./views/js/auth.js"></script>
         <script src="./views/js/common.js"></script>
         
    </body>

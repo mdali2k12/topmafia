@@ -75,10 +75,8 @@ const signup = async () => {
                 $(':hidden#grecaptcha_site_key').val(), 
                 {action: 'signUp'}
             ).then( ( token ) => {
-
                 // uncomment to debug
                 // console.log( token ); debugger;
-
                 const signupPayload = {
                     confirmPassword: confirmPassword,
                     email          : email,
@@ -102,17 +100,7 @@ const signup = async () => {
                         $( "#succ" ).html( "You have signed up successfully!" );
                         // logging in after signup
                         loginRequest( username, password );
-                    } else {
-                        let errorFeedbacks = "<p>Sorry we could not sign you up!</p>";
-                        if ( responseObject["validation errors"] ) {
-                            for ( let errorFeedback in responseObject["validation errors"] ) {
-                                console.log( errorFeedback );
-                                errorFeedbacks += `<p>${responseObject["validation errors"][errorFeedback]}</p>`;
-                            }
-                        } 
-                        $( "#err" ).show();
-                        $( "#err" ).html( errorFeedbacks );
-                    }
+                    } else loopThroughValidationErrorsFeedbacks( responseObject, "<p>Sorry we could not sign you up!</p>" );
                 })
                 .catch( error => {
                     // uncomment to debug

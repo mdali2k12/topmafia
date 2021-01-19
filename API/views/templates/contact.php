@@ -97,6 +97,10 @@
 
             <!-- SO main -->
             <div id="content">
+                <!-- error/success feedbacks -->
+                <div id="err"></div>
+                <div id="succ"></div>
+                <br />
                 <div style="text-align:left;">
                     <center><h2 class="font">CONTACT US</h2></center>
                     <form>
@@ -105,7 +109,7 @@
                         <label class="font" for="msg">Message</label><br />
                         <textarea type="text" class="text-general3" id="msg" style="height:200px; width:100%;"></textarea>
                         <center>
-                        <input type="button" class="primary button" value="Send">
+                        <input type="button" id="send_contact_form_btn" class="primary button" value="Send">
                         </center>
                     </form>
                 </div>

@@ -19,6 +19,17 @@ const hideFeedbackDivsIfAny = () => {
     if ( $( "#succ" ).length ) $( "#succ" ).hide();
 }
 
+const loopThroughValidationErrorsFeedbacks = ( responseObject, defaultMessage ) => {
+    let errorFeedbacks = defaultMessage;
+    if ( responseObject["validation errors"] ) {
+        for ( let errorFeedback in responseObject["validation errors"] ) {
+            errorFeedbacks += `<p>${responseObject["validation errors"][errorFeedback]}</p>`;
+        }
+    } 
+    $( "#err" ).show();
+    $( "#err" ).html( errorFeedbacks );
+}
+
 const valueIsNotEmpty = ( value ) => {
     return value != "";
 };

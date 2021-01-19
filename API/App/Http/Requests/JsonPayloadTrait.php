@@ -22,13 +22,12 @@ trait JsonPayloadTrait {
         if ( !is_null( $processedData ) && $processedData != false )
             foreach ( $processedData as $key => $value ) {
                 if ( 
-                    gettype( $key ) === "string"
-                    &&
-                    $this->sanitizeStringInput( $key ) != "" 
-                    && 
-                    !is_null( $value )
-                    &&
-                    $this->sanitizeStringInput( $value ) != "" 
+                    gettype( $key )      === "string"
+                    && gettype( $value ) === "string"
+                    && !is_null( $key )
+                    && $this->sanitizeStringInput( $key ) != "" 
+                    && !is_null( $value )
+                    && $this->sanitizeStringInput( $value ) != "" 
                 )
                     $this->_body[$key] = $value;
             }

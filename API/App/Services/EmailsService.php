@@ -45,7 +45,7 @@ class EmailsService {
         ";
         return Email::sendEmail(
             $_ENV["MAIL_FROM_NAME"], 
-            "Top Mafia password reset", 
+            "Top Mafia contact form", 
             $_ENV["APP_ADMIN_EMAIL"],
             $mailContents
         );
