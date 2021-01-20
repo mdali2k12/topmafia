@@ -1,8 +1,25 @@
 
 # app' memo
 
-## current assignement : Facebook login
-- needs HTTPS !
+
+## current assignement : Sponsor ID on signup & Facebook login
+
+### Sponsor ID on registration
+
+- limit abusive sponsorship of sponsor setting up fake accounts using his own ID using these measures => 
+    * if user id doesnt exist in db then the sponsorship request fails with this feedback message: "The sponsorship ID doesnt exists"
+    * if more than one sponsor request after a successful signup involving any given sponsor happens more than once from the same combination of user-agent and IP, then the request fails with this message "Are you trying to cheat the game by referring yourself? If we find out, your IP will be banned!"
+    * if a request for sponsorship comes from the IP of the sponsor, then the request fails with this message "Are you trying to cheat the game by referring yourself? If we find out, your IP will be banned!"
+    * if user who requests for a sponsor has game data in his local storage, then the request fails
+- store sponsorship into a separate db table
+- sponsorship is considered validated when
+    * sponsored user confirms his account
+    * sponsor confirms the sponsorship of sponsored user with a one-time link inboxed to him
+
+### Facebook login
+
+- needs HTTPS ! therefore we need to deploy app' as is in an online server pointed by a SSL protected domaine name
+
 
 ## API routes
 

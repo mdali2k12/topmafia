@@ -174,17 +174,8 @@
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                     </select>
-
-                                    <!-- TODO's for later batch -->
-                                    <!-- TODO check that sponsor id exists in database -->
-                                    <!-- 
-                                        TODO :limit abusive referral of sponsor setting up fake accounts using his own ID 
-                                        * we could parse user agent
-                                        * we could use local storage || cookie || session
-                                    -->
-                                    <!-- <label class="font" for="sponsor-id">Referral ID</label>
-                                    <input type="number" id="sponsor-id" name="sponsor-id" class="text-general3"> -->
-
+                                    <label class="font" for="sponsor-id">Referral ID</label>
+                                    <input type="number" id="sponsor-id" class="text-general3">
                                     <br /><br />
                                     <center>
                                     <input type="button" class="primary button" id="signup_btn" value="Sign up">
