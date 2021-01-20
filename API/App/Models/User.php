@@ -91,7 +91,11 @@ class User {
         return $payload;
     }
 
-    public function signUp( array $userPayload ) : bool {
+    public function requestSponsorship( int $sponsorId, string $ipAddress, string $userAgent ) : bool {
+        return $this->_userDao->insertSponsorship( $this->_id, $sponsorId, $ipAddress, $userAgent );
+    }
+
+    public function signUp( array $userPayload, $sponsorId = null ) : bool {
         // business logic validation rounds
         if (
             $this->validatePassword( $userPayload["password"] )
@@ -100,9 +104,8 @@ class User {
             $userPayload["password"] = $this->appHash( $userPayload["password"] );
             $this->_userDao->signUp( $userPayload );
             $this->_inflate( $userPayload["username"] );
-            return $this->_id != 0;
         }
-        return false;
+        return $this->_id != 0; // id would be equal to 0 is user is not inserted in db
     }
 
     public function updatePassword( string $password ): bool {

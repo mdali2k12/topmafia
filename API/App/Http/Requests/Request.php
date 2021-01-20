@@ -15,12 +15,16 @@ abstract class Request {
     private string   $_identifier    = "";
     private string   $_ipAddress;
     private string   $_method;
-    private bool     $_urlIsValid    = false;
-    private string   $_userAgent;
+    private bool     $_urlIsValid = false;
+    private string   $_userAgent  = "";
 
     public function __construct() {
         $this->_init();
     } // EO constructor
+
+    protected function _ipAddressIsValid() : bool {
+        return $this->_ipAddress != "";
+    }
 
     private function _init() {
         $this->_method    = $_SERVER["REQUEST_METHOD"];
@@ -47,16 +51,12 @@ abstract class Request {
         return $this->_urlIsValid;
     }      
 
-    public function hasIdentifier() : bool {
-        return $this->_hasIdentifier;
+    protected function _userAgentIsValid() : bool {
+        return $this->_userAgent != "";
     }
 
-    public function hasValidIntIdentifier() : bool {
-        return ( 
-            ctype_digit( $this->_identifier )
-            && is_numeric( $this->_identifier )
-            && floatval( intval( $this->_identifier )) === floatval( $this->_identifier )
-        );
+    public function hasIdentifier() : bool {
+        return $this->_hasIdentifier;
     }
 
     abstract public function isValid() : bool;

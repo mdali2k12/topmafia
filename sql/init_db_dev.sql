@@ -61,7 +61,6 @@ CREATE TABLE `bannedips`(
   `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
   `ip`                  VARCHAR(40)  NOT NULL,
   `createdAt`           DATETIME NOT NULL DEFAULT current_timestamp(),
-  `updatedAt`           DATETIME NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -69,6 +68,24 @@ CREATE TABLE `bannedemails`(
   `id`            int(11)      UNSIGNED  NOT NULL AUTO_INCREMENT,
   `email`         varchar(317) CHARACTER SET utf8 COLLATE utf8_bin NOT NULL, 
   `createdAt`     DATETIME     NOT NULL  DEFAULT current_timestamp(),
-  `updatedAt`     DATETIME     NOT NULL  DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+CREATE TABLE sponsorships (
+  `id`          INT(11)      UNSIGNED NOT NULL AUTO_INCREMENT,
+  `sponsorId`   INT(11)      UNSIGNED NOT NULL,
+  `sponsoredId` INT(11)      UNSIGNED NOT NULL,
+  `ip`          VARCHAR(40)  NOT NULL,
+  `userAgent`   VARCHAR(200) NOT NULL,
+  `isVerified`  TINYINT(1)   NOT NULL DEFAULT 0,
+  `createdAt`   DATETIME     NOT NULL  DEFAULT current_timestamp(),
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+ALTER TABLE `sponsorships`
+  ADD KEY `sponsorId` (`sponsorId`);
+ALTER TABLE `sponsorships`
+  ADD CONSTRAINT `sponsor_user_fk` FOREIGN KEY (`sponsorId`) REFERENCES `users` (`id`) ON DELETE CASCADE;
+ALTER TABLE `sponsorships`
+  ADD KEY `sponsoredId` (`sponsoredId`);
+ALTER TABLE `sponsorships`
+  ADD CONSTRAINT `sponsored_user_fk` FOREIGN KEY (`sponsoredId`) REFERENCES `users` (`id`) ON DELETE CASCADE;

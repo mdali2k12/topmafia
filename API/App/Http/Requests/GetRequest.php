@@ -15,7 +15,7 @@ class GetRequest extends Request {
 
     // @Override
     public function isValid() : bool {
-        return $this->_urlIsValid();
+        return $this->_userAgentIsValid() && $this->_ipAddressIsValid() && $this->_urlIsValid();
     }
 
     // SO setters/getters

@@ -8,21 +8,14 @@ trait ArraysValidator {
 
     use StringsTrait;
 
-    public function matchKeyValuePairs( array $fields, $specificPayload = null ) : bool {
-        $go = ( count( $this->_request->getBody() ) === count( $fields ) ) && is_null( $specificPayload );
-        if ( $go != false ) {
-            $arrToIterateOn = $this->_request->getBody();
-        } 
-        if ( !is_null( $specificPayload ) ) {
-            $arrToIterateOn = $specificPayload;
-            $go             = true;
-        }
+    public function matchPayloadKeys( array $fields, array $payload ) : bool {
+        $go = ( count( $payload ) === count( $fields ) );
         if ( $go != false )
-            foreach( $arrToIterateOn as $key => $value ) {
+            foreach( $payload as $key => $value ) {
                 if ( 
                     !in_array( $key, $fields ) 
                     ||
-                    $this->sanitizeStringInput( $value ) == ""
+                    $this->sanitizeStringInput( $key ) == ""
                 )
                     $go = false;
             }

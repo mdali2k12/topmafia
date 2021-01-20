@@ -70,9 +70,9 @@
                 });
                 FB.AppEvents.logPageView();  
                 // getLoginStatus needs HTTPS
-                FB.getLoginStatus(function(response) {
-                    statusChangeCallback(response);
-                }); 
+                // FB.getLoginStatus(function(response) {
+                //     statusChangeCallback(response);
+                // }); 
             };
             (function(d, s, id){
                 var js, fjs = d.getElementsByTagName(s)[0];
@@ -174,7 +174,7 @@
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                     </select>
-                                    <label class="font" for="sponsor-id">Referral ID</label>
+                                    <label class="font" for="sponsor-id">Sponsor ID</label>
                                     <input type="number" id="sponsor-id" class="text-general3">
                                     <br /><br />
                                     <center>

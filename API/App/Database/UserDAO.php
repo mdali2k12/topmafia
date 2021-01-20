@@ -111,6 +111,25 @@ class UserDAO extends DAO {
         return 0;
     }
 
+    public function insertSponsorship( int $sponsoredId, int $sponsorId, string $ipAddress, string $userAgent ) : bool {
+        $insertedId = 0;
+        if ( !is_null( $this->_mdbd->getDBConn() ) ) {
+            $sql = "
+                INSERT INTO sponsorships( sponsoredId, sponsorId, ip, userAgent )
+                VALUES( :sponsoredId, :sponsorId, :ip, :userAgent )
+            ";
+            $query = $this->_mdbd->getDBConn()->prepare( $sql );
+            $query->execute( [
+                ":sponsoredId"        => $sponsoredId,
+                ":sponsorId"          => $sponsorId,
+                ":ip"                 => $ipAddress,
+                ":userAgent"          => $userAgent  
+            ] );
+            $query->rowCount() === 1 ?? $insertedId = $this->_mdbd->getDBConn()->lastInsertId();
+        }
+        return $insertedId;
+    }
+
     public function signUp( array $userPayload ) : int {
         $insertedId = 0;
         if ( !is_null( $this->_mdbd->getDBConn() ) ) {

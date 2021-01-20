@@ -63,6 +63,7 @@ const signup = async () => {
     const email           = $('#email').val();
     const gender          = $( "#gender" ).val();
     const username        = $('#username').val();
+    const sponsorId       = parseInt( $( "#sponsor-id" ).val(), 10 );
     [username, password, confirmPassword, email].forEach( item => {
         validated = valueIsNotEmpty( item );
     });
@@ -77,7 +78,7 @@ const signup = async () => {
             ).then( ( token ) => {
                 // uncomment to debug
                 // console.log( token ); debugger;
-                const signupPayload = {
+                let signupPayload = {
                     confirmPassword: confirmPassword,
                     email          : email,
                     gender         : gender,
@@ -85,6 +86,7 @@ const signup = async () => {
                     recaptchaToken : token,
                     username       : username
                 };
+                if ( sponsorId != "" && !isNaN( sponsorId )) signupPayload.sponsorId = sponsorId;
                 const headers = http.getHeaders();
                 // send signup payload after generating Google Recaptcha token
                 http.sendRequestWithPayload(

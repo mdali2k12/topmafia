@@ -15,12 +15,14 @@ use App\Models\User;
 use App\Services\EmailsService;
 
 use App\Validators\ArraysValidator;
+use App\Validators\NumbersValidator;
 use App\Validators\RecaptchaValidator;
 use App\Validators\StringsValidator;
 
 class UsersController extends ResourcesController {
 
     use ArraysValidator;
+    use NumbersValidator;
     use RecaptchaValidator;
     use StringsTrait;
     use StringsValidator;
@@ -33,13 +35,16 @@ class UsersController extends ResourcesController {
     protected function _initCreateOneResponse(): void {
         // pessimistic assumption
         $succeeded              = false;
-        $payload                = count( $this->_request->getBody() ) > 0 ? $this->_request->getBody() : [];
+        $payloadTmp             = count( $this->_request->getBody() ) > 0 ? $this->_request->getBody() : [];
+        $payload                = array_filter( $payloadTmp, function( $key ) {
+            return $key != "sponsorId";
+        }, ARRAY_FILTER_USE_KEY );
         $payloadMandatoryFields = ["username", "password", "confirmPassword", "email", "gender", "recaptchaToken"]; 
         $user                   = new User( null );
         // first set of validation rounds
         if ( 
             count( $payload ) > 0
-            && $this->matchKeyValuePairs( $payloadMandatoryFields ) 
+            && $this->matchPayloadKeys( $payloadMandatoryFields, $payload ) 
         ) {
 
             // second set of validation rounds
@@ -67,12 +72,24 @@ class UsersController extends ResourcesController {
                     $this->_addValidationError( "Password", "Your passwords do not match." );
                 if ( !$this->verifyRecaptchaResponse( $payload["recaptchaToken"] ) )
                     $this->_addValidationError( "Recaptcha", "Google says you're a robot 🤖" );
+                if ( isset( $this->_request->getBody()["sponsorId"] ) )
+                    $this->_validateSponsorship();
                 $succeeded = $this->_hasNoValidationErrors();
             }
 
             // we proceed with persisting the user in db only if there are no validation errors
             if ( $succeeded )
                 $succeeded = $user->signUp( $payload ); // the outcome of the operation depends on successul execution of model signUp method
+
+            if ( $succeeded && isset( $this->_request->getBody()["sponsorId"] ) ) {
+                // TODO fix false negative here
+                $succeeded = $user->requestSponsorship( 
+                    $this->_request->getBody()["sponsorId"],
+                    $this->_request->getIpAddress(),
+                    $this->_request->getUserAgent()
+                );
+                // TODO delete user if sponsorship goes wrong
+            }
 
             if ( $succeeded != false ) {
                 $this->_response = new JsonResponse( 200, ["You have signed up successfully!"], true, $user->read() );
@@ -120,7 +137,7 @@ class UsersController extends ResourcesController {
             )
             && isset( $payload["recaptchaToken"] )
             && $this->verifyRecaptchaResponse( $payload["recaptchaToken"] ) 
-            && $this->_request->hasValidIntIdentifier()
+            && $this->validateNumber( $this->_request->getIdentifier() )
             && isset( $payload["tokenType"] )
             && isset( $payload["appToken"] )
             && $this->sanitizeStringInput( $payload["tokenType"] ) != ""
@@ -139,6 +156,15 @@ class UsersController extends ResourcesController {
                 $this->_response = new JsonResponse( 200, ["Your password has been updated"], true);
         } 
         if ( $success == false ) $this->_setUnauthorizedResponse();
+    }
+
+    private function _validateSponsorship() : void {
+        if ( 
+            $this->validateNumber( $this->_request->getBody()["sponsorId"] )
+        ) {
+            if ( !User::exists( $this->_request->getBody()["sponsorId"] ) )
+                $this->_addValidationError( "Sponsor", "The sponsorship ID doesnt exist" );
+        } else $this->_addValidationError( "Sponsor", "Something is wrong with the sponsor ID you provided" );
     }
 
 }

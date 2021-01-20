@@ -4,8 +4,11 @@ namespace App\Http\Requests;
 
 use App\Helpers\StringsTrait as StringsTrait;
 
+use App\Validators\NumbersValidator;
+
 trait JsonPayloadTrait {
 
+    use NumbersValidator;
     use StringsTrait;
 
     protected array  $_body              = [];
@@ -22,12 +25,19 @@ trait JsonPayloadTrait {
         if ( !is_null( $processedData ) && $processedData != false )
             foreach ( $processedData as $key => $value ) {
                 if ( 
-                    gettype( $key )      === "string"
-                    && gettype( $value ) === "string"
-                    && !is_null( $key )
+                    !is_null( $key )
+                    && gettype( $key ) === "string"
                     && $this->sanitizeStringInput( $key ) != "" 
                     && !is_null( $value )
-                    && $this->sanitizeStringInput( $value ) != "" 
+                    // values sent in payloads can be string or int
+                    && ( 
+                        ( gettype( $value ) === "string"  && $this->sanitizeStringInput( $value ) != "" )
+                        ||
+                        (
+                            ( gettype( $value ) === "integer" || gettype( $value ) === "double" )
+                            && $this->validateNumber( $value )
+                        ) 
+                    )
                 )
                     $this->_body[$key] = $value;
             }

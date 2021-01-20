@@ -17,7 +17,10 @@ class PostRequest extends Request {
 
     // @Override
     public function isValid() : bool {
-        return  $this->_urlIsValid() && $this->getMethod() == "POST";
+        return $this->_userAgentIsValid() 
+            && $this->_ipAddressIsValid() 
+            && $this->_urlIsValid() 
+            && $this->getMethod() == "POST";
     }
 
 } // EO class
