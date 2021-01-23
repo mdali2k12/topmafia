@@ -48,7 +48,7 @@ class HttpClient {
             }
         ).then( response => { 
             // uncomment to debug
-            // this._debugResponses( response ); debugger;
+            // this._debugResponses( response ); 
             return response.json(); 
         });
     }

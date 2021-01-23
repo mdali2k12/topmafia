@@ -96,6 +96,8 @@ const signup = async () => {
                     headers
                 )
                 .then( responseObject => {
+                    // uncomment to debug
+                    // console.log( responseObject );
                     responseObject.success ? signupSuccess = true : signupSuccess = false;
                     if ( signupSuccess ) {
                         $( "#succ" ).show();

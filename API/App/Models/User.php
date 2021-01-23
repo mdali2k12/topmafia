@@ -39,6 +39,10 @@ class User {
         $this->_inflate( $identifier );
     }
 
+    private function _delete(): void {
+        $this->_userDao->deleteUser( $this->_id );
+    }
+
     private function _inflate( $identifier ) {
         $fetched = $this->_userDao->get( $identifier );
         if ( $fetched["rowCount"] > 0 ) {
@@ -91,10 +95,6 @@ class User {
         return $payload;
     }
 
-    public function requestSponsorship( int $sponsorId, string $ipAddress, string $userAgent ) : bool {
-        return $this->_userDao->insertSponsorship( $this->_id, $sponsorId, $ipAddress, $userAgent );
-    }
-
     public function signUp( array $userPayload, $sponsorId = null ) : bool {
         // business logic validation rounds
         if (
@@ -111,6 +111,26 @@ class User {
     public function updatePassword( string $password ): bool {
         $hash    = $this->appHash( $password);
         return $this->_userDao->updateUserPassword( $this->_id, $hash );
+    }
+
+    /**
+     * 
+     * given a user-agent/IP combination exists in the sponsorships table,
+     * when a new sponsorship is inserted using the same user-agent/IP combination,
+     * then no sponsorship record is inserted,
+     * and user making the request is deleted
+     * 
+     */
+    public function undergoesSponsorshipRequestProcedure( int $sponsorId, string $ipAddress, string $userAgent ) : bool {
+        if ( 
+            $this->_userDao->sponsorshipUserAgentIpComboExists( $userAgent, $ipAddress ) 
+        ) {
+            $this->_delete( $this->_id );
+            return false;
+        } else {
+            $this->_userDao->insertSponsorship( $this->_id, $sponsorId, $ipAddress, $userAgent );
+            return true;
+        } 
     }
 
     // SO business logic input validation

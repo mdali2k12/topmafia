@@ -27,6 +27,23 @@ class UserDAO extends DAO {
         return boolval( $result["isVerified"] );
     }
 
+    public function deleteSponsorship( int $sponsorshipId ): void {
+        $sql = "
+            DELETE FROM sponsorships WHERE id = :id
+        ";
+        $query = $this->_mdbd->getDBConn()->prepare( $sql );
+        $query->execute( [":id" => $sponsorshipId] );
+    }
+
+    // tested
+    public function deleteUser( int $userId ): void {
+        $sql = "
+            DELETE FROM users WHERE id = :id
+        ";
+        $query = $this->_mdbd->getDBConn()->prepare( $sql );
+        $query->execute( [":id" => $userId] );
+    }
+
     public function emailIsBanned( string $email ): bool {
         $sql   = "
             SELECT COUNT(*) AS rowCount 
@@ -111,21 +128,25 @@ class UserDAO extends DAO {
         return 0;
     }
 
-    public function insertSponsorship( int $sponsoredId, int $sponsorId, string $ipAddress, string $userAgent ) : bool {
+    public function insertSponsorship( int $sponsoredId, int $sponsorId, string $ipAddress, string $userAgent ) : int {
         $insertedId = 0;
-        if ( !is_null( $this->_mdbd->getDBConn() ) ) {
+        if ( !is_null( $this->_mdbd->getDBConn()) ) {
             $sql = "
                 INSERT INTO sponsorships( sponsoredId, sponsorId, ip, userAgent )
                 VALUES( :sponsoredId, :sponsorId, :ip, :userAgent )
             ";
             $query = $this->_mdbd->getDBConn()->prepare( $sql );
-            $query->execute( [
-                ":sponsoredId"        => $sponsoredId,
-                ":sponsorId"          => $sponsorId,
-                ":ip"                 => $ipAddress,
-                ":userAgent"          => $userAgent  
-            ] );
-            $query->rowCount() === 1 ?? $insertedId = $this->_mdbd->getDBConn()->lastInsertId();
+            if ( 
+                $query->execute( [
+                    ":sponsoredId"        => $sponsoredId,
+                    ":sponsorId"          => $sponsorId,
+                    ":ip"                 => $ipAddress,
+                    ":userAgent"          => $userAgent  
+                ] ) 
+            ) {
+                $stmt       = $this->_mdbd->getDBConn()->query( "SELECT LAST_INSERT_ID()" );
+                $insertedId = $stmt->fetchColumn();
+            }
         }
         return $insertedId;
     }
@@ -138,15 +159,33 @@ class UserDAO extends DAO {
                 VALUES( :username, :email, :password, :gender )
             ";
             $query = $this->_mdbd->getDBConn()->prepare( $sql );
-            $query->execute( [
-                ":username" => $userPayload["username"], 
-                ":email"    => $userPayload["email"],  
-                ":password" => $userPayload["password"],
-                ":gender"   => $userPayload["gender"]
-            ] );
-            $query->rowCount() === 1 ?? $insertedId = $this->_mdbd->getDBConn()->lastInsertId();
+            if (
+                $query->execute( [
+                    ":username" => $userPayload["username"], 
+                    ":email"    => $userPayload["email"],  
+                    ":password" => $userPayload["password"],
+                    ":gender"   => $userPayload["gender"]
+                ] )
+            ) {
+                $stmt       = $this->_mdbd->getDBConn()->query( "SELECT LAST_INSERT_ID()" );
+                $insertedId = $stmt->fetchColumn();
+            }
         } 
         return $insertedId;
+    }
+
+    // tested 
+    public function sponsorshipUserAgentIpComboExists( string $userAgent, string $ipAddress ): bool {
+        $sql   = "
+            SELECT COUNT(*) AS rowCount 
+            FROM sponsorships 
+            WHERE userAgent = :userAgent
+            AND ip = :ip 
+        ";
+        $query = $this->_mdbd->getDBConn()->prepare( $sql );
+        $query->execute( [":userAgent" => $userAgent, ":ip" => $ipAddress] );
+        $rowCount = intval( $query->fetch()["rowCount"] );
+        return $rowCount > 0;
     }
 
     public function updateIsVerifiedField( int $id ): bool {

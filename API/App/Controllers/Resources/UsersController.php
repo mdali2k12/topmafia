@@ -82,13 +82,17 @@ class UsersController extends ResourcesController {
                 $succeeded = $user->signUp( $payload ); // the outcome of the operation depends on successul execution of model signUp method
 
             if ( $succeeded && isset( $this->_request->getBody()["sponsorId"] ) ) {
-                // TODO fix false negative here
-                $succeeded = $user->requestSponsorship( 
+                // if that procedure fails, user is deleted
+                $succeeded = $user->undergoesSponsorshipRequestProcedure( 
                     $this->_request->getBody()["sponsorId"],
                     $this->_request->getIpAddress(),
                     $this->_request->getUserAgent()
                 );
-                // TODO delete user if sponsorship goes wrong
+                if ( !$succeeded ) 
+                    $this->_addValidationError(
+                        "Sponsorship",
+                        "Are you trying to cheat the game by referring yourself? If we find out, your IP will be banned!"
+                    );
             }
 
             if ( $succeeded != false ) {

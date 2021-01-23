@@ -9,9 +9,7 @@
 - limit abusive sponsorship of sponsor setting up fake accounts using his own ID using these measures => 
     * ✅ validate sponsor id field
     * ✅ if user id doesnt exist in db then the sponsorship request fails with this feedback message: "The sponsorship ID doesnt exist"
-
-    * if more than one sponsor request after a successful signup involving any given sponsor happens more than once from the same user-agent/IP combination, then the request fails with this message "Are you trying to cheat the game by referring yourself? If we find out, your IP will be banned!"
-
+    * ✅ if more than one sponsor request after a successful signup involving any given sponsor happens more than once from the same user-agent/IP combination, then the request fails with this message "Are you trying to cheat the game by referring yourself? If we find out, your IP will be banned!"
     * if a request for sponsorship comes from the IP of the sponsor, then the request fails with this message "Are you trying to cheat the game by referring yourself? If we find out, your IP will be banned!"
     * if user who requests for a sponsor has game data in his local storage, then the request fails
 - ✅ store sponsorship into a separate db table
