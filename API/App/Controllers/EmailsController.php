@@ -11,6 +11,7 @@ use App\Models\User;
 
 use App\Services\EmailsService;
 use App\Services\LoggerService;
+use App\Services\UsersService;
 
 use App\Validators\RecaptchaValidator;
 use App\Validators\StringsValidator;
@@ -21,12 +22,15 @@ class EmailsController extends Controller {
     use StringsTrait;
     use StringsValidator;
 
+    private UsersService $_usersService;
+
     public function __construct( Request $request ) {
         parent::__construct( $request );
+        $this->_usersService = new UsersService();
     }
 
     private function _addToValidationErrorsIfUserDoesntExist( string $email ) : void {
-        if ( !User::exists( $email ) )
+        if ( !$this->_usersService->exists( $email ) )
             $this->_addValidationError( "Email", "Sorry, no user with that email was found." );
     }
 

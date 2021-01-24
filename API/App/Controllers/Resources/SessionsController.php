@@ -3,6 +3,7 @@
 namespace App\Controllers\Resources;
 
 use App\Controllers\Resources\ResourcesController;
+
 use App\Http\Requests\Request;
 use App\Http\Responses\Json\JsonResponse;
 
@@ -52,21 +53,21 @@ class SessionsController extends ResourcesController {
      */
     protected function _initCreateOneResponse(): void {
         // pessimistic assumption
-        $failed                   = true;
-        $payload                  = count( $this->_request->getBody() ) > 0 ? $this->_request->getBody() : [];
-        $payloadMandatoryFields   = ["username", "password"];
+        $failed = true;
+        // init necessary vars
+        $payload                = count( $this->_request->getBody() ) > 0 ? $this->_request->getBody() : [];
+        $payloadMandatoryFields = ["username", "password"];
+        $ipAddress              = $this->_request->getIpAddress();
+        $userAgent              = $this->_request->getUserAgent();
         // validation rounds
         if ( 
             count( $payload ) > 0
             && $this->matchPayloadKeys( $payloadMandatoryFields, $payload ) 
-            && User::exists( $payload["username"] )
             && $this->validateUserPassword( $payload["password"], $payload["username"] )
-            && $this->_request->getIpAddress() != ""
-            && $this->_request->getUserAgent() != ""
         ) {
             $user    = new User( $payload["username"] );
             $session = new Session();
-            if ( $session->create( $user->getId(), $this->_request->getIpAddress(), $this->_request->getUserAgent() ) ) {
+            if ( $session->create( $user->getId(), $ipAddress, $userAgent ) ) { // if session creation goes well
                 $failed = false;
                 // sending the user AND the session back on login success
                 $responsePayload            = $user->read();

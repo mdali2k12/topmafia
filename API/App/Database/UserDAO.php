@@ -14,6 +14,19 @@ class UserDAO extends DAO {
        parent::__construct();
     }
 
+    public function checkInSponsorship( int $id ): array {
+        $sql = "
+            SELECT id, sponsorId, sponsoredId, COUNT(*) AS rowCount 
+            FROM sponsorships 
+            WHERE sponsorId = :id 
+            OR sponsoredId  = :id
+        ";
+        $query  = $this->_mdbd->getDBConn()->prepare( $sql );
+        $query->execute( [":id" => $id] );
+        $result = $query->fetchAll(); 
+        return !$result ? [] : $result;
+    }
+
     public function checkIsVerified( int $id ): bool {
         $sql    = "
             SELECT isVerified, COUNT(*) AS rowCount 
@@ -174,13 +187,24 @@ class UserDAO extends DAO {
         return $insertedId;
     }
 
+    public function sponsorshipIpExists( string $ipAddress ): bool {
+        $sql   = "
+            SELECT COUNT(*) AS rowCount 
+            FROM sponsorships 
+            WHERE ip = :ip
+        ";
+        $query = $this->_mdbd->getDBConn()->prepare( $sql );
+        $query->execute( [":ip" => $ipAddress] );
+        $rowCount = intval( $query->fetch()["rowCount"] );
+        return $rowCount > 0;
+    }
+
     // tested 
     public function sponsorshipUserAgentIpComboExists( string $userAgent, string $ipAddress ): bool {
         $sql   = "
             SELECT COUNT(*) AS rowCount 
             FROM sponsorships 
-            WHERE userAgent = :userAgent
-            AND ip = :ip 
+            WHERE ( userAgent = :userAgent AND ip = :ip )
         ";
         $query = $this->_mdbd->getDBConn()->prepare( $sql );
         $query->execute( [":userAgent" => $userAgent, ":ip" => $ipAddress] );
@@ -188,12 +212,23 @@ class UserDAO extends DAO {
         return $rowCount > 0;
     }
 
-    public function updateIsVerifiedField( int $id ): bool {
-        $updateSql = "UPDATE users SET isVerified = TRUE WHERE id = :id";
-        $query  = $this->_mdbd->getDBConn()->prepare( $updateSql );
+    public function updateSponsorshipStatus( int $sponsorshipId ) : bool {
+        $updateSql = "UPDATE sponsorships SET isVerified = TRUE WHERE id = :id";
+        $query     = $this->_mdbd->getDBConn()->prepare( $updateSql );
         return ( 
             $query->execute( [
-                ":id"   => $id
+                ":id" => $sponsorshipId
+            ]) 
+            && $query->rowCount() === 1 
+        );   
+    }
+
+    public function updateIsVerifiedField( int $id ): bool {
+        $updateSql = "UPDATE users SET isVerified = TRUE WHERE id = :id";
+        $query     = $this->_mdbd->getDBConn()->prepare( $updateSql );
+        return ( 
+            $query->execute( [
+                ":id" => $id
             ]) 
             && $query->rowCount() === 1 
         );        

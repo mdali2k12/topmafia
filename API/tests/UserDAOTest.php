@@ -12,6 +12,18 @@ class UserDAOTest extends TestCase {
     private $_db_conn = null;
 
     // SO UserDAO logic logic
+    private function _checkInSponsorship( int $id ): array {
+        $sql = "
+            SELECT sponsorId, sponsoredId, COUNT(*) AS rowCount 
+            FROM sponsorships 
+            WHERE sponsorId = :id 
+            OR sponsoredId = :id
+        ";
+        $query  = $this->_db_conn->prepare( $sql );
+        $query->execute( [":id" => $id] );
+        $result = $query->fetchAll(); 
+        return !$result ? [] : $result;
+    }
     private function _deleteSponsorship( int $sponsorshipId ): void {
         $sql = "
             DELETE FROM sponsorships WHERE id = :id
@@ -205,6 +217,73 @@ class UserDAOTest extends TestCase {
         $this->_deleteUser( $sponsorId );
         $this->_deleteUser( $sponsoredId );
         $this->_deleteSponsorship( $sponsorShipId );
+    }
+
+    public function testCheckInSponsorship() : void {
+        /**
+         * 
+         * ARRANGE
+         * we create 3 users and one sponsorship,
+         * one user is without a sponsorship,
+         * and the others have a sponsorship relation
+         * 
+         */
+        $userWithoutASponsorshipId = $this->_signUp( [
+            "username" => "testUser",
+            "email"    => "testUser",
+            "password" => "testUser",
+            "gender"   => "Male"
+        ]);
+        $sponsorId = $this->_signUp( [
+            "username" => "testUser2",
+            "email"    => "testUser2",
+            "password" => "testUser2",
+            "gender"   => "Male"
+        ]);
+        $sponsoredId = $this->_signUp( [
+            "username" => "testUser3",
+            "email"    => "testUser3",
+            "password" => "testUser3",
+            "gender"   => "Male"
+        ]);
+        $sponsorshipId = $this->_insertSponsorship(
+            $sponsoredId,
+            $sponsorId,
+            "::1",
+            "USER_AGENT"
+        );
+        /**
+         * 
+         * ACT
+         * we check all the users sponsorship data
+         * 
+         */
+        $userWithoutASponsorshipData = 
+            $this->_checkInSponsorship( $userWithoutASponsorshipId );
+        $sponsorData = 
+            $this->_checkInSponsorship( $sponsorId );
+        $sponsoredData = 
+            $this->_checkInSponsorship( $sponsoredId );
+        /**
+         * 
+         * ASSERT
+         * all sponsorships data are of array type,
+         * sponsorship data of both sponsored and sponsor are the same array
+         * sponsorship data is accurate
+         * 
+         */
+        $this->assertIsArray( $userWithoutASponsorshipData );
+        $this->assertIsArray( $sponsorData );
+        $this->assertIsArray( $sponsoredData );
+        $this->assertEqualsCanonicalizing( $sponsorData, $sponsoredData, "sponsor and sponsored sponsorship data should be equal" );
+        $this->assertEqualsCanonicalizing( 
+            ["sponsorId" => $sponsorId, "sponsoredId" => $sponsoredId ],
+            ["sponsorId" => $sponsorData[0]["sponsorId"], "sponsoredId" => $sponsorData[0]["sponsoredId"] ]
+        );
+        // TEAR DOWN: we delete created users
+        $this->_deleteUser( $userWithoutASponsorshipId ); 
+        $this->_deleteUser( $sponsorId ); 
+        $this->_deleteUser( $sponsoredId ); 
     }
 
     protected function tearDown(): void {

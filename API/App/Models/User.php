@@ -4,6 +4,9 @@ namespace App\Models;
 
 use App\Database\UserDAO;
 use App\Helpers\StringsTrait;
+
+use App\Services\UsersService;
+
 use App\Validators\StringsValidator;
 
 class User {
@@ -11,40 +14,27 @@ class User {
     use StringsTrait;
     use StringsValidator;
 
-    // SO static methods
-    public static function exists( string $identifier ): bool {
-        $userDao = new UserDAO();
-        return $userDao->exists( $identifier );
-    }
-    public static function getOnlinePlayersCount() : int {
-        $userDao = new UserDAO();
-        return $userDao->getOnlinePlayersCount();
-    }
-    public static function getPlayersCount() : int {
-        $userDao = new UserDAO();
-        return $userDao->getPlayersCount();
-    }
-    // EO static methods
-
-    private int     $_id = 0; // id 0 means user model has not been hydrated
-    private string  $_email;
-    private string  $_gender;
-    private string  $_password;
-    private string  $_unhashedPassword = "";
-    private UserDAO $_userDao;
-    public  string  $username; 
+    private int          $_id = 0; // id 0 means user model has not been hydrated
+    private UserDAO      $_dao;
+    private string       $_email;
+    private string       $_gender;
+    private string       $_password;
+    private array        $_sponsorshipData;
+    private string       $_unhashedPassword = "";
+    private UsersService $_usersService;
+    public  string       $username; 
 
     public function __construct( $identifier ) {
-        $this->_userDao = new UserDAO();
+        $this->_dao = new UserDAO();
         $this->_inflate( $identifier );
     }
 
     private function _delete(): void {
-        $this->_userDao->deleteUser( $this->_id );
+        $this->_dao->deleteUser( $this->_id );
     }
 
     private function _inflate( $identifier ) {
-        $fetched = $this->_userDao->get( $identifier );
+        $fetched = $this->_dao->get( $identifier );
         if ( $fetched["rowCount"] > 0 ) {
             $this->_id       = $fetched["id"];
             $this->_email    = $fetched["email"];
@@ -54,10 +44,35 @@ class User {
         }
     }
 
+    private function _setSponsorshipData(): void {
+        $this->_sponsorshipData = $this->_dao->checkInSponsorship( $this->_id );
+    }
+
+    /**
+     * 
+     * checks if user is a sponsor or if he's sponsored,
+     * if so it checks if his counterpart has a verified account,
+     * if so it updates the verified status of the sponsorship to true;
+     * the function is executed in the verifyAccount( method 
+     * during the account verification flow
+     * 
+     */
+    private function _verifySponsorships() : void {
+        $this->_setSponsorshipData();
+        if ( count( $this->_sponsorshipData ) > 0 ) {
+            foreach ($this->_sponsorshipData as $sponsorship ) {
+                $counterPartId = 
+                    $this->_usersService->extractCounterpartInSponsorshipRelationship( $sponsorship, $this->_id );
+                if ( $this->isVerified( $counterPartId ) )
+                    $this->_dao->updateSponsorshipStatus( (int) $sponsorship["id"] );
+            }
+        }
+    }
+
     public function generateNewPassword() : bool {
         $this->_unhashedPassword = $this->generateHumanReadablePassword();
         $hash                    = $this->appHash( $this->_unhashedPassword );
-        return $this->_userDao->updateUserPassword( $this->_id, $hash );
+        return $this->_dao->updateUserPassword( $this->_id, $hash );
     }
 
     public function getEmail(): string {
@@ -80,8 +95,8 @@ class User {
         $this->_unhashedPassword = " ";
     }
 
-    public function isVerified() : bool {
-        return $this->_userDao->checkIsVerified( $this->_id );
+    public function isVerified( int $userId ) : bool {
+        return $this->_dao->checkIsVerified( $userId );
     }
 
     public function read() : array {
@@ -102,7 +117,7 @@ class User {
             && $this->validateGender( $userPayload["gender"] )
         ) {
             $userPayload["password"] = $this->appHash( $userPayload["password"] );
-            $this->_userDao->signUp( $userPayload );
+            $this->_dao->signUp( $userPayload );
             $this->_inflate( $userPayload["username"] );
         }
         return $this->_id != 0; // id would be equal to 0 is user is not inserted in db
@@ -110,25 +125,25 @@ class User {
 
     public function updatePassword( string $password ): bool {
         $hash    = $this->appHash( $password);
-        return $this->_userDao->updateUserPassword( $this->_id, $hash );
+        return $this->_dao->updateUserPassword( $this->_id, $hash );
     }
 
     /**
      * 
-     * given a user-agent/IP combination exists in the sponsorships table,
-     * when a new sponsorship is inserted using the same user-agent/IP combination,
+     * given an existing IP in the sponsorships table,
+     * when a new sponsorship is inserted using the same IP,
      * then no sponsorship record is inserted,
      * and user making the request is deleted
      * 
      */
     public function undergoesSponsorshipRequestProcedure( int $sponsorId, string $ipAddress, string $userAgent ) : bool {
         if ( 
-            $this->_userDao->sponsorshipUserAgentIpComboExists( $userAgent, $ipAddress ) 
+            $this->_dao->sponsorshipIpExists( $ipAddress )
         ) {
             $this->_delete( $this->_id );
             return false;
         } else {
-            $this->_userDao->insertSponsorship( $this->_id, $sponsorId, $ipAddress, $userAgent );
+            $this->_dao->insertSponsorship( $this->_id, $sponsorId, $ipAddress, $userAgent );
             return true;
         } 
     }
@@ -143,14 +158,14 @@ class User {
     }
     public function validateUserEmail( string $emailInput ): bool {
         $emailInput = $this->sanitizeStringInput( $emailInput );
-        return !$this->exists( $emailInput );
+        return !$this->_usersService->exists( $emailInput );
     }
     public function validateUserEmailIsNotBanned( string $emailInput ): bool {
         $emailInput = $this->sanitizeStringInput( $emailInput );
-        return !$this->_userDao->emailIsBanned( $emailInput );
+        return !$this->_dao->emailIsBanned( $emailInput );
     }
     public function validateUsername( string $usernameInput ) : bool {
-        return !$this->exists( $usernameInput );
+        return !$this->_usersService->exists( $usernameInput );
     }
     public function validateUsernameLength( string $usernameInput ) : bool {
         return $this->validateStringInputLength( $usernameInput, 6, 15 ); 
@@ -158,7 +173,10 @@ class User {
     // EO business logic specific validation
 
     public function verifyAccount() : bool {
-        return $this->_userDao->updateIsVerifiedField( $this->_id );
+        $success = $this->_dao->updateIsVerifiedField( $this->_id ) ? true : false;
+        if ( $success ) // we update sponsorships if any
+            $this->_verifySponsorships();
+        return $success;
     }
 
 }

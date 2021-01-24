@@ -3,21 +3,24 @@
 namespace App\Models;
 
 use App\Database\SessionDAO;
+use App\Services\UsersService;
 
 class Session {
 
-    private string     $_accessToken = "";
-    private string     $_accessTokenExpiry;
-    private int        $_id = 0; // id 0 means session model has not been hydrated
-    private string     $_ipAddress;
-    private string     $_userAgent;
-    private string     $_refreshToken;
-    private string     $_refreshTokenExpiry;
-    private SessionDAO $_sessionDAO;
-    private int        $_userId;
+    private string       $_accessToken = "";
+    private string       $_accessTokenExpiry;
+    private int          $_id = 0; // id 0 means session model has not been hydrated
+    private string       $_ipAddress;
+    private string       $_userAgent;
+    private string       $_refreshToken;
+    private string       $_refreshTokenExpiry;
+    private SessionDAO   $_sessionDAO;
+    private int          $_userId;
+    private UsersService $_usersService;
 
     public function __construct( int $id = 0 ) { // id set to 0 means empty model
-        $this->_sessionDAO = new SessionDAO();
+        $this->_sessionDAO   = new SessionDAO();
+        $this->_usersService = new UsersService();
         if ( $id > 0 ) $this->_inflate( $id );
     }
 
@@ -42,6 +45,8 @@ class Session {
 
     /**
      * 
+     * TODO test
+     * 
      * on creating a new session,
      * we destroy all other user-linked sessions;
      * it's because it's part of the business logic that 
@@ -49,10 +54,13 @@ class Session {
      * 
      */
     public function create( int $userId, string $ipAddress, string $userAgent ) : bool {
-        $this->_destroyUserSessions( $userId );
-        $this->_sessionDAO->create( $userId, $ipAddress, $userAgent );
-        $this->_inflate( $userId );
-        return $this->_id != 0;
+        if ( $ipAddress != "" && $userAgent != "" && $this->_usersService->exists( (string) $userId ) ) {
+            $this->_destroyUserSessions( $userId );
+            $this->_sessionDAO->create( $userId, $ipAddress, $userAgent );
+            $this->_inflate( $userId );
+            return $this->_id != 0;
+        }
+        return false;
     }
 
     public function dateIsExpired( string $tokenType ) : bool {
