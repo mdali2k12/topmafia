@@ -174,9 +174,21 @@
                                         <option value="Male">Male</option>
                                         <option value="Female">Female</option>
                                     </select>
+
                                     <label class="font" for="sponsor-id">Sponsor ID</label>
-                                    <input type="number" id="sponsor-id" class="text-general3">
+                                    <!-- prefilling the sponsor id if present in the request -->
+                                    <?php if( 
+                                        isset( $_GET["sponsorid"] ) 
+                                        && strlen( $_GET["sponsorid"] ) > 0
+                                        && is_numeric( $_GET["sponsorid"] )
+                                        && floatval( intval( $_GET["sponsorid"] )) === floatval( $_GET["sponsorid"] )
+                                    ):?>
+                                        <input type="number" id="sponsor-id" class="text-general3" value="<?=$_GET["sponsorid"]?>">
+                                    <?php else: ?>
+                                        <input type="number" id="sponsor-id" class="text-general3">
+                                    <?php endif ?>
                                     <br /><br />
+
                                     <center>
                                     <input type="button" class="primary button" id="signup_btn" value="Sign up">
                                     </center>

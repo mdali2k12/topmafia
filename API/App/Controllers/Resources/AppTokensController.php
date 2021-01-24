@@ -40,8 +40,8 @@ class AppTokensController extends ResourcesController {
                 $this->_response = new JsonResponse( 200, ["account already verified"], false );
             elseif ( 
                 $success != false 
-                && $user->getId() != 0 
-                && $session->create( $user->getId(), $this->_request->getIpAddress(), $this->_request->getUserAgent() ) 
+                && $user->id() != 0 
+                && $session->create( $user->id(), $this->_request->getIpAddress(), $this->_request->getUserAgent() ) 
             ) {
                 $success = $appTokenModel->consume( "accountverification", $token, $user );
                 if ( $success != false ) 

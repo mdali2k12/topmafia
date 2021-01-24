@@ -4,17 +4,9 @@
 
 ## current assignement : Sponsor ID on signup & Facebook login
 
-### Sponsor ID on registration
+### app' template as SPA
 
-✅ - limit abusive sponsorship of sponsor setting up fake accounts using his own ID using these measures => 
-    * ✅ validate sponsor id field
-    * ✅ if user id doesnt exist in db then the sponsorship request fails with this feedback message: "The sponsorship ID doesnt exist"
-    * ✅ if more than one sponsor request after a successful signup involving any given sponsor happens more than once from the same user-agent/IP combination, then the request fails with this message "Are you trying to cheat the game by referring yourself? If we find out, your IP will be banned!"
-- ✅ store sponsorships into a separate db table
-- ✅ sponsorship is considered validated when
-    * ✅ sponsor already has a verified account
-    * ✅ sponsored user confirms his account
-- a sponsorship link can allow to prefill the signup form with the right sponsor ID
+### overall app' testing live
 
 ### Facebook login
 

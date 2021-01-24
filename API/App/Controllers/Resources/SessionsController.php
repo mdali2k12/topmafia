@@ -67,7 +67,7 @@ class SessionsController extends ResourcesController {
         ) {
             $user    = new User( $payload["username"] );
             $session = new Session();
-            if ( $session->create( $user->getId(), $ipAddress, $userAgent ) ) { // if session creation goes well
+            if ( $session->create( $user->id(), $ipAddress, $userAgent ) ) { // if session creation goes well
                 $failed = false;
                 // sending the user AND the session back on login success
                 $responsePayload            = $user->read();

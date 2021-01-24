@@ -38,13 +38,14 @@ class UsersController extends ResourcesController {
 
     protected function _initCreateOneResponse(): void {
         // pessimistic assumption
-        $succeeded              = false;
-        $payloadTmp             = count( $this->_request->getBody() ) > 0 ? $this->_request->getBody() : [];
-        $payload                = array_filter( $payloadTmp, function( $key ) {
+        $succeeded  = false;
+        $payloadTmp = count( $this->_request->getBody() ) > 0 ? $this->_request->getBody() : [];
+        $payload    = array_filter( $payloadTmp, function( $key ) {
             return $key != "sponsorId";
         }, ARRAY_FILTER_USE_KEY );
         $payloadMandatoryFields = ["username", "password", "confirmPassword", "email", "gender", "recaptchaToken"]; 
-        $user                   = new User( null );
+        // invoking the user model
+        $user = new User();
         // first set of validation rounds
         if ( 
             count( $payload ) > 0
@@ -128,6 +129,7 @@ class UsersController extends ResourcesController {
         $this->_setUnauthorizedResponse();
     }
 
+    // TODO move more logic to the model
     protected function _initUpdateOneResponse(): void
     {
         // pessimistic assumption
@@ -156,7 +158,7 @@ class UsersController extends ResourcesController {
             $appTokenModel = new AppToken();
             $user          = new User( $token );
             $success       = 
-                $user->getId() != 0 
+                $user->id() != 0 
                 && $appTokenModel->matchTypeAndToken( $type,$token ) 
                 && $user->updatePassword( $payload["password"] )
                 && $appTokenModel->consume( "passwordreset", $token, $user );

@@ -11,7 +11,7 @@ class EmailsService {
 
     // sending the account verification link email
     public function sendAccountVerificationEmail( User $user ) : bool {
-        $token  = ( new AppToken() )->create( $user->getId(), "accountverification" );
+        $token  = ( new AppToken() )->create( $user->id(), "accountverification" );
         $mailContents = "
             <html>
                 <body>
@@ -52,7 +52,7 @@ class EmailsService {
     }
 
     public function sendPasswordResetEmail( User $user ) : bool {
-        $token  = ( new AppToken() )->create( $user->getId(), "passwordreset" );
+        $token  = ( new AppToken() )->create( $user->id(), "passwordreset" );
         $mailContents = "
             <html>
                 <body>
@@ -61,7 +61,7 @@ class EmailsService {
                     <p>If you did not request this, you can safely ignore this email.</p>
                     .<p>"
                         ."<a href='".$_ENV["APP_URL"]
-                        ."/reset-password?token=".$token."&type=passwordreset&userid=".$user->getId()
+                        ."/reset-password?token=".$token."&type=passwordreset&userid=".$user->id()
                         ."'>Click here to reset password</a>"
                     ."</p>
                 </body>

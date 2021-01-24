@@ -24,9 +24,10 @@ class User {
     private UsersService $_usersService;
     public  string       $username; 
 
-    public function __construct( $identifier ) {
+    public function __construct( $identifier = null ) {
         $this->_dao = new UserDAO();
-        $this->_inflate( $identifier );
+        if ( !is_null( $identifier ) )
+            $this->_inflate( $identifier );
     }
 
     private function _delete(): void {
@@ -75,6 +76,11 @@ class User {
         return $this->_dao->updateUserPassword( $this->_id, $hash );
     }
 
+    public function generateSponsorshipLink( int $id ): string {
+        $link = $_ENV["APP_URL"]."/?sponsorid=".$id;
+        return $link;
+    }
+
     public function getEmail(): string {
         return $this->_email;
     }
@@ -83,20 +89,20 @@ class User {
         return $this->_password;
     }
 
-    public function getId(): int {
-        return $this->_id;
-    }
-
     public function getUnhashedPassword(): string {
         return $this->_unhashedPassword;
     }
 
-    public function nullifyUnhashedPassword() : void {
-        $this->_unhashedPassword = " ";
+    public function id(): int {
+        return $this->_id;
     }
 
     public function isVerified( int $userId ) : bool {
         return $this->_dao->checkIsVerified( $userId );
+    }
+
+    public function nullifyUnhashedPassword() : void {
+        $this->_unhashedPassword = " ";
     }
 
     public function read() : array {
