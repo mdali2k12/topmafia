@@ -2,7 +2,7 @@
 # app' memo
 
 
-## current assignement : Sponsor ID on signup & Facebook login
+## current assignement : SPA / test app' live / Facebook login
 
 ### app' template as SPA
 
