@@ -1,0 +1,546 @@
+
+.center {
+    display: flex; justify-content: center;
+    text-align:center;align-items: center;
+}
+
+.topbar {
+    font-family: 'Arial';
+    clear:both;
+	background: url(https://topmafia.net/home/images/navbar/gradientbar.png) top center repeat-x;
+	box-shadow: 5px 0 10px #000;
+	-webkit-box-shadow: 5px 0 10px #000;
+	top: 0;
+    left: 0;
+    box-sizing: border-box;
+    right: 0;
+	z-index: 2;
+    -webkit-appearance:none;
+    width:100%;
+    height:72px;
+}
+
+
+button:focus,
+input:focus,
+textarea:focus {
+	border: none;
+	outline: none;
+}
+.formlogin {
+    display:inline-flex;
+
+}
+input {
+	font-family: 'Arial';
+    font-size: 12px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	-webkit-text-size-adjust: none;
+}
+
+.inputclass {
+    width:125px;
+    border:none;
+    margin-left:2px;
+    margin-right:2px;
+	outline: none;
+    border-radius: 3px;
+    padding:5px;
+    height:27px;
+    font-family: 'Arial';
+    box-sizing: border-box;
+    font-size: 10px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	-webkit-text-size-adjust: none;
+}
+#maintemplate {
+margin:0 auto;
+font-family: 'Arial', Helvetica, sans-serif;
+font-size:12px;
+margin-top:20px;
+padding-bottom: 7rem;
+}
+.bodycontainer {
+    position:relative;
+    min-height:100%;
+    clear:both;
+    box-sizing: border-box;
+    width:700px;
+    margin: 0 auto;
+}
+.menutabs {
+    clear:both;
+    text-align:center;
+    display:inline-block;
+
+}
+.menutabs a:hover {
+   
+    color:orangered;
+}
+.menutabs a {
+    font-family:'Arial', Helvetica, sans-serif;
+    margin-left:25px;
+    font-weight:400;
+    font-size:12px;
+    color:rgba(255, 255, 255, 0.693);
+    text-decoration:none;
+}
+.menutabs a.active {
+    padding: 6px;
+    background:rgba(128, 128, 128, 0.33);
+    border-radius:5px;
+    font-weight:600;
+    font-size:12px;
+    color:#fff;
+    text-decoration:none;
+}
+.popupform {
+    display:none;
+}
+.formstyle {
+    margin: 0 auto;
+    width:180px;
+    text-align:center;
+    display:block;
+    padding:10px;
+    background:rgba(0, 0, 0, 0.796);
+    border-radius: 5px;
+}
+.formstyle input{
+    margin:0 auto;
+    display:block;
+   margin-top:5px;
+   margin-bottom:3px;
+}
+@keyframes slidy {
+	0% { left: 0%; }
+	20% { left: 0%; }
+	25% { left: -100%; }
+	45% { left: -100%; }
+	50% { left: -200%; }
+	70% { left: -200%; }
+	75% { left: -300%; }
+	95% { left: -300%; }
+	100% { left: -400%; }
+	}
+div#slider { overflow: hidden; }
+div#slider figure img { width: 20%; float: left; }
+div#slider figure { 
+  position: relative;
+  width: 500%;
+  margin: 0;
+  left: 0;
+  text-align: left;
+  font-size: 0;
+  animation: 30s slidy infinite; 
+}
+.bannerslider1 {
+    width:100%;    
+    margin-bottom:5px;
+    border:1px solid #333;
+    background-image: url(https://topmafia.net/project/blockstripes.png);
+  
+  background-color: #000;
+    border-radius: 3px;
+    display:block;
+}
+.main-content {
+    margin-top:5px;
+    width:100%;
+    height:100%;
+    color:#999;
+    font-size:12px;
+    box-sizing: border-box;
+    padding:10px;
+    border:1px solid #0c0c0c;
+    background:rgba(0, 0, 0, 0.597);
+}
+.main-content h3 {
+    font-size:16px;
+    font-style: italic;
+}
+.main-content h4 {
+    font-size:13px;
+    color:#ccc;
+}
+.mainleftcontent{
+float:left;
+width:500px;
+height:300px;
+}
+.mainrightbtns {
+float:right;
+padding:5px;
+border:1px solid rgba(51, 51, 51, 0.719);
+width: 240px;
+}
+.contenttext {
+    padding:10px;
+    text-align:left;
+    color:#ccc;
+    font-size:12px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+h3 {
+    color:#fff;
+    font-weight:700;
+    font-size:20px;
+}
+button {
+    margin-left:2px;
+	cursor: pointer;
+	border-radius: 3px;
+	text-align: center;
+    color: #fff;
+    padding:7px;
+	font-family: 'Arial';
+    font-size: 12px;
+    border: 1px solid #111;
+}
+
+.navBar {
+    
+    background-image: url(https://topmafia.net/project/bg2.jpg);
+
+  /* Background image doesn't tile */
+  background-repeat: repeat-x;
+  
+  background-color: #000;
+  
+    padding:10px;
+    border-left:1px solid #111;
+    border-right:1px solid #111;
+    border-bottom:1px solid #111;
+    border-top-right-radius: none;
+    border-top-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    width:100%;
+    justify-content: center;
+    display:inline-block;
+    margin:0 auto;
+    box-sizing: border-box;
+    clear: both;
+}
+
+.navBar .borderbox {
+    justify-content: center;
+    text-align: center;
+    box-sizing: border-box;
+}
+.navLinks {
+    display:inline-block;
+    padding:10px;
+    width:100%;
+    box-sizing: border-box;
+    clear:both;
+}
+.navLinks .borderbox {
+    box-sizing: border-box;
+    justify-content: center;
+    text-align: center;
+}
+.groupbtn {
+    clear:both;
+    display:inline-block;
+    width:100%;
+}
+.freetoplay {
+    z-index: 2;
+    display: block;
+    text-align:center;
+    background: url(https://topmafia.net/project/barrepeat-new.png) repeat-x #000;
+    padding:10px;
+}
+ .leftusers {
+     font-family: Arial, Helvetica, sans-serif;
+     font-size:12px;
+    color:white;
+    display: block;
+    margin-top:5px;
+    }
+     .rightusers {
+        display: block;
+        margin-top:5px;
+        text-align:left;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size:12px;
+        color:rgb(211, 211, 211);
+        }
+.primary {
+    
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#7d7e7d+0,444444+100 */
+    background: rgb(75, 75, 75); /* Old browsers */
+    background: -moz-linear-gradient(top,  rgb(82, 82, 82) 0%, rgb(31, 31, 31) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top,  rgb(82, 82, 82) 0%, rgb(31, 31, 31) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom,  rgb(82, 82, 82) 0%, rgb(31, 31, 31) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#666666', endColorstr='#333333',GradientType=0 ); /* IE6-9 */
+    
+}
+
+.primary:active {
+	background: #111;
+}
+.primarysignup2 {
+    padding:20px;
+    text-transform: uppercase;
+   /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#eab92d+0,c79810+100;Yellow+3D+%232 */
+   background:linear-gradient(-180deg, #19C430 0%, #0B791A 100%);
+   border-radius:7px;
+   border:1px solid rgb(0, 0, 0);
+   color:rgb(255, 255, 255);
+   text-align:center;
+   font-weight:700;
+   font-size:14px;
+   text-shadow:1px 1px 1px #111;
+   display:inline-block;
+   
+}
+
+.primarysignup2:active {
+	background: #111;
+}
+.primaryfb {
+    
+   font-weight:500;
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#2690c1+0,2989d8+50,207cca+66,384868+100 */
+background: rgb(38,144,193); /* Old browsers */
+background: -moz-linear-gradient(top,  rgb(29, 122, 165) 0%, rgba(41,137,216,1) 50%, rgb(19, 86, 145) 66%, rgb(43, 57, 84) 100%); /* FF3.6-15 */
+background: -webkit-linear-gradient(top,  rgb(29, 122, 165) 0%, rgba(41,137,216,1) 50%, rgb(19, 86, 145) 66%, rgb(43, 57, 84) 100%); /* Chrome10-25,Safari5.1-6 */
+background: linear-gradient(to bottom,   rgb(29, 122, 165) 0%, rgba(41,137,216,1) 50%, rgb(19, 86, 145) 66%, rgb(43, 57, 84) 100%);/* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#2690c1', endColorstr='#384868',GradientType=0 ); /* IE6-9 */
+
+box-shadow: inset rgba(255, 255, 255, .1) 1px 1px 0;
+}
+
+.primaryfb:active {
+	background:darkblue;
+}
+.primarysignup {
+	box-shadow: inset rgba(255, 255, 255, .1) 1px 1px 0;
+	background: linear-gradient(to bottom, red 0, darkred 100%);
+  
+}
+
+.primarysignup:active {
+	background: #111;
+}
+
+#footer {
+    clear: both;
+    position: absolute;
+	bottom: 0;
+    left:0;
+    width: 100%;
+    background-color:rgba(0, 0, 0, 0.775);
+	/* Footer height */
+    padding: 20px 0;
+    margin:0 auto;
+    text-align: center;
+}
+
+#footer div.container-inner {
+	text-align: center;
+	font-family: "Arial", Helvetica, Roboto, sans-serif;
+	font-size: 12px;
+    color: #666;
+    margin-top:5px;
+}
+#footer div.footerlinks a {
+    margin: 0 auto;
+	text-align: center;
+	font-family: "Arial", Helvetica, Roboto, sans-serif;
+	font-size: 10px;
+    color: #666;
+    margin-left:15px;
+    text-decoration: none;
+
+}
+ul {
+    list-style: none;
+    margin:0;
+    padding:0;
+  overflow: hidden;
+}
+li {
+    list-style: none;
+    margin:0;
+    padding:0;
+  overflow: hidden;
+}
+.dropdown {
+    display:block;
+}
+.icon{
+    display:block;
+    text-decoration: none;
+    color:rgb(255, 255, 255);
+    
+    background-image: url(https://topmafia.net/project/bg2.jpg);
+
+  /* Background image doesn't tile */
+  background-repeat: repeat-x;
+  
+  background-color: #000;
+    padding:10px;
+    font-weight: 600;
+    border-bottom:none;
+    border-left:1px solid #111;
+    border-right:1px solid #111;
+    border-top:1px solid #111;
+    box-sizing: border-box;
+    border-top-left-radius:5px;
+    border-top-right-radius:5px;
+}
+.icon:hover {
+    font-weight: 700;
+    color:#ccc;
+}
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    right: 0;
+    background-color: #1c1c1c;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 60px;
+    border-left:1px solid #222;
+  }
+  
+  .sidenav a {
+      display:block;
+    padding: 8px 8px 8px 32px;
+    text-decoration: none;
+      border-bottom:1px solid #333;
+    font-size: 14px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+  }
+  
+  .sidenav a:hover {
+    color: #f1f1f1;
+  }
+  
+  .sidenav .active {
+    color: orangered;
+    border-bottom:1px solid orangered;
+  }
+  
+  .sidenav .closebtn {
+      border:none;
+    position: absolute;
+    top: 0;
+    right: 5px;
+    font-size: 36px;
+  }
+  
+  @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+  }
+
+.dropdown-content {
+    display:none;
+}
+
+.dropdown:hover .dropdown-content {
+    display:block;
+    position: absolute;
+    right: 0;
+    margin-top:10px;
+    width:150px !important;
+    z-index:2;
+    background-color:rgb(36, 36, 36);
+    border-top-left-radius:5px;
+    border-bottom-left-radius:5px;
+    border-bottom-right-radius:5xp;
+    border-left:2px solid rgb(67, 67, 67);
+    border-bottom:1px solid rgb(67, 67, 67);
+  }
+  .dropdown-content a {
+font-family:'Arial', Helvetica, sans-serif;
+font-weight:400;
+font-size:12px;
+color:rgba(189, 189, 189, 0.693);
+text-decoration:none;
+  }
+  .dropdown-content .activem {
+   color:orangered;
+   font-weight: 700;
+  }
+  .dropdown-content li {
+    text-align: left;
+    padding:10px;
+    display: block;
+    border-bottom:1px solid rgb(48, 48, 48);
+  }
+  .dropdown-content a:hover {
+      color:whitesmoke;
+  }
+
+  .menudrop {
+    list-style:none;
+    line-height-step:inherit;
+}
+
+@media screen and (max-width: 600px) {
+    .bodycontainer {
+        position:relative;
+        min-height:100%;
+        clear:both;
+        box-sizing: border-box;
+        width:95%;
+        margin: 0 auto;
+    }
+ 
+.inputclass {
+    width:95px;
+    border:none;
+    margin-left:2px;
+    margin-right:2px;
+	outline: none;
+    border-radius: 3px;
+    padding:5px;
+    height:27px;
+    font-family: 'Arial';
+    box-sizing: border-box;
+    font-size: 10px;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	-webkit-appearance:none;
+	-moz-appearance:none;
+	-webkit-text-size-adjust: none;
+}
+  }
+
+#succ {
+	padding: 5px;
+	font-family:Arial, Helvetica, sans-serif;
+	font-weight: 600;
+	text-transform: uppercase;
+	color: limegreen;
+    background-color: rgba(0, 0, 0, 0.707);
+    margin-bottom:5px;
+	text-align: center;
+}
+
+#err {
+	font-family:Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    padding:5px;
+	text-transform: uppercase;
+	border:1px solid orangered;
+	background-color: rgba(0, 0, 0, 0.4);
+	color: orangered;
+	text-align: center;
+}
