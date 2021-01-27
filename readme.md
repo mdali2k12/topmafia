@@ -7,7 +7,9 @@
 ### app' template as SPA
 - migrate the revised template into a functional Angular app' divided in subcomponents
     * ✅ favicon to implement
-        ...
+    * migrate index.html script into Angular app'
+    * refactor app.component.html
+    * refactor app.comoponent.scss
 - migrate the API previous views to the newly created Angular app'
 
 ### overall app' testing live
