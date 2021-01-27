@@ -8,6 +8,8 @@
 - migrate the revised template into a functional Angular app' divided in subcomponents
     * ✅ favicon to implement
     * migrate index.html script into Angular app'
+        - migrate slideshow
+        - migrate drawer menu
     * refactor app.component.html
     * refactor app.comoponent.scss
 - migrate the API previous views to the newly created Angular app'
