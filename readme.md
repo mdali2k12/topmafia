@@ -6,6 +6,8 @@
 
 ### app' template as SPA
 - migrate the revised template into a functional Angular app' divided in subcomponents
+    * ✅ favicon to implement
+        ...
 - migrate the API previous views to the newly created Angular app'
 
 ### overall app' testing live
