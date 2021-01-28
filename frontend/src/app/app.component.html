@@ -2,24 +2,27 @@
 
 <div class="app">
 
-  <div id="maintemplate">
+  <div id="main">
+
+    <!-- drawer -->
     <div class="borderbox">
-    <div style="float:left;">
-    <img src="https://topmafia.net/project/tmlogo.png">
+      <div style="float:left;">
+      <img src="https://topmafia.net/project/tmlogo.png">
+      </div>
+      <div style="float:right;margin-top:40px;">
+      <div id="mySidenav" class="sidenav">
+      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+      <a href="#" class="active">Home</a>
+      <a href="#">Story</a>
+      <a href="#">Account</a>
+      <a href="#">Game Rules</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Contact Us</a>
+      </div>
+      <span style="cursor:pointer" class="icon" onclick="openNav()">&#9776; Main Menu</span>
+      </div>
     </div>
-    <div style="float:right;margin-top:40px;">
-    <div id="mySidenav" class="sidenav">
-    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-    <a href="#" class="active">Home</a>
-    <a href="#">Story</a>
-    <a href="#">Account</a>
-    <a href="#">Game Rules</a>
-    <a href="#">Privacy Policy</a>
-    <a href="#">Contact Us</a>
-    </div>
-    <span style="cursor:pointer" class="icon" onclick="openNav()">&#9776; Main Menu</span>
-    </div>
-    </div>
+
     <div class="navBar">
     <div class="borderbox">
     <div style="float:left;">
@@ -71,15 +74,7 @@
     </div>
     </div>
   </div>
-  <footer id="footer">
-    <div class="footerlinks">
-    <a href="">Homepage</a>
-    <a href="">Account</a>
-    <a href="">Game Guide</a>
-    <a href="">Contact Us</a>
-    </div>
-    <div class="container-inner">
-    <span>&copy; Copyright 2020 - 2021 Top Mafia. All Rights Reserved.</span>
-    </div>
-  </footer>
+
+  <app-footer></app-footer>
+
 </div>
