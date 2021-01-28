@@ -6,6 +6,7 @@
 
 ### app' template as SPA
 - migrate the revised template into a functional Angular app' divided in subcomponents
+    * auth guard that loads current template by default
     * ✅ favicon to implement
     * migrate index.html script into Angular app'
         - ✅ migrate slideshow
