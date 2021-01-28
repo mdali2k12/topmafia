@@ -2,27 +2,30 @@
 
 <div class="app">
 
-  <div id="main">
+  <!-- logo -->
+  <div id="logo">
+    <img src="./../assets/images/tmlogo.png">
+  </div>
 
-    <!-- drawer -->
-    <div class="borderbox">
-      <div style="float:left;">
-      <img src="https://topmafia.net/project/tmlogo.png">
+  <!-- drawer -->
+  <!-- TODO implement drawer menu navigation routes -->
+  <div class="borderbox" id="drawer">
+    <div id="drawer-inner-div">
+      <div #drawer class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
+        <a href="#" class="active">Home</a>
+        <a href="#">Story</a>
+        <a href="#">Account</a>
+        <a href="#">Game Rules</a>
+        <a href="#">Privacy Policy</a>
+        <a href="#">Contact Us</a>
       </div>
-      <div style="float:right;margin-top:40px;">
-      <div id="mySidenav" class="sidenav">
-      <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-      <a href="#" class="active">Home</a>
-      <a href="#">Story</a>
-      <a href="#">Account</a>
-      <a href="#">Game Rules</a>
-      <a href="#">Privacy Policy</a>
-      <a href="#">Contact Us</a>
-      </div>
-      <span style="cursor:pointer" class="icon" onclick="openNav()">&#9776; Main Menu</span>
-      </div>
+      <span style="cursor:pointer" class="icon" (click)="openNav()">&#9776; Main Menu</span>
     </div>
+  </div>
 
+  <!-- TODO refactor -->
+  <div id="main">
     <div class="navBar">
     <div class="borderbox">
     <div style="float:left;">

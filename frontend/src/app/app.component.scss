@@ -7,6 +7,18 @@
   margin    : 0 auto;
 }
 
+#logo {
+  float: left;
+}
+
+#drawer {
+  font-family: 'Arial', Helvetica, sans-serif;
+}
+#drawer-inner-div {
+  float     : right;
+  margin-top: 40px;
+}
+
 .center {
   display: flex; justify-content: center;
   text-align:center;align-items: center;

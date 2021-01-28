@@ -9,9 +9,10 @@
     * ✅ favicon to implement
     * migrate index.html script into Angular app'
         - ✅ migrate slideshow
-        - migrate drawer menu
+        - ✅ migrate drawer menu
     * refactor app.component.html
     * refactor app.comoponent.scss
+    * implement drawer menu navigation routes
 - migrate the API previous views to the newly created Angular app'
 
 ### overall app' testing live
