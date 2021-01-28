@@ -1,4 +1,12 @@
 
+
+.app {
+  position  :relative;
+  min-height:100%;
+  width     :700px;
+  margin    : 0 auto;
+}
+
 .center {
   display: flex; justify-content: center;
   text-align:center;align-items: center;
@@ -66,14 +74,7 @@ font-size:12px;
 margin-top:20px;
 padding-bottom: 7rem;
 }
-.bodycontainer {
-  position:relative;
-  min-height:100%;
-  clear:both;
-  box-sizing: border-box;
-  width:700px;
-  margin: 0 auto;
-}
+
 .menutabs {
   clear:both;
   text-align:center;
@@ -119,28 +120,7 @@ padding-bottom: 7rem;
  margin-top:5px;
  margin-bottom:3px;
 }
-@keyframes slidy {
-0% { left: 0%; }
-20% { left: 0%; }
-25% { left: -100%; }
-45% { left: -100%; }
-50% { left: -200%; }
-70% { left: -200%; }
-75% { left: -300%; }
-95% { left: -300%; }
-100% { left: -400%; }
-}
-div#slider { overflow: hidden; }
-div#slider figure img { width: 20%; float: left; }
-div#slider figure {
-position: relative;
-width: 500%;
-margin: 0;
-left: 0;
-text-align: left;
-font-size: 0;
-animation: 30s slidy infinite;
-}
+
 .bannerslider1 {
   width:100%;
   margin-bottom:5px;
@@ -493,14 +473,15 @@ text-decoration:none;
   line-height-step:inherit;
 }
 
-@media screen and (max-width: 600px) {
-  .bodycontainer {
-      position:relative;
+@media screen and ( max-width: 600px ) {
+
+  .app {
+      position  :relative;
       min-height:100%;
-      clear:both;
+      clear     :both;
       box-sizing: border-box;
-      width:95%;
-      margin: 0 auto;
+      width     :95%;
+      margin    : 0 auto;
   }
 
 .inputclass {
