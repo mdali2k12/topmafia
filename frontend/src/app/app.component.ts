@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -8,15 +8,5 @@ import { Component, ElementRef, ViewChild } from '@angular/core';
 export class AppComponent {
 
   title = "Top Mafia";
-
-  @ViewChild( "drawer" ) drawer: ElementRef;
-
-  openNav() {
-    this.drawer.nativeElement.style.width = "175px";
-  }
-
-  closeNav() {
-    this.drawer.nativeElement.style.width = "0";
-  }
 
 }

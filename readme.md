@@ -6,15 +6,16 @@
 
 ### app' template as SPA
 - migrate the revised template into a functional Angular app' divided in subcomponents
-    * auth guard that loads current template by default
+    * ✅ auth guard 
     * ✅ favicon to implement
-    * migrate index.html script into Angular app'
+    * ✅ migrate index.html script into Angular app'
         - ✅ migrate slideshow
         - ✅ migrate drawer menu
-    * refactor app.component.html
-    * refactor app.comoponent.scss
+    * refactor login-signup-shell.component.html
+    * refactor login-signup-shell.comoponent.scss
     * implement drawer menu navigation routes
-- migrate the API previous views to the newly created Angular app'
+    * auth service to populate with actual logic
+- migrate the API previous views elements to the newly created Angular app'
 
 ### overall app' testing live
 
