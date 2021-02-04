@@ -11,10 +11,12 @@
     * ✅ migrate index.html script into Angular app'
         - ✅ migrate slideshow
         - ✅ migrate drawer menu
+    * online/offline players feature
     * refactor login-signup-shell.component.html
     * refactor login-signup-shell.comoponent.scss
-    * implement drawer menu navigation routes
-    * auth service to populate with actual logic
+        - remove unnecessary code
+    * implement drawer menu navigation routes or simili-routes
+    * auth service to populate with actual communication logic with the backend
 - migrate the API previous views elements to the newly created Angular app'
 
 ### overall app' testing live

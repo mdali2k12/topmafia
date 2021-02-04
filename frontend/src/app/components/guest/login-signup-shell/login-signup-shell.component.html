@@ -8,45 +8,45 @@
   </div>
 
   <!-- drawer -->
-  <!-- TODO implement drawer menu navigation routes -->
   <div class="borderbox" id="drawer">
     <div id="drawer-inner-div">
-      <div #drawer class="sidenav">
+      <div #drawer class="drawer-nav">
         <a href="javascript:void(0)" class="closebtn" (click)="closeNav()">&times;</a>
-        <a href="#" class="active">Home</a>
-        <a href="#">Story</a>
-        <a href="#">Account</a>
-        <a href="#">Game Rules</a>
-        <a href="#">Privacy Policy</a>
-        <a href="#">Contact Us</a>
+        <a #homeLink          (click)="setActiveLink( 'homeLink' )" class="active">Home</a>
+        <a #storyLink         (click)="setActiveLink( 'storyLink' )">Story</a>
+        <a #accountLink       (click)="setActiveLink( 'accountLink' )">Account</a>
+        <a #gameRulesLink     (click)="setActiveLink( 'gameRulesLink' )">Game Rules</a>
+        <a #privacyPolicyLink (click)="setActiveLink( 'privacyPolicyLink' )">Privacy Policy</a>
+        <a #contactUsLink     (click)="setActiveLink( 'contactUsLink' )">Contact Us</a>
       </div>
       <span style="cursor:pointer" class="icon" (click)="openNav()">&#9776; Main Menu</span>
     </div>
   </div>
 
-  <!-- TODO refactor -->
   <div id="main">
+
+    <!-- navbar -->
     <div class="navBar">
-    <div class="borderbox">
-    <div style="float:left;">
-    <span class="leftusers"><b>113</b> Online</span>
+      <div class="borderbox">
+        <!-- TODO http call to get online/offline players -->
+        <div style="float:left;">
+          <span class="leftusers"><b>113</b> Online</span>
+        </div>
+        <div style="float:right;">
+          <div class="formlogin">
+            <form>
+              <input type="text" class="inputclass" placeholder="username">
+              <input type="password" class="inputclass" placeholder="password">
+              <button type="button" name="action" class="primary button">Login</button>
+            </form>
+            <button type="button" name="action" class="primarysignup button">Register</button>
+          </div>
+        </div>
+      </div>
     </div>
-    <div style="float:right;">
-    <div class="formlogin">
-    <form>
-    <input type="text" class="inputclass" placeholder="username">
-    <input type="password" class="inputclass" placeholder="password">
-    <button type="button" name="action" class="primary button">
-    Login
-    </button>
-    </form>
-    <button type="button" name="action" class="primarysignup button">
-    Register
-    </button>
-    </div>
-    </div>
-    </div>
-    </div> <div id="succ" style="display:none;">Your are being loggedin, please wait...</div>
+
+    <!-- TODO refactor -->
+    <div id="succ" style="display:none;">Your are being loggedin, please wait...</div>
     <div class="bannerslider1">
     <div class="navLinks">
     <div class="borderbox">
@@ -63,15 +63,16 @@
     </div>
     <div id="content">
     <app-slideshow></app-slideshow>
-    <div class="main-content">
-    <h3>What is Top Mafia about?</h3>
-    <h4>Free to play text-based Mafia MMORPG!</h4>
-    <p>Join the ultimate battle of becoming the top gangster of your city while experiencing the utmost real life criminal pressure!</p>
-    <p>Create fear and earn respect in your neighbourhood, operate the largest drug cartels, recruit the best gangsters for your gang and offer protection to the city. It doesn't stop there! Once your on top you can travel in your own private jet and hire the most powerful security team to keep you protected wherever you are. </p>
-    <p>You can choose to relax under the Miami sun or try your luck at the best casinos of Las Vegas. Anything is possible here at Top Mafia.</p>
-    <p>There are tons of features & activities to keep you entertained and busy all day!</p>
-    <p>Do you think your ready to turn your dream into reality? Join the free massively multiplayer mafia text based role playing game and begin your journey!</p>
-    </div>
+
+    <!-- SO dynamic content loading -->
+    <app-home           *ngIf="this.activeLink == 'homeLink'"></app-home>
+    <app-story          *ngIf="this.activeLink == 'storyLink'"></app-story>
+    <app-account        *ngIf="this.activeLink == 'accountLink'"></app-account>
+    <app-game-rules     *ngIf="this.activeLink == 'gameRulesLink'"></app-game-rules>
+    <app-privacy-policy *ngIf="this.activeLink == 'privacyPolicyLink'"></app-privacy-policy>
+    <app-contact-us     *ngIf="this.activeLink == 'contactUsLink'"></app-contact-us>
+    <!-- EO dynamic content loading -->
+
     <div class="freetoplay">
     <button class="primarysignup2 button">Play Now</button>
     </div>

@@ -1,4 +1,5 @@
 
+@import "./../../../../assets/scss/variables.scss";
 
 .app {
   position  :relative;
@@ -11,6 +12,7 @@
   float: left;
 }
 
+// SO drawer
 #drawer {
   font-family: 'Arial', Helvetica, sans-serif;
 }
@@ -18,28 +20,48 @@
   float     : right;
   margin-top: 40px;
 }
-
-.center {
-  display: flex; justify-content: center;
-  text-align:center;align-items: center;
+.drawer-nav {
+  height          : 100%;
+  width           : 0;
+  position        : fixed;
+  z-index         : 1;
+  top             : 0;
+  right           : 0;
+  background-color: $app-background-black;
+  overflow-x      : hidden;
+  transition      : 0.5s;
+  padding-top     : 60px;
+  border-left     : 1px solid $app-border-black2;
 }
-
-.topbar {
-  font-family: 'Arial';
-  clear:both;
-background: url(https://topmafia.net/home/images/navbar/gradientbar.png) top center repeat-x;
-box-shadow: 5px 0 10px #000;
--webkit-box-shadow: 5px 0 10px #000;
-top: 0;
-  left: 0;
-  box-sizing: border-box;
-  right: 0;
-z-index: 2;
-  -webkit-appearance:none;
-  width:100%;
-  height:72px;
+.drawer-nav a {
+  display        : block;
+  padding        : 8px 8px 8px 32px;
+  text-decoration: none;
+  border-bottom  : 1px solid $app-border-black-light;
+  font-size      : 14px;
+  color          : $app-grey-medium;
+  display        : block;
+  transition     : 0.3s;
+  cursor         : pointer;
 }
-
+.drawer-nav a:hover {
+  color: $app-white-alt;
+}
+.drawer-nav .active {
+  color        : $app-orange;
+  border-bottom: 1px solid $app-orange;
+}
+.drawer-nav .closebtn {
+  border   : none;
+  position : absolute;
+  top      : 0;
+  right    : 5px;
+  font-size: 36px;
+}
+@media screen and ( max-height: 450px ) {
+  .drawer-nav {padding-top: 15px;}
+}
+// EO drawer
 
 button:focus,
 input:focus,
@@ -143,25 +165,7 @@ background-color: #000;
   border-radius: 3px;
   display:block;
 }
-.main-content {
-  margin-top:5px;
-  width:100%;
-  height:100%;
-  color:#999;
-  font-size:12px;
-  box-sizing: border-box;
-  padding:10px;
-  border:1px solid #0c0c0c;
-  background:rgba(0, 0, 0, 0.597);
-}
-.main-content h3 {
-  font-size:16px;
-  font-style: italic;
-}
-.main-content h4 {
-  font-size:13px;
-  color:#ccc;
-}
+
 .mainleftcontent{
 float:left;
 width:500px;
@@ -365,51 +369,6 @@ background-color: #000;
   font-weight: 700;
   color:#ccc;
 }
-.sidenav {
-  height: 100%;
-  width: 0;
-  position: fixed;
-  z-index: 1;
-  top: 0;
-  right: 0;
-  background-color: #1c1c1c;
-  overflow-x: hidden;
-  transition: 0.5s;
-  padding-top: 60px;
-  border-left:1px solid #222;
-}
-
-.sidenav a {
-    display:block;
-  padding: 8px 8px 8px 32px;
-  text-decoration: none;
-    border-bottom:1px solid #333;
-  font-size: 14px;
-  color: #818181;
-  display: block;
-  transition: 0.3s;
-}
-
-.sidenav a:hover {
-  color: #f1f1f1;
-}
-
-.sidenav .active {
-  color: orangered;
-  border-bottom:1px solid orangered;
-}
-
-.sidenav .closebtn {
-    border:none;
-  position: absolute;
-  top: 0;
-  right: 5px;
-  font-size: 36px;
-}
-
-@media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-}
 
 .dropdown-content {
   display:none;
@@ -502,8 +461,24 @@ font-family:Arial, Helvetica, sans-serif;
   font-weight: 600;
   padding:5px;
 text-transform: uppercase;
-border:1px solid orangered;
+border:1px solid$app-orange;
 background-color: rgba(0, 0, 0, 0.4);
-color: orangered;
+color:$app-orange;
 text-align: center;
 }
+
+// .topbar {
+//   font-family: 'Arial';
+//   clear:both;
+// background: url(https://topmafia.net/home/images/navbar/gradientbar.png) top center repeat-x;
+// box-shadow: 5px 0 10px #000;
+// -webkit-box-shadow: 5px 0 10px #000;
+// top: 0;
+//   left: 0;
+//   box-sizing: border-box;
+//   right: 0;
+// z-index: 2;
+//   -webkit-appearance:none;
+//   width:100%;
+//   height:72px;
+// }

@@ -7,6 +7,7 @@ import { AuthGuard }            from './auth/auth.guard';
 import { GuestGuard }           from './auth/guest.guard';
 
 import { GameShellComponent }        from './components/game/game-shell/game-shell.component';
+import { HomeComponent } from './components/guest/home/home.component';
 import { LoginSignupShellComponent } from './components/guest/login-signup-shell/login-signup-shell.component';
 
 
@@ -29,6 +30,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
+  // forRoot( allows to register the routes for the main app' loaded in the app' module
   imports  : [RouterModule.forRoot(routes)],
   exports  : [RouterModule],
   providers: [AuthGuard]

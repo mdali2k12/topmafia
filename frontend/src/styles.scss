@@ -35,3 +35,12 @@ body {
   text-align     : center;
   box-sizing     : border-box;
 }
+
+// flex utilities
+.center {
+  display: flex;
+  justify-content: center;
+  text-align:center;
+  align-items: center;
+}
+
