@@ -13,7 +13,7 @@ import { LoginSignupShellComponent } from './components/guest/login-signup-shell
 
 const routes: Routes = [
   {
-    path       : "auth",
+    path       : "home",
     component  : LoginSignupShellComponent,
     canActivate: [GuestGuard]
   },
