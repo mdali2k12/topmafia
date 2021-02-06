@@ -63,6 +63,14 @@
 }
 // EO drawer
 
+#onlinePlayersCount {
+  font-family: Arial, Helvetica, sans-serif;
+  font-size  : 12px;
+  color      : $app-white;
+  display    : block;
+  margin-top : 5px;
+}
+
 button:focus,
 input:focus,
 textarea:focus {
@@ -255,13 +263,7 @@ background-color: #000;
   background: url(https://topmafia.net/project/barrepeat-new.png) repeat-x #000;
   padding:10px;
 }
-.leftusers {
-   font-family: Arial, Helvetica, sans-serif;
-   font-size:12px;
-  color:white;
-  display: block;
-  margin-top:5px;
-  }
+
    .rightusers {
       display: block;
       margin-top:5px;

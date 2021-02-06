@@ -11,11 +11,11 @@
     * ✅ migrate index.html script into Angular app'
         - ✅ migrate slideshow
         - ✅ migrate drawer menu
-    * online/offline players feature
+    * ✅ online/offline players feature
     * refactor login-signup-shell.component.html
     * refactor login-signup-shell.comoponent.scss
         - remove unnecessary code
-    * implement drawer menu navigation routes or simili-routes
+    * ✅ implement drawer menu navigation routes or simili-routes
     * auth service to populate with actual communication logic with the backend
 - migrate the API previous views elements to the newly created Angular app'
 
@@ -47,7 +47,7 @@
 
     Header Set Access-Control-Allow-Origin "*"
     Header set Access-Control-Allow-Methods "GET, POST, PUT, DELETE, OPTIONS"
-    Header set Access-Control-Allow-Headers "X-Requested-With, Content-Type, X-Token-Auth, Authorization, X-Content-Type-Options"
+    Header set Access-Control-Allow-Headers "json, X-Requested-With, Content-Type, X-Token-Auth, Authorization, X-Content-Type-Options"
     SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
 
     ServerAdmin webmaster@topmafia.net

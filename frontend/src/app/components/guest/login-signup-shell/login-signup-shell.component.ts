@@ -1,15 +1,24 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+
+import { UsersService } from 'src/app/services/users.service';
 
 @Component({
   selector: 'app-login-signup-shell',
   templateUrl: './login-signup-shell.component.html',
   styleUrls: ['./login-signup-shell.component.scss']
 })
-export class LoginSignupShellComponent {
+export class LoginSignupShellComponent implements OnInit {
 
-  public activeLink = "homeLink";
+  public activeLink         = "homeLink";
+  public onlinePlayersCount = 0;
+  public playersCount       = 0;
 
-  constructor() { }
+  constructor( private _usersService: UsersService ) { }
+
+  ngOnInit(): void {
+    this.getUsersData();
+  }
 
   @ViewChild( "drawer" ) drawer: ElementRef;
   // drawer links
@@ -23,7 +32,6 @@ export class LoginSignupShellComponent {
   openNav(): void {
     this.drawer.nativeElement.style.width = "175px";
   }
-
   closeNav(): void {
     this.drawer.nativeElement.style.width = "0";
   }
@@ -34,5 +42,12 @@ export class LoginSignupShellComponent {
     this[link].nativeElement.classList.add( "active" );
   }
 
+  getUsersData(): void {
+    this._usersService.getUsersData()
+      .subscribe( data => {
+        this.onlinePlayersCount = data["onlinePlayersCount"] != undefined ? data["onlinePlayersCount"] : 0;
+        this.playersCount       = data["playersCount"] != undefined ? data["playersCount"] : 0;
+      });
+  }
 
 }

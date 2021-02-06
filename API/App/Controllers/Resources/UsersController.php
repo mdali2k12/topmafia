@@ -28,12 +28,10 @@ class UsersController extends ResourcesController {
     use StringsTrait;
     use StringsValidator;
 
-    private UsersService $_usersService;
 
     public function __construct( Request $request )
     {
         parent::__construct( $request );
-        $this->_usersService = new UsersService();
     }
 
     protected function _initCreateOneResponse(): void {
@@ -112,8 +110,9 @@ class UsersController extends ResourcesController {
     } // EO _initCreateOneResponse() method
 
     protected function _initReadAllResponse(): void {
-        $playersCount       = $this->_usersService->getPlayersCount();
-        $onlinePlayersCount = $this->_usersService->getOnlinePlayersCount();
+        $usersService       = new UsersService();
+        $playersCount       = $usersService->getPlayersCount();
+        $onlinePlayersCount = $usersService->getOnlinePlayersCount();
         $this->_response    = new JsonResponse( 
             200, 
             ["fetched players count", "fetched online players count"],
@@ -169,10 +168,11 @@ class UsersController extends ResourcesController {
     }
 
     private function _validateSponsorship() : void {
+        $usersService = new UsersService();
         if ( 
             $this->validateNumber( $this->_request->getBody()["sponsorId"] )
         ) {
-            if ( !$this->_usersService->exists( $this->_request->getBody()["sponsorId"] ) )
+            if ( !$usersService->exists( $this->_request->getBody()["sponsorId"] ) )
                 $this->_addValidationError( "Sponsor", "The sponsorship ID doesnt exist" );
         } else $this->_addValidationError( "Sponsor", "Something is wrong with the sponsor ID you provided" );
     }

@@ -91,6 +91,7 @@ if ( isset( $request->getHeaders()["json"] ) &&  $request->getHeaders()["json"] 
         ->send();
 } else { // web routes
     switch ( $request->getEndpoint() ) {
+        // TODO load Angular web app' here
         case "/contact":
             require_once getcwd()."/views/templates/contact.php";
             break;
