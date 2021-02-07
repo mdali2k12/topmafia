@@ -1,7 +1,8 @@
 
-import { BrowserModule }   from '@angular/platform-browser';
-import { NgModule }        from '@angular/core';
-import { HttpClientModule} from "@angular/common/http";
+import { BrowserModule }       from '@angular/platform-browser';
+import { NgModule }            from '@angular/core';
+import { HttpClientModule}     from "@angular/common/http";
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent }     from './app.component';
@@ -18,7 +19,8 @@ import { ContactUsComponent }        from './components/guest/contact-us/contact
 import { HomeComponent }             from './components/guest/home/home.component';
 
 // game shell
-import { GameShellComponent } from './components/game/game-shell/game-shell.component';
+import { GameShellComponent }    from './components/game/game-shell/game-shell.component';
+import { RegisterFormComponent } from './components/guest/register-form/register-form.component';
 
 @NgModule({
   declarations: [
@@ -32,12 +34,14 @@ import { GameShellComponent } from './components/game/game-shell/game-shell.comp
     GameRulesComponent,
     PrivacyPolicyComponent,
     ContactUsComponent,
-    HomeComponent
+    HomeComponent,
+    RegisterFormComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

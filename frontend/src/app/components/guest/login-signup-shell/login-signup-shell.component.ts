@@ -1,5 +1,6 @@
 
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { Subscription }                                        from 'rxjs';
 
 import { UsersService } from 'src/app/services/users.service';
 
@@ -8,17 +9,13 @@ import { UsersService } from 'src/app/services/users.service';
   templateUrl: './login-signup-shell.component.html',
   styleUrls: ['./login-signup-shell.component.scss']
 })
-export class LoginSignupShellComponent implements OnInit {
+export class LoginSignupShellComponent implements OnInit, OnDestroy {
+
+  $usersDataSub: Subscription;
 
   public activeLink         = "homeLink";
   public onlinePlayersCount = 0;
   public playersCount       = 0;
-
-  constructor( private _usersService: UsersService ) { }
-
-  ngOnInit(): void {
-    this.getUsersData();
-  }
 
   @ViewChild( "drawer" ) drawer: ElementRef;
   // drawer links
@@ -28,6 +25,17 @@ export class LoginSignupShellComponent implements OnInit {
   @ViewChild( "gameRulesLink" )     gameRulesLink    : ElementRef;
   @ViewChild( "privacyPolicyLink" ) privacyPolicyLink: ElementRef;
   @ViewChild( "contactUsLink" )     contactUsLink    : ElementRef;
+  @ViewChild( "registerLink" )      registerLink     : ElementRef;
+
+  constructor( private _usersService: UsersService ) { }
+
+  ngOnInit(): void {
+    this.getUsersData();
+  }
+
+  ngOnDestroy(): void {
+    this.$usersDataSub.unsubscribe();
+  }
 
   openNav(): void {
     this.drawer.nativeElement.style.width = "175px";
@@ -43,11 +51,11 @@ export class LoginSignupShellComponent implements OnInit {
   }
 
   getUsersData(): void {
-    this._usersService.getUsersData()
+    this.$usersDataSub = this._usersService.getUsersData()
       .subscribe( data => {
         this.onlinePlayersCount = data["onlinePlayersCount"] != undefined ? data["onlinePlayersCount"] : 0;
         this.playersCount       = data["playersCount"] != undefined ? data["playersCount"] : 0;
-      });
+    });
   }
 
 }

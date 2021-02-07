@@ -33,12 +33,17 @@
         </div>
         <div style="float:right;">
           <div class="formlogin">
-            <form>
+
+            <!-- TODO login form -->
+            <!-- <form>
               <input type="text" class="inputclass" placeholder="username">
               <input type="password" class="inputclass" placeholder="password">
-              <button type="button" name="action" class="primary button">Login</button>
-            </form>
-            <button type="button" name="action" class="primarysignup button">Register</button>
+              <button type="button" class="primary button">Login</button>
+            </form> -->
+
+            <!-- TODO register form -->
+            <button #registerLink  type="button" class="primarysignup button" (click)="setActiveLink( 'registerLink' )">Register</button>
+
           </div>
         </div>
       </div>
@@ -65,6 +70,9 @@
 
     <!-- SO dynamic content loading -->
     <app-home           *ngIf="this.activeLink == 'homeLink'"></app-home>
+
+    <app-register-form *ngIf="this.activeLink == 'registerLink'"></app-register-form>
+
     <app-story          *ngIf="this.activeLink == 'storyLink'"></app-story>
     <app-account        *ngIf="this.activeLink == 'accountLink'"></app-account>
     <app-game-rules     *ngIf="this.activeLink == 'gameRulesLink'"></app-game-rules>

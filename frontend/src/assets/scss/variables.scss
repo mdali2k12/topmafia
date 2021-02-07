@@ -1,22 +1,29 @@
 
-
 // SO colors palette
 $app-background-black   :#1c1c1c;
+$app-background-black2  :#1B1B1B;
+$app-background-black3  :#101010;
 $app-black              :#000;
 $app-black-alt          :rgba(0, 0, 0, 0.775);
 $app-black-alt2         :rgba(0, 0, 0, 0.597);
+$app-black-alt3         :#222;
+$app-black-alt4         :rgba(0, 0, 0, 0.9);
 $app-border-black       :#0c0c0c;
-$app-border-black2      :#222;
-$app-border-black-light :#333;
-$app-less-black         :#222;
+
+$app-brown        : rgba(255, 255, 255, .1);
+$app-brown-accent : #333;
 
 $app-white     :white;
 $app-white-alt :#f1f1f1;
 $app-white-font:#ccc;
 
-$app-grey       :#666;
-$app-grey-medium:#818181;
-$app-grey-lite  :#999;
+$app-gray       :#666;
+$app-gray-alt   : #777;
+$app-gray-medium:#818181;
+$app-gray-lite  :#999;
 
 $app-orange: orangered;
+
+$app-red     : red;
+$app-dark-red: darkred;
 // EO colors palette

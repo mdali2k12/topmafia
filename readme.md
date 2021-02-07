@@ -13,11 +13,20 @@
         - ✅ migrate drawer menu
     * ✅ online/offline players feature
     * refactor login-signup-shell.component.html
-    * refactor login-signup-shell.comoponent.scss
+        - login form
+        - register form
+            * ✅ migrate markup and styles
+            * validate [username, password, confirmPassword, email] are not empty
+            * check required fields ?
+            * implement recaptcha
+            * test user creation
+            * prefill sponsor ID if $_GET["sponsorid"] exists
+    * refactor login-signup-shell.component.scss
         - remove unnecessary code
     * ✅ implement drawer menu navigation routes or simili-routes
     * auth service to populate with actual communication logic with the backend
 - migrate the API previous views elements to the newly created Angular app'
+- migrate the auto login logic to the Angular app'
 
 ### overall app' testing live
 

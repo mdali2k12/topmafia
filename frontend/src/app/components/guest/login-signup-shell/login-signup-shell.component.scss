@@ -31,15 +31,15 @@
   overflow-x      : hidden;
   transition      : 0.5s;
   padding-top     : 60px;
-  border-left     : 1px solid $app-border-black2;
+  border-left     : 1px solid $app-black-alt3;
 }
 .drawer-nav a {
   display        : block;
   padding        : 8px 8px 8px 32px;
   text-decoration: none;
-  border-bottom  : 1px solid $app-border-black-light;
+  border-bottom  : 1px solid $app-brown-accent;
   font-size      : 14px;
-  color          : $app-grey-medium;
+  color          : $app-gray-medium;
   display        : block;
   transition     : 0.3s;
   cursor         : pointer;

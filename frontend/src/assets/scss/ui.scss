@@ -1,0 +1,68 @@
+
+@import "./variables.scss";
+
+// TODO refactor
+
+// SO buttons
+.button {
+	border-radius: 5px;
+	text-shadow  : #000 1px 1px 1px;
+	text-align   : center;
+	width        : 185px;
+	height       : 40px;
+	margin-bottom: 10px;
+	color        : $app-white;
+	font-size    : 14px;
+	border       : 1px solid $app-black-alt3;
+}
+button.primary {
+	box-shadow: inset $app-brown 1px 1px 0;
+	background: linear-gradient( to bottom, $app-background-black2 0, $app-black 100% );
+}
+button.primary:active {
+	background: $app-background-black3;
+}
+
+// SO fonts
+.text-general {
+	outline                : none;
+	font-family            : 'Roboto', sans-serif;
+	font-size              : 12px;
+	-webkit-font-smoothing : antialiased;
+	-moz-osx-font-smoothing: grayscale;
+	height                 : 50px;
+	border-radius          : 5px;
+	width                  : 100%;
+	background-color       : $app-black-alt3;
+	box-shadow             : inset 0 0 5px $app-black-alt4;
+	margin-bottom          : 6px;
+	border                 : none;
+	color                  : $app-gray;
+	text-align             : center;
+}
+
+// SO forms
+button  :focus,
+input   :focus,
+textarea:focus
+{
+	border: none;
+	outline: none;
+}
+.form-font {
+	font-family: 'Roboto';
+	font-weight: 700;
+	color      : $app-gray-alt;
+}
+form input {
+  padding: 10px;
+}
+
+// SO themes
+.primary {
+	box-shadow: inset $app-brown 1px 1px 0;
+	background: linear-gradient( to bottom, $app-red 0, $app-dark-red 100% )
+}
+.primary:active {
+	background: $app-red;
+}
