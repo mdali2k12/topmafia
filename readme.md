@@ -77,7 +77,7 @@
     * route that handles **users** entity, a POST request to that route will create a user
 
 
-## where the workflow stopped : SPA / test app' live / Facebook login
+## current workflow : SPA / test app' live / Facebook login
 ### app' template as SPA
 - migrate the revised template into a functional Angular app' divided in subcomponents
     * ✅ auth guard 
