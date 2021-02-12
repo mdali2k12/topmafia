@@ -5,6 +5,7 @@
 - prerequisites are:
     * having git installed on your machine
     * having PHP 7.4 installed and configured on your machine
+    * having **Composer** installed on your machine (you can get it here => https://getcomposer.org/download/ ) and availabe in your system PATH
     * having MariaDB installed and running on port 3306 on your machine
     * having XAMPP installed on your machine
 - replace the contents of the **[xampp_install_directory]\xampp\php\php.ini** file (or create the file if not exists) with the contents of the **php.ini** file that is located at the root of this project
@@ -16,7 +17,9 @@
 - replace the ./API/.env file placeholder values with the relevant values corresponding to your environment
     * for Google Recaptcha, you'll need to create a recaptcha V3 validator using this form => https://www.google.com/recaptcha/admin/create , while being connected to your Google account; the domain you'll add will be called **topmafia.net.localhost**; as to the 3 checkboxes at the bottom of the recaptcha creation form, just check the first and the third one and then submit your form; when checking on the settings of your newly created recaptcha, you can get access to the recaptcha keys to copy and paste them at the relevant place in your **.env** file
     * you'll need to follow similar procedures for SendGrid (you can manage your keys your SendGrid keys using https://app.sendgrid.com/settings/api_keys, your SendGrid sender email can be configured here => https://app.sendgrid.com/settings/sender_auth) and Facebook API's 
+- with a terminal open at the **API** folder of the project run ```composer install``` to install necessary dependencies
 - start your Apache server with XAMPP (and optionally the MySQL one if you use the XAMPP database) and go to **topmafia.net.localhost** in your browser (give me a call if not working)
+- to keep on working on the Angular app', go to the **frontend** folder and run ```npm install``` and then ```ng serve --open``` to run the under construction SPA (you must have the Angular cli installed on your system to do this)
 
 ## Apache
 ### localhost on XAMPP
