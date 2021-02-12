@@ -6,7 +6,7 @@
 // SO buttons
 .button {
 	border-radius: 5px;
-	text-shadow  : #000 1px 1px 1px;
+	text-shadow  : $app-black 1px 1px 1px;
 	text-align   : center;
 	width        : 185px;
 	height       : 40px;
@@ -14,13 +14,6 @@
 	color        : $app-white;
 	font-size    : 14px;
 	border       : 1px solid $app-black-alt3;
-}
-button.primary {
-	box-shadow: inset $app-brown 1px 1px 0;
-	background: linear-gradient( to bottom, $app-background-black2 0, $app-black 100% );
-}
-button.primary:active {
-	background: $app-background-black3;
 }
 
 // SO fonts
@@ -42,6 +35,12 @@ button.primary:active {
 }
 
 // SO forms
+button,
+input {
+  font-family             : 'Jersey M54';
+  -moz-appearance         : none;
+  -webkit-text-size-adjust: none;
+}
 button  :focus,
 input   :focus,
 textarea:focus

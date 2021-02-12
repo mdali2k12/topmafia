@@ -69,8 +69,6 @@ abstract class Request {
         );
         $this->_completeUrl = $completeUrl;
     }
-    private function _setEndpoint( string $endpoint ) : void {
-    }
     private function _setHeaders() : void {
         $headers        = [];
         $requestHeaders = getallheaders();

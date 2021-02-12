@@ -16,8 +16,8 @@
         - login form
         - register form
             * ✅ migrate markup and styles
-                - center signup button
-                - migrate signup button font
+                - ✅ center signup button
+                - ✅ migrate signup button font
             * validate [username, password, confirmPassword, email] are not empty
             * check required fields ?
             * implement recaptcha

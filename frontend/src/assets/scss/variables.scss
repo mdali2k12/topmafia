@@ -18,7 +18,7 @@ $app-white-alt :#f1f1f1;
 $app-white-font:#ccc;
 
 $app-gray       :#666;
-$app-gray-alt   : #777;
+$app-gray-alt   :#777;
 $app-gray-medium:#818181;
 $app-gray-lite  :#999;
 
@@ -27,3 +27,10 @@ $app-orange: orangered;
 $app-red     : red;
 $app-dark-red: darkred;
 // EO colors palette
+
+// SO fonts
+@font-face {
+  font-family: 'Jersey M54';
+  src        : local( "./../fonts/jerseyM54.woff" ) format('woff');
+}
+// EO fonts
