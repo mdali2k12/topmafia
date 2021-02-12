@@ -18,17 +18,30 @@
             * ✅ migrate markup and styles
                 - ✅ center signup button
                 - ✅ migrate signup button font
-            * validate [username, password, confirmPassword, email] are not empty
-            * check required fields ?
-            * implement recaptcha
+            * ✅ validate [username, password, confirmPassword, email] are not empty
+            * validation feedbacks shows up on the form
+                - "Sorry the Username must be between 6 and 15 characters inclusive."
+                - "You entered invalid characters in your username Keep it simple."
+                - "The Username you entered is in use."
+                - "You entered invalid characters in your password."
+                - "Your passwords do not match."
+                - email has been banned feedback to implement
+                - email exists feedback to implement
+            * implement recaptcha 
+                - validation feedback => "Google says you're a robot 🤖"
+            * looping through server validation feedbacks to adapt at controller and form level
             * test user creation
-            * prefill sponsor ID if $_GET["sponsorid"] exists
+            * sponsorship
+                - prefill sponsor ID if $_GET["sponsorid"] exists
+                - validation => "Are you trying to cheat the game by referring yourself? If we find out, your IP will be banned!"
+            * loading spinner on sending form
     * refactor login-signup-shell.component.scss
         - remove unnecessary code
     * ✅ implement drawer menu navigation routes or simili-routes
     * auth service to populate with actual communication logic with the backend
 - migrate the API previous views elements to the newly created Angular app'
 - migrate the auto login logic to the Angular app'
+    * also implement it after registration
 
 ### overall app' testing live
 

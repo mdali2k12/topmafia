@@ -37,9 +37,15 @@ body {
 }
 
 // flex utilities
+.alignItemsStart {
+  align-items: flex-start;
+}
 .center {
   display        : flex;
   justify-content: center;
   text-align     : center;
   align-items    : center;
+}
+.flexColumn {
+  flex-direction: column;
 }

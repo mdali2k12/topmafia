@@ -1,32 +1,69 @@
 
-<form [formGroup]="registerForm" autocomplete="off">
+<form [formGroup]="registerForm" autocomplete="off" (ngSubmit)="onSubmit()">
 
   <label class="form-font" for="username">Username</label>
-  <input type="text" id="username" class="text-general" required>
+  <input
+    type            = "text"
+    id              = "username"
+    class           = "text-general"
+    formControlName = "username"
+  >
 
-  <label class="form-font" for="username">Username</label>
-  <input type="text" id="username" class="text-general" required>
-
-  <label class="form-font" for="password">Password</label>
-  <input type="password" id="password" class="text-general" required>
-
-  <label class="form-font" for="confirm-password">Confirm Password</label>
-  <input type="password" id="confirm-password" class="text-general" required>
+  <div formGroupName="passwordData">
+    <label class="form-font" for="password">Password</label>
+    <input
+      type            = "password"
+      id              = "password"
+      class           = "text-general"
+      formControlName = "password"
+    >
+    <label class="form-font" for="confirm-password">Confirm Password</label>
+    <input
+      type            = "password"
+      id              = "confirm-password"
+      class           = "text-general"
+      formControlName = "confirmPassword"
+    >
+  </div>
 
   <label class="form-font" for="email">Email</label>
-  <input type="email" id="email" class="text-general" required>
+  <input
+    type            = "email"
+    id              = "email"
+    class           = "text-general"
+    formControlName = "email"
+  >
+  <div class="center flexColumn">
+    <span
+      *ngIf="isSubmitted && !registerForm.get( 'email' ).valid"
+      class="error-feedback"
+    >Invalid E-mail address</span>
+  </div>
 
   <label class="form-font" for="gender">Gender</label>
-  <select id="gender" class="text-general" id="gender">
+  <select
+    id              = "gender"
+    class           = "text-general"
+    formControlName = "gender"
+  >
     <option value="Male">Male</option>
     <option value="Female">Female</option>
   </select>
 
   <label class="form-font" for="sponsor-id">Sponsor ID</label>
-  <input type="number" id="sponsor-id" class="text-general">
+  <input
+    type            = "number"
+    id              = "sponsor-id"
+    class           = "text-general"
+    formControlName = "sponsorId"
+  >
 
-  <div class="center">
-    <input type="button" class="primary button" id="signup_btn" value="SIGN UP">
+  <div class="center flexColumn">
+    <input type="submit" class="primary button" id="signup_btn" value="SIGN UP">
+    <span
+      *ngIf="isSubmitted && registerForm.invalid"
+      class="error-feedback"
+    >Please fill all the fields correctly!</span>
   </div>
 
 </form>

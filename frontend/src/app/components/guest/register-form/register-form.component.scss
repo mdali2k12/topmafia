@@ -1,5 +1,10 @@
 
 @import "./../../../../assets/scss/ui.scss";
+@import "./../../../../assets/scss/variables.scss";
+
+form {
+  background: $app-black;
+}
 
 label {
   font-family: 'Roboto', sans-serif;

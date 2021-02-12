@@ -48,6 +48,17 @@ textarea:focus
 	border: none;
 	outline: none;
 }
+.error-feedback {
+	padding         : 10px;
+	font-family     : "Roboto";
+	font-weight     : 600;
+	text-transform  : uppercase;
+	margin-top      : 10px;
+	border          : 1px solid $app-red;
+	background-color: $app-black-alt5;
+	color           : $app-red-light;
+	text-align      : center;
+}
 .form-font {
 	font-family: 'Roboto';
 	font-weight: 700;

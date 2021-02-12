@@ -66,13 +66,11 @@
     </div>
     </div>
     <div id="content">
-    <app-slideshow></app-slideshow>
 
     <!-- SO dynamic content loading -->
+    <app-slideshow      *ngIf="this.activeLink == 'homeLink'"></app-slideshow>
     <app-home           *ngIf="this.activeLink == 'homeLink'"></app-home>
-
-    <app-register-form *ngIf="this.activeLink == 'registerLink'"></app-register-form>
-
+    <app-register-form  *ngIf="this.activeLink == 'registerLink'"></app-register-form>
     <app-story          *ngIf="this.activeLink == 'storyLink'"></app-story>
     <app-account        *ngIf="this.activeLink == 'accountLink'"></app-account>
     <app-game-rules     *ngIf="this.activeLink == 'gameRulesLink'"></app-game-rules>
